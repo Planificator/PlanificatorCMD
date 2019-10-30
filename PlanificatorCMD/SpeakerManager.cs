@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PlanificatorCMD
 {
-    class SpeakerManager : ISpeakerManager
+    public class SpeakerManager : ISpeakerManager
     {
         private readonly ISpeakerRepository _speakerRepository;
 
@@ -19,14 +19,12 @@ namespace PlanificatorCMD
         public void AddSpeakerProfile(IAddSpeakerVerb addSpeakerVerb)
         {
             string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath);
-            File.Copy(addSpeakerVerb.PhotoPath, path);
-
             int newPhotoId = _speakerRepository.GetMaxId() + 1;
-            string newPhotoPath = Path.Combine(path, String.Concat(newPhotoId.ToString(),".jpg"));
+            string newPhotoPath = Path.Combine(path, newPhotoId.ToString() + ".jpg");
+            File.Copy(addSpeakerVerb.PhotoPath, newPhotoPath);
 
             SpeakerProfile speakerProfile = new SpeakerProfile()
             {
-                SpeakerId = newPhotoId,
                 FirstName = addSpeakerVerb.FirstName,
                 LastName = addSpeakerVerb.LastName,
                 Email = addSpeakerVerb.Email,
@@ -35,7 +33,6 @@ namespace PlanificatorCMD
                 Photo = new Photo() 
                 { 
                     Path = newPhotoPath,
-                    PhotoId = newPhotoId,
                 }
             };
 

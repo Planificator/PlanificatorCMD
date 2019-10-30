@@ -5,7 +5,7 @@ using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD
 {
-    interface ISpeakerRepository
+    public interface ISpeakerRepository
     {
         public void AddSpeakerProfile(SpeakerProfile speaker);
         public int GetMaxId();
