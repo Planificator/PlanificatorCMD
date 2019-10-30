@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace PlanificatorCMD
 {
@@ -6,7 +8,8 @@ namespace PlanificatorCMD
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+
         }
     }
 }
