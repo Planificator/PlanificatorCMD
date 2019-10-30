@@ -7,6 +7,6 @@
         string Email { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
-        string Path { get; set; }
+        string PhotoPath { get; set; }
     }
 }
