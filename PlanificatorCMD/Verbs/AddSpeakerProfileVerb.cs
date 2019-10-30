@@ -18,7 +18,7 @@ namespace PlanificatorCMD.Verbs
         public string Email { get; set; }
 
         [Option('p', "photo", Required = true, HelpText = "Introducting the path to the photo ")]
-        public string Path { get; set; }
+        public string PhotoPath { get; set; }
 
         [Option('b', "bio", Required = true, HelpText = "Inserting the bio")]
         public string Bio { get; set; }
