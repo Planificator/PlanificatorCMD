@@ -10,6 +10,9 @@ namespace PlanificatorCMD.Persistence
 {
     public class PlanificatorDbContext : DbContext
     {
+        public DbSet<SpeakerProfile> SpeakerProfiles { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()
@@ -21,7 +24,29 @@ namespace PlanificatorCMD.Persistence
 
         }
 
-        public DbSet<SpeakerProfile> SpeakerProfiles { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.FirstName)
+                    .HasMaxLength(50)
+                    .IsRequired();
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.LastName)
+                    .HasMaxLength(50)
+                    .IsRequired();
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.Email)
+                    .HasMaxLength(255)
+                    .IsRequired();
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.Bio)
+                    .HasMaxLength(100)
+                    .IsRequired();
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.Company)
+                    .HasMaxLength(60)
+                    .IsRequired(false);
+        }
+        
     }
 }
