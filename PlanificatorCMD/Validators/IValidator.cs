@@ -4,6 +4,6 @@ namespace PlanificatorCMD.Validators
 {
     public interface IValidator
     {
-        int IsValid(AddSpeakerVerb addSpeakerVerb);
+        int IsValid(IAddSpeakerVerb addSpeakerVerb);
     }
 }

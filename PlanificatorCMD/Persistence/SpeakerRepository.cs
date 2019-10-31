@@ -28,7 +28,7 @@ namespace PlanificatorCMD
             {
                 return 0;
             }
-            return _dbContext.SpeakerProfiles.Max(s => s.SpeakerId);
+            return _dbContext.SpeakerProfiles.Max(s => s.Photo.PhotoId);
         }
   
         
