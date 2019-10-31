@@ -39,13 +39,28 @@ namespace PlanificatorCMD
             _speakerRepository.AddSpeakerProfile(speakerProfile);
         }
 
-        public void ShowSpeakersProfiles()
+        public int ShowSpeakersProfiles(IShowAllSpeakersVerb showAllSpeakersVerb)
         {
             List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
-            foreach (SpeakerProfile s in speakersList)
+            if (speakersList == null)
             {
-                Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio );
+                Console.WriteLine("No speakers found");
+                return 1;
             }
+
+            else if (showAllSpeakersVerb.DisplayOption == true)
+                foreach (SpeakerProfile s in speakersList)
+                {
+                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
+                }
+
+            else 
+                foreach (var s in speakersList)
+                {
+                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName);
+                }
+
+            return 0;
         }
     }
 }

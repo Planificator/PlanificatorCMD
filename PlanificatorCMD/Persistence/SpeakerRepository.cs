@@ -33,6 +33,8 @@ namespace PlanificatorCMD
 
         public List<SpeakerProfile> GetAllSpeakersProfiles()
         {
+            if (_dbContext.SpeakerProfiles.Count() == 0)
+                return null;
             return _dbContext.SpeakerProfiles.ToList();
         }
     }

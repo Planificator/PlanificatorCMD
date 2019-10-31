@@ -7,6 +7,6 @@ namespace PlanificatorCMD
     {
         public void AddSpeakerProfile(IAddSpeakerVerb addSpeakerVerb);
 
-        public void ShowSpeakersProfiles();
+        public int ShowSpeakersProfiles(IShowAllSpeakersVerb showAllSpeakersVerb);
     }
 }
