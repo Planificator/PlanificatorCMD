@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using PlanificatorCMD.Core;
+
+namespace PlanificatorCMD
+{
+    interface ISpeakerRepository
+    {
+        public void AddSpeakerProfile(SpeakerProfile speaker);
+
+        public List<SpeakerProfile> GetAllSpeakersProfiles();
+        public int GetMaxId();
+
+    }
+}
