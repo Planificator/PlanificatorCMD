@@ -20,6 +20,8 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<SpeakerManager>().As<ISpeakerManager>();
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
             builder.RegisterType<PlanificatorDbContext>().SingleInstance();
+            //builder.RegisterType<PresentationValidator>().As<IPresentationValidator>();
+            builder.RegisterType<ShowAllSpeakersVerb>().As<IShowAllSpeakersVerb>();
 
             return builder.Build();
         }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Moq;
+using PlanificatorCMD.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-//using PlanificatorCMD.Interfaces;
-
 
 namespace PlanificatorCMD.Tests
 {
@@ -12,7 +12,12 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void ShowSpeakersProfiles_SpeakerRepositoryCallsGetAllSpeakersProfiles()
         {
-            //TO DO
+            var s = new List<SpeakerProfile>();
+            var mock = new Mock<ISpeakerRepository>();
+            mock.Setup(foo => foo.GetAllSpeakersProfiles());
+            var sm = new SpeakerManager(mock.Object);
+
+            mock.Verify(mock => mock.GetAllSpeakersProfiles(), Times.Once());
         }
     }
 }
