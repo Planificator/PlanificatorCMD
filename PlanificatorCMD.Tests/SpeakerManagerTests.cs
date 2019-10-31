@@ -1,5 +1,4 @@
-﻿using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -13,8 +12,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void ShowSpeakersProfiles_SpeakerRepositoryCallsGetAllSpeakersProfiles()
         {
-            var speakerRepo = Substitute.For<ISpeakerRepository>;
-            ISpeakerRepository
+            //TO DO
         }
     }
 }

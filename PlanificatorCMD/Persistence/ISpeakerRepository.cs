@@ -8,6 +8,8 @@ namespace PlanificatorCMD
     public interface ISpeakerRepository
     {
         public void AddSpeakerProfile(SpeakerProfile speaker);
+
+        public List<SpeakerProfile> GetAllSpeakersProfiles();
         public int GetMaxId();
 
     }
