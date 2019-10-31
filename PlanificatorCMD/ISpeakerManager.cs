@@ -3,7 +3,7 @@ using PlanificatorCMD.Verbs;
 
 namespace PlanificatorCMD
 {
-    interface ISpeakerManager
+    public interface ISpeakerManager
     {
         public void AddSpeakerProfile(IAddSpeakerVerb addSpeakerVerb);
     }

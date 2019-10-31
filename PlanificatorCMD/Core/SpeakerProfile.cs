@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PlanificatorCMD.Core
 {
-    class SpeakerProfile
+    public class SpeakerProfile
     {
         [Key]
         public int SpeakerId { get; set; }

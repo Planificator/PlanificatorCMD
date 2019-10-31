@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PlanificatorCMD.Persistence
 {
-    class PlanificatorDbContext : DbContext
+    public class PlanificatorDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
