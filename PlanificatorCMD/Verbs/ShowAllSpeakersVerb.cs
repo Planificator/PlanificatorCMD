@@ -6,9 +6,9 @@ using System.Text;
 namespace PlanificatorCMD.Verbs
 {
     [Verb("show_speakers", HelpText = "Showing all speakers")]
-    public class ShowSpeakersVerb : IShowSpeakersVerb
+    public class ShowAllSpeakersVerb : IShowAllSpeakersVerb
     {
-        [Option('o',"option", HelpText = "Display Option: \"True\" - Showing all Speakers. \"False\" - Showing first 10 Speakers.", Default = false)]
+        [Option('o',"option", HelpText = "Display Option: \"True\" - Showing all Speaker info. \"False\" - Showing only Speaker's First and Last Name", Default = false)]
         public bool DisplayOption { get; set; }
     }
 }

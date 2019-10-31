@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PlanificatorCMD.Verbs
 {
-    public interface IShowSpeakersVerb
+    public interface IShowAllSpeakersVerb
     {
+        public bool DisplayOption { get; set; }
     }
 }
