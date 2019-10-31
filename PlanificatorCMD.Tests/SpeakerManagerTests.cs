@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using PlanificatorCMD.Interfaces;
+//using PlanificatorCMD.Interfaces;
 
 
 namespace PlanificatorCMD.Tests
@@ -14,6 +14,7 @@ namespace PlanificatorCMD.Tests
         public void ShowSpeakersProfiles_SpeakerRepositoryCallsGetAllSpeakersProfiles()
         {
             var speakerRepo = Substitute.For<ISpeakerRepository>;
+            ISpeakerRepository
         }
     }
 }
