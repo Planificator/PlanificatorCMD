@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using Moq;
-using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
+using PlanificatorCMD.Validators;
+using PlanificatorCMD.Utils;
+using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD.Tests
 {
@@ -19,8 +21,9 @@ namespace PlanificatorCMD.Tests
         public void IsValid_IsValidEmail_ShouldReturnFalse(string email)
         {
             var expected = 1;
+            var mapper = new Mock<ISpeakerProfileMapper>();
             var speakerManager = new Mock<ISpeakerManager>();
-            var validator = new Validator(speakerManager.Object);
+            var validator = new Validator(speakerManager.Object, mapper.Object);
 
             var speaker = new AddSpeakerVerb() { Email = email, FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = @"C:\Users\vbutnaru\Desktop\InternProject\PlanificatorCMD\SpeakersPhotos\1.jpg" };
 
@@ -40,8 +43,9 @@ namespace PlanificatorCMD.Tests
         public void IsValid_IsValidPath_ShouldReturnFalse(string path)
         {
             var expected = 1;
+            var mapper = new Mock<ISpeakerProfileMapper>();
             var speakerManager = new Mock<ISpeakerManager>();
-            var validator = new Validator(speakerManager.Object);
+            var validator = new Validator(speakerManager.Object, mapper.Object);
 
             var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = path };
 
@@ -57,8 +61,9 @@ namespace PlanificatorCMD.Tests
         public void IsValid_IsValidFormat_ShouldReturnFalse(string path)
         {
             var expected = 1;
+            var mapper = new Mock<ISpeakerProfileMapper>();
             var speakerManager = new Mock<ISpeakerManager>();
-            var validator = new Validator(speakerManager.Object);
+            var validator = new Validator(speakerManager.Object, mapper.Object);
 
             var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = path };
 
@@ -70,14 +75,30 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void IsValid_CallingAddSpeakerProfile_Once()
         {
+            var mapper = new Mock<ISpeakerProfileMapper>();
             var speakerManager = new Mock<ISpeakerManager>();
-            var validator = new Validator(speakerManager.Object);
+            var validator = new Validator(speakerManager.Object, mapper.Object);
 
             var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = @"C:\Users\vbutnaru\Desktop\InternProject\PlanificatorCMD\SpeakersPhotos\1.jpg" };
 
             validator.IsValid(speaker);
 
-            speakerManager.Verify(s => s.AddSpeakerProfile(speaker), Times.Once);
+            speakerManager.Verify(s => s.AddSpeakerProfile(It.IsAny<SpeakerProfile>()), Times.Once);
+        }
+
+        [Fact]
+        public void IsValid_CallingSpeakerProfileMapper_Once()
+        {
+            var mapper = new Mock<ISpeakerProfileMapper>();
+            var speakerManager = new Mock<ISpeakerManager>();
+            var validator = new Validator(speakerManager.Object, mapper.Object);
+
+            var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = @"C:\Users\vbutnaru\Desktop\InternProject\PlanificatorCMD\SpeakersPhotos\1.jpg" };
+
+            validator.IsValid(speaker);
+
+            mapper.Verify(m => m.MapToSpeaker(speaker), Times.Once);
+
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using PlanificatorCMD.Verbs;
+﻿using PlanificatorCMD.Utils;
+using PlanificatorCMD.Verbs;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PlanificatorCMD.Validators
@@ -10,10 +13,13 @@ namespace PlanificatorCMD.Validators
     public class Validator : IValidator
     {
         private readonly ISpeakerManager _speakerManager;
+        private readonly ISpeakerProfileMapper _speakerProfileMapper;
 
-        public Validator(ISpeakerManager speakerManager)
+
+        public Validator(ISpeakerManager speakerManager, ISpeakerProfileMapper speakerProfileMapper)
         {
             _speakerManager = speakerManager;
+            _speakerProfileMapper = speakerProfileMapper;
         }
 
         public int IsValid(IAddSpeakerVerb addSpeakerVerb)
@@ -23,24 +29,24 @@ namespace PlanificatorCMD.Validators
                 Console.WriteLine("Incorrect format of email");
                 return 1;
             }
-            else if (!IsValidPath(addSpeakerVerb.PhotoPath))
+            if (!IsValidPath(addSpeakerVerb.PhotoPath))
             {
                 Console.WriteLine("Invalid path");
                 return 1;
             }
-            else if (!IsValidFormat(addSpeakerVerb.PhotoPath))
+            if (!IsValidFormat(addSpeakerVerb.PhotoPath))
             {
                 return 1;
             }
             else
             {
-                _speakerManager.AddSpeakerProfile(addSpeakerVerb);
+                _speakerManager.AddSpeakerProfile(_speakerProfileMapper.MapToSpeaker(addSpeakerVerb));
                 return 0;
             }
         }
         private bool IsValidFormat(string path)
         {
-            string[] imageEndsWith = {".jpg", ".JPG" };
+            string[] imageEndsWith = { ".jpg", ".JPG" };
             if (imageEndsWith.Any(x => path.EndsWith(x)))
             {
                 return true;
@@ -74,7 +80,7 @@ namespace PlanificatorCMD.Validators
             {
                 return false;
             }
-            catch (ArgumentException )
+            catch (ArgumentException)
             {
                 return false;
             }
@@ -102,7 +108,7 @@ namespace PlanificatorCMD.Validators
                 isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
                 isValid = Path.IsPathRooted(path);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 isValid = false;
             }
@@ -111,3 +117,4 @@ namespace PlanificatorCMD.Validators
         }
     }
 }
+
