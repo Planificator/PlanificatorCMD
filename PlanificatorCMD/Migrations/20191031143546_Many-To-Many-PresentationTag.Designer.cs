@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlanificatorCMD.Persistence;
 
 namespace PlanificatorCMD.Migrations
 {
     [DbContext(typeof(PlanificatorDbContext))]
-    partial class PlanificatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191031143546_Many-To-Many-PresentationTag")]
+    partial class ManyToManyPresentationTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
