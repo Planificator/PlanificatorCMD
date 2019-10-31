@@ -12,6 +12,9 @@ namespace PlanificatorCMD.Persistence
     {
         public DbSet<SpeakerProfile> SpeakerProfiles { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Presentation> Presentations { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<PresentationTag> PresentationTags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +49,40 @@ namespace PlanificatorCMD.Persistence
                     .Property(s => s.Company)
                     .HasMaxLength(60)
                     .IsRequired(false);
+
+            modelBuilder.Entity<Presentation>()
+                .Property(s => s.Title)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<Presentation>()
+                .Property(s => s.ShortDescription)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            modelBuilder.Entity<Presentation>()
+                .Property(s => s.LongDescription)
+                .HasMaxLength(800)
+                .IsRequired();
+
+            modelBuilder.Entity<Tag>()
+                .Property(s => s.TagName)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            modelBuilder.Entity<PresentationTag>().HasKey(pt => new { pt.PresentationId, pt.TagId });
+
+            modelBuilder.Entity<PresentationTag>()
+                .HasOne<Presentation>(pt => pt.Presentation)
+                .WithMany(p => p.PresentationTags)
+                .HasForeignKey(pt => pt.PresentationId);
+
+            modelBuilder.Entity<PresentationTag>()
+                .HasOne<Tag>(pt => pt.Tag)
+                .WithMany(t => t.PresentationTags)
+                .HasForeignKey(pt => pt.TagId);
+
+
         }
         
     }
