@@ -30,7 +30,10 @@ namespace PlanificatorCMD
             }
             return _dbContext.SpeakerProfiles.Max(s => s.Photo.PhotoId);
         }
-  
-        
+
+        public List<SpeakerProfile> GetAllSpeakersProfiles()
+        {
+            return _dbContext.SpeakerProfiles.ToList();
+        }
     }
 }

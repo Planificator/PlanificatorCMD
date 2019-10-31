@@ -38,5 +38,14 @@ namespace PlanificatorCMD
 
             _speakerRepository.AddSpeakerProfile(speakerProfile);
         }
+
+        public void ShowSpeakersProfiles()
+        {
+            List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
+            foreach (SpeakerProfile s in speakersList)
+            {
+                Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio );
+            }
+        }
     }
 }
