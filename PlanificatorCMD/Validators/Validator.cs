@@ -9,7 +9,12 @@ namespace PlanificatorCMD.Validators
 {
     public class Validator : IValidator
     {
+        private readonly ISpeakerManager _speakerManager;
 
+        public Validator(ISpeakerManager speakerManager)
+        {
+            _speakerManager = speakerManager;
+        }
 
         public int IsValid(AddSpeakerVerb addSpeakerVerb)
         {
@@ -27,7 +32,7 @@ namespace PlanificatorCMD.Validators
             }
             else
             {
-
+                _speakerManager.AddSpeakerProfile(addSpeakerVerb);
                 return 0;
             }
         }

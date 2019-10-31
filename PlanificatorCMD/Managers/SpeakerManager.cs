@@ -29,7 +29,7 @@ namespace PlanificatorCMD
                 LastName = addSpeakerVerb.LastName,
                 Email = addSpeakerVerb.Email,
                 Bio = addSpeakerVerb.Bio,
-                Company = addSpeakerVerb.Company, 
+                //Company = addSpeakerVerb.Company, 
                 Photo = new Photo() 
                 { 
                     Path = newPhotoPath,

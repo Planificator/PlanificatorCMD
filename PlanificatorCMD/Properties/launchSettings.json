@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PlanificatorCMD": {
+      "commandName": "Project",
+      "commandLineArgs": "add_speaker -f aa -l aa -b aa -e example@gmail.com -p C:\\Users\\vbutnaru\\Desktop\\image\\1.jpg -c Endava"
+    }
+  }
+}

@@ -14,6 +14,6 @@ namespace PlanificatorCMD.Core
         public string Email { get; set; }
         public string Bio { get; set; }
         public virtual Photo Photo { get; set; }
-        public string Company { get; set; }
+       // public string Company { get; set; }
     }
 }
