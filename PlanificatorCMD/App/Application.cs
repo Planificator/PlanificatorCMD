@@ -18,7 +18,10 @@ namespace PlanificatorCMD
         public void Run(string[] args)
         {
             Parser.Default.ParseArguments<AddSpeakerVerb>(args)
-               .WithParsed<AddSpeakerVerb>(opt => _validator.IsValid(opt));
+              .MapResult(
+              (AddSpeakerVerb opts) => _validator.IsValid(opts),
+              errs => 1
+          ) ;
         }
     }
 }

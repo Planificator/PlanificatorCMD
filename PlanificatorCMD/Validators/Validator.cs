@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PlanificatorCMD.Validators
 {
@@ -24,6 +25,7 @@ namespace PlanificatorCMD.Validators
             }
             else if (!IsValidPath(addSpeakerVerb.PhotoPath))
             {
+                Console.WriteLine("Invalid path");
                 return 1;
             }
             else if (!IsValidFormat(addSpeakerVerb.PhotoPath))
@@ -62,19 +64,23 @@ namespace PlanificatorCMD.Validators
                 return false;
             }
         }
-
         private bool IsValidPath(string path)
         {
+            bool isValid = true;
+
             try
             {
                 string fullPath = Path.GetFullPath(path);
-                return true;
+                string root = Path.GetPathRoot(path);
+                isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
+                isValid = Path.IsPathRooted(path);
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Invalid path");
-                return false;
+                isValid = false;
             }
+
+            return isValid;
         }
     }
 }
