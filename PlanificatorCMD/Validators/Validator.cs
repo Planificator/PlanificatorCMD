@@ -1,9 +1,8 @@
 ﻿using PlanificatorCMD.Verbs;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PlanificatorCMD.Validators
@@ -17,10 +16,11 @@ namespace PlanificatorCMD.Validators
             _speakerManager = speakerManager;
         }
 
-        public int IsValid(AddSpeakerVerb addSpeakerVerb)
+        public int IsValid(IAddSpeakerVerb addSpeakerVerb)
         {
             if (!IsValidEmail(addSpeakerVerb.Email))
             {
+                Console.WriteLine("Incorrect format of email");
                 return 1;
             }
             else if (!IsValidPath(addSpeakerVerb.PhotoPath))
@@ -51,16 +51,43 @@ namespace PlanificatorCMD.Validators
                 return false;
             }
         }
-        private bool IsValidEmail(string email)
+        public static bool IsValidEmail(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
             try
             {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return true;
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                string DomainMapper(Match match)
+                {
+                    var idn = new IdnMapping();
+
+                    var domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
             }
-            catch
+            catch (RegexMatchTimeoutException)
             {
-                Console.WriteLine("Incorrect type of email insert");
+                return false;
+            }
+            catch (ArgumentException )
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
                 return false;
             }
         }
@@ -75,7 +102,7 @@ namespace PlanificatorCMD.Validators
                 isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
                 isValid = Path.IsPathRooted(path);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 isValid = false;
             }
