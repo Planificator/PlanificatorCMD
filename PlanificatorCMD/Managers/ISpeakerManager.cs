@@ -5,8 +5,8 @@ namespace PlanificatorCMD
 {
     public interface ISpeakerManager
     {
-        public void AddSpeakerProfile(IAddSpeakerVerb addSpeakerVerb);
+        public void AddSpeakerProfile(SpeakerProfile speaker);
 
-        public void ShowSpeakersProfiles();
+        public int ShowSpeakersProfiles(IShowAllSpeakersVerb showAllSpeakersVerb);
     }
 }

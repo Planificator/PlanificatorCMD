@@ -16,36 +16,33 @@ namespace PlanificatorCMD
             _speakerRepository = speakerRepository;
         }
 
-        public void AddSpeakerProfile(IAddSpeakerVerb addSpeakerVerb)
+        public void AddSpeakerProfile(SpeakerProfile speaker)
         {
-            string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath);
-            int newPhotoId = _speakerRepository.GetMaxId() + 1;
-            string newPhotoPath = Path.Combine(path, newPhotoId.ToString() + ".jpg");
-            File.Copy(addSpeakerVerb.PhotoPath, newPhotoPath);
-
-            SpeakerProfile speakerProfile = new SpeakerProfile()
-            {
-                FirstName = addSpeakerVerb.FirstName,
-                LastName = addSpeakerVerb.LastName,
-                Email = addSpeakerVerb.Email,
-                Bio = addSpeakerVerb.Bio,
-                Company = addSpeakerVerb.Company, 
-                Photo = new Photo() 
-                { 
-                    Path = newPhotoPath,
-                }
-            };
-
-            _speakerRepository.AddSpeakerProfile(speakerProfile);
+            _speakerRepository.AddSpeakerProfile(speaker);
         }
 
-        public void ShowSpeakersProfiles()
+        public int ShowSpeakersProfiles(IShowAllSpeakersVerb showAllSpeakersVerb)
         {
             List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
-            foreach (SpeakerProfile s in speakersList)
+            if (speakersList == null)
             {
-                Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio );
+                Console.WriteLine("No speakers found");
+                return 1;
             }
+
+            else if (showAllSpeakersVerb.DisplayOption == true)
+                foreach (SpeakerProfile s in speakersList)
+                {
+                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
+                }
+
+            else 
+                foreach (var s in speakersList)
+                {
+                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName);
+                }
+
+            return 0;
         }
     }
 }

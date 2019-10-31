@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using CommandLine;
+using PlanificatorCMD.DataProcessing;
+using PlanificatorCMD.Utils;
 
 namespace PlanificatorCMD.Verbs
 {
     [Verb("add_speaker", HelpText = "adding a new speaker")]
     public class AddSpeakerVerb : IAddSpeakerVerb
     {
+
         [Option('f', "firstname", Required = true, HelpText = "Inserting Firstname")]
         public string FirstName { get; set; }
 
@@ -26,5 +33,5 @@ namespace PlanificatorCMD.Verbs
         [Option('c', "company", Required = false, HelpText = "Inserting the company")]
         public string Company { get; set; }
 
-    }
+    }      
 }

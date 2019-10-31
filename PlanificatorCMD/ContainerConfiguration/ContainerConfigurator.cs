@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Persistence;
+using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
 using System;
@@ -14,6 +16,8 @@ namespace PlanificatorCMD.ContainerConfiguration
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
+            builder.RegisterType<PhotoPathProcessing>().As<IPhotoPathProcessing>();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<Validator>().As<IValidator>();
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
