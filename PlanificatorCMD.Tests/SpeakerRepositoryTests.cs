@@ -9,8 +9,10 @@ namespace PlanificatorCMD.Tests
 {
     public class SpeakerRepositoryTests
     {
-        [Fact]
-        public void AddSpeakerProfile_writes_to_database()
+        [Theory]
+        [InlineData("Test Company")]
+        [InlineData(null)]
+        public void AddSpeakerProfile_writes_to_database_WithAndWithout_NotRequiredField(string company)
         {
             // In-memory database only exists while the connection is open
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -22,7 +24,7 @@ namespace PlanificatorCMD.Tests
                 LastName = "Test LN",
                 Email = "test@test.test",
                 Bio = "Test Bio",
-                Company = "Test Company",
+                Company = company,
                 Photo = new Photo { Path = "testPath.jpg" }
             };
 
@@ -59,46 +61,59 @@ namespace PlanificatorCMD.Tests
             }
         }
 
-        //[Fact]
-        //public void Find_searches_url()
-        //{
-        //    // In-memory database only exists while the connection is open
-        //    var connection = new SqliteConnection("DataSource=:memory:");
-        //    connection.Open();
 
-        //    try
-        //    {
-        //        var options = new DbContextOptionsBuilder<BloggingContext>()
-        //            .UseSqlite(connection)
-        //            .Options;
+        [Theory]
+        [InlineData("Jhon","Seed","jhon.seed@gmail.com",null)]
+        [InlineData("Jhon", "Seed", "jhon.seed@gmail.com", null)]
+        public void AddSpeakerProfile_writing_to_database_Fails_If_RequiredFields_AreNull
+            (string firstName, string lastName, string email, Photo photo)
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
 
-        //        // Create the schema in the database
-        //        using (var context = new BloggingContext(options))
-        //        {
-        //            context.Database.EnsureCreated();
-        //        }
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                //Bio = bio,
+                Photo = photo
+            };
 
-        //        // Insert seed data into the database using one instance of the context
-        //        using (var context = new BloggingContext(options))
-        //        {
-        //            context.Blogs.Add(new Blog { Url = "https://example.com/cats" });
-        //            context.Blogs.Add(new Blog { Url = "https://example.com/catfish" });
-        //            context.Blogs.Add(new Blog { Url = "https://example.com/dogs" });
-        //            context.SaveChanges();
-        //        }
+            try
+            {
+                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
 
-        //        // Use a clean instance of the context to run the test
-        //        using (var context = new BloggingContext(options))
-        //        {
-        //            var service = new BlogService(context);
-        //            var result = service.Find("cat");
-        //            Assert.Equal(2, result.Count());
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-        //}
+                // Create the schema in the database
+                using (var context = new PlanificatorDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                }
+
+                // Run the test against one instance of the context
+                using (var context = new PlanificatorDbContext(options))
+                {
+                    var service = new SpeakerRepository(context);
+                    service.AddSpeakerProfile(testSpeakerProfile);
+                    context.SaveChanges();
+                }
+
+                // Use a separate instance of the context to verify correct data was saved to database
+                using (var context = new PlanificatorDbContext(options))
+                {
+                    Assert.Equal(1, context.SpeakerProfiles.Count());
+                    //Assert.Equal(null, context.SpeakerProfiles.Single().ToString());
+                    Assert.Null(context.SpeakerProfiles.Single().ToString());
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
     }
 }
