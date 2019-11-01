@@ -20,7 +20,7 @@ namespace PlanificatorCMD.Utils
                 LongDescription = addPresentationVerb.LongDescription
             };
 
-            List<PresentationTag> presentationTags = new List<PresentationTag>();
+            ICollection<PresentationTag> presentationTags = new List<PresentationTag>();
 
             foreach (var tagName in tags) 
             {
