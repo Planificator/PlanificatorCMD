@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CommandLine;
+using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
 
@@ -9,20 +10,20 @@ namespace PlanificatorCMD
 {
     public class Application : IApplication
     {
-        private readonly IValidator _validator;
+        private readonly IAddSpeakerVerbProcessing _addSpeakerVerbProcessing;
         private readonly ISpeakerManager _speakerManager;
 
-        public Application(IValidator validator, ISpeakerManager speakerManager)
+        public Application(IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager)
         {
-            _validator = validator; 
+            _addSpeakerVerbProcessing = addSpeakerVerbProcessing;
             _speakerManager = speakerManager;
         }
         public void Run(string[] args)
         {
             Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb>(args)
             .MapResult(
-                (AddSpeakerVerb opts) => _validator.IsValid(opts),
-                (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts),
+                (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
+                (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
                 errs => 1
                 );
         }

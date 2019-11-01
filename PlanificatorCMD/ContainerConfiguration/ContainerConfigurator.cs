@@ -16,10 +16,12 @@ namespace PlanificatorCMD.ContainerConfiguration
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<DisplaySpeakers>().As<IDisplaySpeakers>();
+            builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();
             builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
             builder.RegisterType<PhotoPathProcessing>().As<IPhotoPathProcessing>();
             builder.RegisterType<Application>().As<IApplication>();
-            builder.RegisterType<Validator>().As<IValidator>();
+            builder.RegisterType<AddSpeakerVerbValidator>().As<IAddSpeakerVerbValidator>();
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
             builder.RegisterType<SpeakerManager>().As<ISpeakerManager>();
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();

@@ -1,4 +1,5 @@
 ﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Utils;
 using PlanificatorCMD.Verbs;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace PlanificatorCMD
     public class SpeakerManager : ISpeakerManager
     {
         private readonly ISpeakerRepository _speakerRepository;
+        private readonly IDisplaySpeakers _displaySpeakers;
 
-        public SpeakerManager(ISpeakerRepository speakerRepository)
+        public SpeakerManager(ISpeakerRepository speakerRepository, IDisplaySpeakers displaySpeakers)
         {
             _speakerRepository = speakerRepository;
+            _displaySpeakers = displaySpeakers;
         }
 
         public void AddSpeakerProfile(SpeakerProfile speaker)
@@ -21,26 +24,12 @@ namespace PlanificatorCMD
             _speakerRepository.AddSpeakerProfile(speaker);
         }
 
-        public int ShowSpeakersProfiles(IShowAllSpeakersVerb showAllSpeakersVerb)
+        public int ShowSpeakersProfiles(bool displayOption)
         {
             List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
-            if (speakersList == null)
-            {
-                Console.WriteLine("No speakers found");
+
+            if (_displaySpeakers.DisplayAllSpeakers(speakersList, displayOption) == false)
                 return 1;
-            }
-
-            else if (showAllSpeakersVerb.DisplayOption == true)
-                foreach (SpeakerProfile s in speakersList)
-                {
-                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
-                }
-
-            else 
-                foreach (var s in speakersList)
-                {
-                    Console.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName);
-                }
 
             return 0;
         }
