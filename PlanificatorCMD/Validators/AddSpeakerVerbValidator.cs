@@ -10,39 +10,28 @@ using System.Text.RegularExpressions;
 
 namespace PlanificatorCMD.Validators
 {
-    public class Validator : IValidator
+    public class AddSpeakerVerbValidator : IAddSpeakerVerbValidator
     {
-        private readonly ISpeakerManager _speakerManager;
-        private readonly ISpeakerProfileMapper _speakerProfileMapper;
 
-
-        public Validator(ISpeakerManager speakerManager, ISpeakerProfileMapper speakerProfileMapper)
-        {
-            _speakerManager = speakerManager;
-            _speakerProfileMapper = speakerProfileMapper;
-        }
-
-        public int IsValid(IAddSpeakerVerb addSpeakerVerb)
+        public bool IsValid(IAddSpeakerVerb addSpeakerVerb)
         {
             if (!IsValidEmail(addSpeakerVerb.Email))
             {
                 Console.WriteLine("Incorrect format of email");
-                return 1;
+                return false;
             }
             if (!IsValidPath(addSpeakerVerb.PhotoPath))
             {
                 Console.WriteLine("Invalid path");
-                return 1;
+                return false;
             }
             if (!IsValidFormat(addSpeakerVerb.PhotoPath))
             {
-                return 1;
+                return false;
             }
-            else
-            {
-                _speakerManager.AddSpeakerProfile(_speakerProfileMapper.MapToSpeaker(addSpeakerVerb));
-                return 0;
-            }
+          
+                return true;
+            
         }
         private bool IsValidFormat(string path)
         {
