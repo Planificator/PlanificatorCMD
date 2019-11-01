@@ -4,6 +4,7 @@ using System.Text;
 using Moq;
 using Xunit;
 using PlanificatorCMD.Core;
+using PlanificatorCMD.Utils;
 
 namespace PlanificatorCMD.Tests
 {
@@ -14,6 +15,7 @@ namespace PlanificatorCMD.Tests
         public void AddSpeakerProfile_IsCalledOnce()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
+            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
 
             SpeakerProfile speakerProfile = new SpeakerProfile()
             {
@@ -28,7 +30,7 @@ namespace PlanificatorCMD.Tests
                 }
             };
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
 
             sut.AddSpeakerProfile(speakerProfile);
 
