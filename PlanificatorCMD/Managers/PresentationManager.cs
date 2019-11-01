@@ -15,9 +15,9 @@ namespace PlanificatorCMD.Managers
             _presentationRepository = presentationRepository;
         }
 
-        public void AddPresentation(Presentation presentation)
+        public void AddPresentation(ICollection<PresentationTag> presentationTags)
         {
-            _presentationRepository.AddPresentation(presentation);
+            _presentationRepository.AddPresentation(presentationTags);
         }
     }
 }

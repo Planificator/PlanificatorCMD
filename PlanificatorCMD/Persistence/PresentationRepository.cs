@@ -14,9 +14,13 @@ namespace PlanificatorCMD.Persistence
             _dbContext = dbContext;
         }
 
-        public void AddPresentation(Presentation presentation)
+        public void AddPresentation(ICollection<PresentationTag> presentationTags)
         {
-            _dbContext.Presentations.Add(presentation);
+            foreach (var presantationTag in presentationTags)
+            {
+                _dbContext.PresentationTags.Add(presantationTag);
+            }
+
             _dbContext.SaveChanges();
         }
     }

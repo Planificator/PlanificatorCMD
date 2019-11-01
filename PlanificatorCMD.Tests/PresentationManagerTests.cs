@@ -18,9 +18,9 @@ namespace PlanificatorCMD.Tests
 
             var manager = new PresentationManager(repo.Object);
 
-            manager.AddPresentation(It.IsAny<Presentation>());
+            manager.AddPresentation(It.IsAny<ICollection<PresentationTag>>());
 
-            repo.Verify(r => r.AddPresentation(It.IsAny<Presentation>()), Times.Once);
+            repo.Verify(r => r.AddPresentation(It.IsAny<ICollection<PresentationTag>>()), Times.Once);
         }
     }
 }
