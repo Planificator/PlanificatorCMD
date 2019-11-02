@@ -1,12 +1,8 @@
 ﻿using Moq;
 using PlanificatorCMD.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Moq;
 using Xunit;
-using PlanificatorCMD.Core;
 using PlanificatorCMD.Utils;
+using System.Collections.Generic;
 
 namespace PlanificatorCMD.Tests
 {
@@ -37,9 +33,19 @@ namespace PlanificatorCMD.Tests
             sut.AddSpeakerProfile(speakerProfile);
 
             speakerRepository.Verify(s => s.AddSpeakerProfile(speakerProfile), Times.Once);
-
-
         }
 
+        [Fact]
+        public void ShowSpeakersProfiles_GetAllSpeakersProfiles_IsCalledOnce()
+        {
+            Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
+            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+
+            sut.ShowSpeakersProfiles(true);
+
+            speakerRepository.Verify(s => s.GetAllSpeakersProfiles(), Times.Once);
+        }
     }
 }
