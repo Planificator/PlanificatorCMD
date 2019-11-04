@@ -16,7 +16,7 @@ namespace PlanificatorCMD.Tests
         public void AddPresentation_CallingAddPresentation_Once ()
         {
             var repo = new Mock<IPresentationRepository>();
-            var display = new Mock<IDisplayPresentations>();
+            var display = new Mock<IDisplayPresentation>();
 
             var manager = new PresentationManager(repo.Object,display.Object);
 

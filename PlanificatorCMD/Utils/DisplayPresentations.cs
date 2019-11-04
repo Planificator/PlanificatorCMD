@@ -1,39 +1,29 @@
 ﻿using PlanificatorCMD.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
-    public class DisplayPresentations : IDisplayPresentations
+    public class DisplayPresentation : IDisplayPresentation
     {
-        public bool DisplayAllPresentations(ICollection<PresentationTag> presentationTags, bool displayOption)
+        public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
         {
-            if (presentationTags == null)
-            {
-                Console.WriteLine("No presentations finded");
-                return false;
-            }
 
             if (displayOption == false)
             {
-                foreach (var presentationTag in presentationTags)
-                {
-                    Console.WriteLine(presentationTag.Presentation.Title + " " + presentationTag.Presentation.ShortDescription);
-                }
+                Console.WriteLine(presentation.Title + " " + presentation.ShortDescription);
             }
-
-            else
+            if (displayOption == true)
             {
-                foreach (var presentationTag in presentationTags)
+                Console.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
+                foreach (var tag in tags)
                 {
-                    Console.WriteLine(presentationTag.Presentation.Title + " " + presentationTag.Presentation.ShortDescription + " " + presentationTag.Presentation.LongDescription);
-                    foreach (var tag in presentationTag.Presentation.PresentationTags)
-                        Console.Write(tag.Tag.TagName + " ");
+                    Console.Write(tag + " ");
                 }
+                Console.WriteLine();
             }
-
-            return true;
         }
     }
 }
