@@ -9,7 +9,7 @@ namespace PlanificatorCMD.Utils
 {
     public class PresentationMapper : IPresentationMapper
     {
-        public ICollection<PresentationTag> MapToPresentationTag (AddPresentationVerb addPresentationVerb)
+        public ICollection<PresentationTag> MapToPresentationTag (IAddPresentationVerb addPresentationVerb)
         {
             ICollection<string> tags = addPresentationVerb.Tags.Split(" ");
 
