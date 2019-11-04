@@ -6,6 +6,8 @@ namespace PlanificatorCMD.Persistence
     public interface IPresentationRepository
     {
         void AddPresentation(ICollection<PresentationTag> presentation);
-        ICollection<PresentationTag> GetAllPresentations();
+        ICollection<Presentation> GetAllPresentations();
+
+        ICollection<string> GetAllTags(int presentationID);
     }
 }

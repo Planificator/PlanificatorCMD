@@ -17,7 +17,8 @@ namespace PlanificatorCMD.ContainerConfiguration
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
-//presentation add
+            //presentation add
+            builder.RegisterType<AddPresentationVerbProcessing>().As<IAddPresentationVerbProcessing>();
             builder.RegisterType<PresentationManager>().As<IPresentationManager>();
             builder.RegisterType<PresentationRepository>().As<IPresentationRepository>();
             builder.RegisterType<AddPresentationVerb>().As<IAddPresentationVerb>();
@@ -25,7 +26,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<PresentationMapper>().As<IPresentationMapper>();
             //presentation show
             builder.RegisterType<ShowAllPresentation>().As<IShowAllPresentation>();
-            builder.RegisterType<DisplayPresentations>().As<IDisplayPresentations>();
+            builder.RegisterType<DisplayPresentation>().As<IDisplayPresentation>();
 
 //speaker add
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();

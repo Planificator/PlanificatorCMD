@@ -3,8 +3,8 @@ using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD.Utils
 {
-    public interface IDisplayPresentations
+    public interface IDisplayPresentation
     {
-        bool DisplayAllPresentations(ICollection<PresentationTag> presentationTags, bool displayOption);
+        void DisplayAllPresentation(ICollection<string> tags,Presentation presentations, bool displayOption);
     }
 }
