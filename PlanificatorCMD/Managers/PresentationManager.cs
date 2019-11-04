@@ -28,7 +28,10 @@ namespace PlanificatorCMD.Managers
             ICollection<Presentation> presentations = _presentationRepository.GetAllPresentations();
 
             if (presentations == null)
+            {
+                Console.WriteLine("No presentation founded");
                 return 1;
+            }
 
             foreach(Presentation presentation in presentations)
             {
