@@ -6,7 +6,7 @@ using System.Text;
 namespace PlanificatorCMD.Verbs
 {
      [Verb("add_presentation", HelpText = "adding a new presentation")]
-    public class Add_PresentationVerb : IAdd_PresentationVerb
+    public class AddPresentationVerb : IAddPresentationVerb
     {
         [Option('t', "title", Required = true, HelpText = "Inserting Title")]
         public string Title { get; set; }
