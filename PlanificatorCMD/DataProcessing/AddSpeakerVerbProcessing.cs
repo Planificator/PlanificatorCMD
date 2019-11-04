@@ -32,5 +32,6 @@ namespace PlanificatorCMD.DataProcessing
 
             return 0;
         }
+
     }
 }

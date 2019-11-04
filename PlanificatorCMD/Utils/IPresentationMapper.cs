@@ -6,6 +6,6 @@ namespace PlanificatorCMD.Utils
 {
     public interface IPresentationMapper
     {
-        public ICollection<PresentationTag> MapToPresentationTag(AddPresentationVerb addPresentationVerb);
+        public ICollection<PresentationTag> MapToPresentationTag(IAddPresentationVerb addPresentationVerb);
     }
 }

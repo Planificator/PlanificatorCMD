@@ -2,7 +2,7 @@
 
 namespace PlanificatorCMD.Validators
 {
-    interface IAddPresentationVerbValidator
+    public interface IAddPresentationVerbValidator
     {
         bool IsValid(IAddPresentationVerb addPresentationVerb);
     }
