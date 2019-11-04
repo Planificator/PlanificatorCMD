@@ -15,19 +15,25 @@ namespace PlanificatorCMD.ContainerConfiguration
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
+//presentation add
+            builder.RegisterType<AddPresentationVerb>().As<IAddPresentationVerb>();
+            builder.RegisterType<AddPresentationVerbValidator>().As<IAddPresentationVerbValidator>();
+//presentation show
 
-            builder.RegisterType<DisplaySpeakers>().As<IDisplaySpeakers>();
-            builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();
-            builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
-            builder.RegisterType<PhotoPathProcessing>().As<IPhotoPathProcessing>();
-            builder.RegisterType<Application>().As<IApplication>();
-            builder.RegisterType<AddSpeakerVerbValidator>().As<IAddSpeakerVerbValidator>();
+//speaker add
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
-            builder.RegisterType<SpeakerManager>().As<ISpeakerManager>();
-            builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
-            builder.RegisterType<PlanificatorDbContext>().SingleInstance();
-            //builder.RegisterType<PresentationValidator>().As<IPresentationValidator>();
+            builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();
+            builder.RegisterType<AddSpeakerVerbValidator>().As<IAddSpeakerVerbValidator>();
+            builder.RegisterType<PhotoPathProcessing>().As<IPhotoPathProcessing>();
+//speaker show
             builder.RegisterType<ShowAllSpeakersVerb>().As<IShowAllSpeakersVerb>();
+            builder.RegisterType<DisplaySpeakers>().As<IDisplaySpeakers>();
+            builder.RegisterType<SpeakerManager>().As<ISpeakerManager>();
+            builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
+            builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
+
+            builder.RegisterType<Application>().As<IApplication>();
+            builder.RegisterType<PlanificatorDbContext>().SingleInstance();
 
             return builder.Build();
         }
