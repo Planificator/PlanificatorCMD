@@ -21,6 +21,10 @@ namespace PlanificatorCMD.Persistence
         {
         }
 
+        public PlanificatorDbContext()
+        {               
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
