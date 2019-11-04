@@ -22,6 +22,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<PresentationRepository>().As<IPresentationRepository>();
             builder.RegisterType<AddPresentationVerb>().As<IAddPresentationVerb>();
             builder.RegisterType<AddPresentationVerbValidator>().As<IAddPresentationVerbValidator>();
+            builder.RegisterType<PresentationMapper>().As<IPresentationMapper>();
 //presentation show
 
 //speaker add
