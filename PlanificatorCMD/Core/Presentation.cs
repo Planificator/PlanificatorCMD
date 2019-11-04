@@ -13,5 +13,6 @@ namespace PlanificatorCMD.Core
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public ICollection<PresentationTag> PresentationTags { get; set; }
+        
     }
 }

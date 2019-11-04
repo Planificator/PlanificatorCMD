@@ -25,12 +25,20 @@ namespace PlanificatorCMD.Persistence
             _dbContext.SaveChanges();
         }
 
-        public ICollection<PresentationTag> GetAllPresentations()
+        public ICollection<Presentation> GetAllPresentations()
         {
-            if (_dbContext.PresentationTags.Count() == 0)
+            if (_dbContext.Presentations.Count() == 0)
                 return null;
 
-            return _dbContext.PresentationTags.ToList();
+
+            return _dbContext.Presentations.ToList();
+        }
+
+        public ICollection<string> GetAllTags(int presentationId)
+        {
+             var result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
+
+            return result;
         }
     }
 }

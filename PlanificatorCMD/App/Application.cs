@@ -14,9 +14,11 @@ namespace PlanificatorCMD
         private readonly IPresentationManager _presentationManager;
         private readonly IAddSpeakerVerbProcessing _addSpeakerVerbProcessing;
         private readonly ISpeakerManager _speakerManager;
+        private readonly IAddPresentationVerbProcessing _addPresentationVerbProcessing;
 
-        public Application(IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager, IPresentationManager presentationManager)
+        public Application(IAddPresentationVerbProcessing addPresentationVerbProcessing, IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager, IPresentationManager presentationManager)
         {
+            _addPresentationVerbProcessing = addPresentationVerbProcessing;
             _presentationManager = presentationManager;
             _addSpeakerVerbProcessing = addSpeakerVerbProcessing;
             _speakerManager = speakerManager;
@@ -26,10 +28,11 @@ namespace PlanificatorCMD
 
             try
             {
-                Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, ShowAllPresentation>(args)
+                Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, AddPresentationVerb ,ShowAllPresentation>(args)
                 .MapResult(
                     (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
                     (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
+                    (AddPresentationVerb opts) => _addPresentationVerbProcessing.AddPresentation(opts),
                     (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
                     errs => 1
                     );

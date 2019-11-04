@@ -10,12 +10,12 @@ namespace PlanificatorCMD.Managers
     public class PresentationManager : IPresentationManager
     {
         private readonly IPresentationRepository _presentationRepository;
-        private readonly IDisplayPresentations _displayPresentations;
+        private readonly IDisplayPresentation _displayPresentation;
 
-        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentations displayPresentations)
+        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentation displayPresentation)
         {
             _presentationRepository = presentationRepository;
-            _displayPresentations = displayPresentations;
+            _displayPresentation = displayPresentation;
         }
 
         public void AddPresentation(ICollection<PresentationTag> presentationTags)
@@ -25,14 +25,25 @@ namespace PlanificatorCMD.Managers
 
         public int ShowAllPresentation(bool displayOption)
         {
-            
-            ICollection<PresentationTag> presentations = _presentationRepository.GetAllPresentations();
+            ICollection<Presentation> presentations = _presentationRepository.GetAllPresentations();
 
-            if (_displayPresentations.DisplayAllPresentations(presentations, displayOption) == false)
+            if (presentations == null)
                 return 1;
-            _displayPresentations.DisplayAllPresentations(presentations, displayOption);
+
+            foreach(Presentation presentation in presentations)
+            {
+                ShowPresentation(presentation, displayOption);
+            }
 
             return 0;
+        }
+
+        private void ShowPresentation(Presentation presentation, bool displayOption)
+        {
+            var tags = _presentationRepository.GetAllTags(presentation.PresentationId);
+            
+            _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption);
+
         }
     }
 }
