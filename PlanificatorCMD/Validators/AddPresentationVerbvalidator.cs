@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PlanificatorCMD.Validators
 {
-    class AddPresentationVerbValidator : IAddPresentationVerbValidator
+    public class AddPresentationVerbValidator : IAddPresentationVerbValidator
     {
         public bool IsValid(IAddPresentationVerb addPresentationVerb)
         {
@@ -37,49 +37,49 @@ namespace PlanificatorCMD.Validators
 
         private bool IsValidLongDescription(string a)
         {
-            if (a.Length > 800)
-            {
-                Console.WriteLine("Long description is too long");
-                return false;
-            }
-
-            if (a == null)
+            if (a == null || a == String.Empty)
             {
                 Console.WriteLine("Enter the long description");
                 return false;
             }
 
+            if (a.Length > 800)
+            {
+                Console.WriteLine("Long description is too long");
+                return false;
+            }
+      
             return true;
         }
 
         private bool IsValidShortDescription(string a)
         {
-            if (a.Length > 200)
-            {
-                Console.WriteLine("ShortDescription is too long");
-                return false;
-            }
-
-            if (a == null)
+            if (a == null || a == String.Empty)
             {
                 Console.WriteLine("Enter the Short Description");
                 return false;
             }
+
+            if (a.Length > 200)
+            {
+                Console.WriteLine("ShortDescription is too long");
+                return false;
+            }       
 
             return true;
         }
 
         private bool IsValidTitle(string a)
         {
-            if (a.Length > 100)
+            if (a == null || a == String.Empty)
             {
-                Console.WriteLine("Title is too long");
+                Console.WriteLine("Enter the title of the presentation");
                 return false;
             }
 
-            if (a == null)
+            if (a.Length > 100)
             {
-                Console.WriteLine("Enter the title of the presentation");
+                Console.WriteLine("Title is too long");
                 return false;
             }
 
