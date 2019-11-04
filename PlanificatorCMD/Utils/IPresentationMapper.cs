@@ -1,10 +1,11 @@
-﻿using System;
+﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Verbs;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
-    interface IPresentationMapper
+    public interface IPresentationMapper
     {
+        public ICollection<PresentationTag> MapToPresentationTag(AddPresentationVerb addPresentationVerb);
     }
 }
