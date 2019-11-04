@@ -1,6 +1,7 @@
 ﻿using PlanificatorCMD.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PlanificatorCMD.Persistence
@@ -22,6 +23,14 @@ namespace PlanificatorCMD.Persistence
             }
 
             _dbContext.SaveChanges();
+        }
+
+        public ICollection<PresentationTag> GetAllPresentations()
+        {
+            if (_dbContext.PresentationTags.Count() == 0)
+                return null;
+
+            return _dbContext.PresentationTags.ToList();
         }
     }
 }

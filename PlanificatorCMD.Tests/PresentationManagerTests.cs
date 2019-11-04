@@ -6,6 +6,7 @@ using Moq;
 using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Managers;
 using PlanificatorCMD.Core;
+using PlanificatorCMD.Utils;
 
 namespace PlanificatorCMD.Tests
 {
@@ -15,8 +16,9 @@ namespace PlanificatorCMD.Tests
         public void AddPresentation_CallingAddPresentation_Once ()
         {
             var repo = new Mock<IPresentationRepository>();
+            var display = new Mock<IDisplayPresentations>();
 
-            var manager = new PresentationManager(repo.Object);
+            var manager = new PresentationManager(repo.Object,display.Object);
 
             manager.AddPresentation(It.IsAny<ICollection<PresentationTag>>());
 
