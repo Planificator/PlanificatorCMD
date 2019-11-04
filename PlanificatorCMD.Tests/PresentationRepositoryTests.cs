@@ -26,14 +26,14 @@ namespace PlanificatorCMD.Tests
 
             Presentation presentation = new Presentation
             {
-                Title = "Test", 
-                LongDescription = "Test" , 
+                Title = "Test",
+                LongDescription = "Test",
                 ShortDescription = "Test"
             };
 
             List<PresentationTag> presentationTags = new List<PresentationTag>();
 
-            foreach(Tag tag in tags)
+            foreach (Tag tag in tags)
             {
                 presentationTags.Add(new PresentationTag { Tag = tag, Presentation = presentation });
             }

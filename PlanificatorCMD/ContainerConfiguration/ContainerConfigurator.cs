@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using Microsoft.EntityFrameworkCore;
 using PlanificatorCMD.DataProcessing;
+using PlanificatorCMD.Managers;
 using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
@@ -16,6 +18,8 @@ namespace PlanificatorCMD.ContainerConfiguration
         {
             var builder = new ContainerBuilder();
 //presentation add
+            builder.RegisterType<PresentationManager>().As<IPresentationManager>();
+            builder.RegisterType<PresentationRepository>().As<IPresentationRepository>();
             builder.RegisterType<AddPresentationVerb>().As<IAddPresentationVerb>();
             builder.RegisterType<AddPresentationVerbValidator>().As<IAddPresentationVerbValidator>();
 //presentation show
@@ -32,6 +36,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
 
+            builder.RegisterType<DbContextOptions<PlanificatorDbContext>>();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<PlanificatorDbContext>().SingleInstance();
 
