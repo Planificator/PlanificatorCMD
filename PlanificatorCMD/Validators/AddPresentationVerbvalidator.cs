@@ -26,7 +26,7 @@ namespace PlanificatorCMD.Validators
 
         private bool IsValidTags(string a)
         {
-            if (a == null)
+            if (a == null || a == String.Empty)
             {
                 Console.WriteLine("Enter Tags");
                 return false;
