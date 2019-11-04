@@ -1,6 +1,6 @@
 ﻿namespace PlanificatorCMD.Verbs
 {
-    public interface IAdd_PresentationVerb
+    public interface IAddPresentationVerb
     {
         string Title { get; set; }
         string ShortDescription { get; set; }
