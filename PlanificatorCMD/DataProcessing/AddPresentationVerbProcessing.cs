@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PlanificatorCMD.DataProcessing
 {
-    public class AddPresentationVerbProcessing
+    public class AddPresentationVerbProcessing : IAddPresentationVerbProcessing
     {
         private readonly IAddPresentationVerbValidator _presentationValidator;
         private readonly IPresentationMapper _presentationMapper;

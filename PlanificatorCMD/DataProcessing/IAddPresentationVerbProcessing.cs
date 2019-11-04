@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PlanificatorCMD.Verbs;
 
 namespace PlanificatorCMD.DataProcessing
 {
-    interface IAddPresentationVerbProcessing
+    public interface IAddPresentationVerbProcessing
     {
+        int AddPresentation(IAddPresentationVerb addPresentationVerb);
     }
 }
