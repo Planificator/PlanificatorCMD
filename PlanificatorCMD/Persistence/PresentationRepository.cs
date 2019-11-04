@@ -36,7 +36,12 @@ namespace PlanificatorCMD.Persistence
 
         public ICollection<string> GetAllTags(int presentationId)
         {
-             var result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
+
+            List<string> result = new List<string>();
+            if (_dbContext.Tags.Count() == 0)
+                result.Add("No tags");
+
+             result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
 
             return result;
         }
