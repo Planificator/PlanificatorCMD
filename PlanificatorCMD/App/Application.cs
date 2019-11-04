@@ -23,13 +23,22 @@ namespace PlanificatorCMD
         }
         public void Run(string[] args)
         {
-            Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb,ShowAllPresentation>(args)
-            .MapResult(
-                (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
-                (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
-                (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
-                errs => 1
-                );
+
+            try
+            {
+                Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, ShowAllPresentation>(args)
+                .MapResult(
+                    (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
+                    (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
+                    (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
+                    errs => 1
+                    );
+
+            }
+            catch(Exception ex)
+            {
+               Console.WriteLine(ex.Message);
+            }
         }
     }
 }
