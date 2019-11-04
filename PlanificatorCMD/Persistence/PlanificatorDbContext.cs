@@ -18,7 +18,8 @@ namespace PlanificatorCMD.Persistence
 
         public PlanificatorDbContext(DbContextOptions<PlanificatorDbContext> options)
         : base(options)
-        { }
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
