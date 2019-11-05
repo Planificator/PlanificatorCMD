@@ -15,6 +15,7 @@ namespace PlanificatorCMD.Persistence
         public DbSet<Presentation> Presentations { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PresentationTag> PresentationTags { get; set; }
+        public DbSet<PresentationSpeaker> PresentationSpeakers { get; set; }
 
         public PlanificatorDbContext(DbContextOptions<PlanificatorDbContext> options)
         : base(options)
@@ -82,6 +83,7 @@ namespace PlanificatorCMD.Persistence
                 .HasMaxLength(50)
                 .IsRequired();
 
+            //PresentationTag Many to Many Configuration
             modelBuilder.Entity<PresentationTag>().HasKey(pt => new { pt.PresentationId, pt.TagId });
 
             modelBuilder.Entity<PresentationTag>()
@@ -94,8 +96,18 @@ namespace PlanificatorCMD.Persistence
                 .WithMany(t => t.PresentationTags)
                 .HasForeignKey(pt => pt.TagId);
 
+            //PresentationSpeaker Many to Many Configuration
+            modelBuilder.Entity<PresentationSpeaker>().HasKey(pt => new { pt.PresentationId, pt.SpeakerId });
 
-        }
-        
+            modelBuilder.Entity<PresentationSpeaker>()
+                .HasOne<Presentation>(pt => pt.Presentation)
+                .WithMany(p => p.PresentationSpeakers)
+                .HasForeignKey(pt => pt.PresentationId);
+
+            modelBuilder.Entity<PresentationSpeaker>()
+                .HasOne<SpeakerProfile>(pt => pt.SpeakerProfile)
+                .WithMany(t => t.PresentationSpeakers)
+                .HasForeignKey(pt => pt.SpeakerId);
+        }     
     }
 }
