@@ -8,6 +8,6 @@ namespace PlanificatorCMD.Persistence
         void AddPresentation(ICollection<PresentationTag> presentation);
         ICollection<Presentation> GetAllPresentations();
 
-        ICollection<string> GetAllTags(int presentationID);
+        ICollection<string> GetAllTagsNames(int presentationID);
     }
 }

@@ -34,7 +34,7 @@ namespace PlanificatorCMD.Persistence
             return _dbContext.Presentations.ToList();
         }
 
-        public ICollection<string> GetAllTags(int presentationId)
+        public ICollection<string> GetAllTagsNames(int presentationId)
         {
 
             List<string> result = new List<string>();

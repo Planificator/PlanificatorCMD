@@ -54,6 +54,62 @@ namespace PlanificatorCMD.Tests
 
                     context.SaveChanges();
 
+                    List<string> tagsNames = tags.Select(tag => tag.TagName).ToList();
+
+                    Assert.Equal(tagsNames.Count, service.GetAllTagsNames(presentation.PresentationId).Count);
+                    Assert.Equal(tagsNames, service.GetAllTagsNames(presentation.PresentationId));
+
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
+        public void GetAllTags_return_all_tags_from_one_presentation()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            List<Tag> tags = new List<Tag>()
+            {
+                new Tag { TagName = "AA" },
+                new Tag { TagName = "BB" },
+                new Tag { TagName = "CC" }
+            };
+
+            Presentation presentation = new Presentation
+            {
+                Title = "Test",
+                LongDescription = "Test",
+                ShortDescription = "Test"
+            };
+
+            List<PresentationTag> presentationTags = new List<PresentationTag>();
+
+            foreach (Tag tag in tags)
+            {
+                presentationTags.Add(new PresentationTag { Tag = tag, Presentation = presentation });
+            }
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                using (var context = new PlanificatorDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+
+                    var service = new PresentationRepository(context);
+
+                    service.AddPresentation(presentationTags);
+
+                    context.SaveChanges();
+
                     Assert.Equal(presentationTags.Count(), context.PresentationTags.Count());
                     Assert.Equal(1, context.Presentations.Count());
                     Assert.Equal(tags.Count(), context.Tags.Count());
