@@ -10,7 +10,7 @@ using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD.Tests
 {
-    public class ValidatorTests
+    public class AddSpeakerValidatorTests
     {
         [Theory]
         [InlineData("ex@@@@@")]
