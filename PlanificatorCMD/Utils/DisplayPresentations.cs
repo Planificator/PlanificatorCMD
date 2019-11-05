@@ -11,7 +11,7 @@ namespace PlanificatorCMD.Utils
     {
         public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
         {
-                Console.WriteLine();
+            Console.WriteLine();
             if (displayOption == false)
             {
                 Console.WriteLine(presentation.Title + " " + presentation.ShortDescription);

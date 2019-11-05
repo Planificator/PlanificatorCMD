@@ -27,8 +27,10 @@ namespace PlanificatorCMD.ContainerConfiguration
             //presentation show
             builder.RegisterType<ShowAllPresentation>().As<IShowAllPresentation>();
             builder.RegisterType<DisplayPresentation>().As<IDisplayPresentation>();
+            //assign speaker to presentation
+            builder.RegisterType<AssignSpeakerToPresentationVerb>().As<IAssignSpeakerToPresentationVerb>();
 
-//speaker add
+            //speaker add
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
             builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();
             builder.RegisterType<AddSpeakerVerbValidator>().As<IAddSpeakerVerbValidator>();

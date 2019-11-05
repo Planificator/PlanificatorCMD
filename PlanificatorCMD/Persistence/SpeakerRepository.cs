@@ -31,6 +31,16 @@ namespace PlanificatorCMD
             return _dbContext.SpeakerProfiles.Max(s => s.Photo.PhotoId);
         }
 
+        public int GetSpeakersCount()
+        {
+            return _dbContext.SpeakerProfiles.Count();
+        }
+
+        public SpeakerProfile GetSpeakerBySpeakerIndex(int index)
+        {
+            return _dbContext.SpeakerProfiles.ToList()[index];
+        }
+
         public List<SpeakerProfile> GetAllSpeakersProfiles()
         {
             if (_dbContext.SpeakerProfiles.Count() == 0)

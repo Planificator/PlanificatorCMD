@@ -29,7 +29,7 @@ namespace PlanificatorCMD.Managers
 
             if (presentations == null)
             {
-                Console.WriteLine("No presentation founded");
+                Console.WriteLine("No presentations found");
                 return 1;
             }
 

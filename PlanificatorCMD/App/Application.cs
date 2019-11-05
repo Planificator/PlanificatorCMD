@@ -28,7 +28,7 @@ namespace PlanificatorCMD
 
             try
             {
-                Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, AddPresentationVerb ,ShowAllPresentation>(args)
+                Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, AddPresentationVerb ,ShowAllPresentation, AssignSpeakerToPresentationVerb>(args)
                 .MapResult(
                     (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
                     (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),

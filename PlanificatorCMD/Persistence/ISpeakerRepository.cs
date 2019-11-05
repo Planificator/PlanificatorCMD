@@ -11,6 +11,8 @@ namespace PlanificatorCMD
 
         public List<SpeakerProfile> GetAllSpeakersProfiles();
         public int GetMaxId();
+        public int GetSpeakersCount();
+        public SpeakerProfile GetSpeakerBySpeakerIndex(int index);
 
     }
 }
