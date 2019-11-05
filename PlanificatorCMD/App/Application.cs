@@ -34,7 +34,6 @@ namespace PlanificatorCMD
                     (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
                     (AddPresentationVerb opts) => _addPresentationVerbProcessing.AddPresentation(opts),
                     (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
-                    (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
                     errs => 1
                     );
 
