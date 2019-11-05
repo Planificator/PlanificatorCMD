@@ -43,7 +43,7 @@ namespace PlanificatorCMD.Managers
 
         private void ShowPresentation(Presentation presentation, bool displayOption)
         {
-            var tags = _presentationRepository.GetAllTags(presentation.PresentationId);
+            var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
             
             _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption);
 
