@@ -34,6 +34,8 @@ namespace PlanificatorCMD.Persistence
                 SpeakerProfile = speaker,
                 Presentation = presentation
             };
+            _dbContext.PresentationSpeakers.Add(presentationSpeaker);
+            _dbContext.SaveChanges();
         }
 
         public ICollection<Presentation> GetAllPresentations()
