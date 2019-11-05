@@ -33,5 +33,15 @@ namespace PlanificatorCMD
 
             return 0;
         }
+
+        public SpeakerProfile GetSpeakerBySpeakerIndex(int index)
+        {
+            return _speakerRepository.GetSpeakerBySpeakerIndex(index);
+        }
+
+        public int GetSpeakerCount()
+        {
+            return _speakerRepository.GetSpeakersCount();
+        }
     }
 }
