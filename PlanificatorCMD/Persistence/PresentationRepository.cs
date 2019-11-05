@@ -39,9 +39,9 @@ namespace PlanificatorCMD.Persistence
 
             List<string> result = new List<string>();
             if (_dbContext.Tags.Count() == 0)
-                result.Add("No tags");
+                return null;
 
-             result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
+            result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
 
             return result;
         }
