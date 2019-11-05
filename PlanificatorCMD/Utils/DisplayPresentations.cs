@@ -7,10 +7,11 @@ using System.Text;
 namespace PlanificatorCMD.Utils
 {
     public class DisplayPresentation : IDisplayPresentation
+
     {
         public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
         {
-
+                Console.WriteLine();
             if (displayOption == false)
             {
                 Console.WriteLine(presentation.Title + " " + presentation.ShortDescription);
@@ -23,6 +24,8 @@ namespace PlanificatorCMD.Utils
                     Console.Write(tag + " ");
                 }
                 Console.WriteLine();
+                Console.WriteLine();
+
             }
         }
     }
