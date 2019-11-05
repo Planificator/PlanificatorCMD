@@ -25,6 +25,17 @@ namespace PlanificatorCMD.Persistence
             _dbContext.SaveChanges();
         }
 
+        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex)
+        {
+            var presentation = _dbContext.Presentations.ToList()[presentationIndex];
+
+            PresentationSpeaker presentationSpeaker = new PresentationSpeaker
+            {
+                SpeakerProfile = speaker,
+                Presentation = presentation
+            };
+        }
+
         public ICollection<Presentation> GetAllPresentations()
         {
             if (_dbContext.Presentations.Count() == 0)
@@ -33,6 +44,7 @@ namespace PlanificatorCMD.Persistence
 
             return _dbContext.Presentations.ToList();
         }
+
 
         public ICollection<string> GetAllTagsNames(int presentationId)
         {
@@ -44,6 +56,11 @@ namespace PlanificatorCMD.Persistence
             result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
 
             return result;
+        }
+
+        public int GetPresentationCount()
+        {
+            return _dbContext.Presentations.Count();
         }
     }
 }
