@@ -48,5 +48,15 @@ namespace PlanificatorCMD.Managers
             _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption);
 
         }
+
+        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex)
+        {
+            _presentationRepository.AssignSpeakerToPresentation(speaker, presentationIndex);
+        }
+
+        public int GetPresentationsCount()
+        {
+            return _presentationRepository.GetPresentationCount();
+        }
     }
 }
