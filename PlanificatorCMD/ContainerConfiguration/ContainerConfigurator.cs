@@ -17,6 +17,7 @@ namespace PlanificatorCMD.ContainerConfiguration
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
+
             //presentation add
             builder.RegisterType<AddPresentationVerbProcessing>().As<IAddPresentationVerbProcessing>();
             builder.RegisterType<PresentationManager>().As<IPresentationManager>();
@@ -24,24 +25,32 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<AddPresentationVerb>().As<IAddPresentationVerb>();
             builder.RegisterType<AddPresentationVerbValidator>().As<IAddPresentationVerbValidator>();
             builder.RegisterType<PresentationMapper>().As<IPresentationMapper>();
+
             //presentation show
             builder.RegisterType<ShowAllPresentation>().As<IShowAllPresentation>();
             builder.RegisterType<DisplayPresentation>().As<IDisplayPresentation>();
             //assign speaker to presentation
             builder.RegisterType<AssignSpeakerToPresentationVerb>().As<IAssignSpeakerToPresentationVerb>();
 
+            //assign speaker to presentation
+            builder.RegisterType<AssignSpeakerToPresentationVerb>().As<IAssignSpeakerToPresentationVerb>();
+            builder.RegisterType<AssignSpeakerToPresentationVerbProcessing>().As<IAssignSpeakerToPresentationVerbProcessing>();
+            builder.RegisterType<AssignSpeakerToPresentationVerbValidator>().As<IAssignSpeakerToPresentationVerbValidator>();
+          
             //speaker add
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
             builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();
             builder.RegisterType<AddSpeakerVerbValidator>().As<IAddSpeakerVerbValidator>();
             builder.RegisterType<PhotoPathProcessing>().As<IPhotoPathProcessing>();
-//speaker show
+
+            //speaker show
             builder.RegisterType<ShowAllSpeakersVerb>().As<IShowAllSpeakersVerb>();
             builder.RegisterType<DisplaySpeakers>().As<IDisplaySpeakers>();
             builder.RegisterType<SpeakerManager>().As<ISpeakerManager>();
             builder.RegisterType<SpeakerProfileMapper>().As<ISpeakerProfileMapper>();
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
 
+            //DbContext + Application
             builder.RegisterType<DbContextOptions<PlanificatorDbContext>>();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<PlanificatorDbContext>().SingleInstance();

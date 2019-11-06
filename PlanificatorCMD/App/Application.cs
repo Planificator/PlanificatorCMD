@@ -15,13 +15,15 @@ namespace PlanificatorCMD
         private readonly IAddSpeakerVerbProcessing _addSpeakerVerbProcessing;
         private readonly ISpeakerManager _speakerManager;
         private readonly IAddPresentationVerbProcessing _addPresentationVerbProcessing;
+        private readonly IAssignSpeakerToPresentationVerbProcessing _assignSpeakerToPresentationVerbProcessing;
 
-        public Application(IAddPresentationVerbProcessing addPresentationVerbProcessing, IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager, IPresentationManager presentationManager)
+        public Application(IAddPresentationVerbProcessing addPresentationVerbProcessing, IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager, IPresentationManager presentationManager, IAssignSpeakerToPresentationVerbProcessing assignSpeakerToPresentationVerbProcessing)
         {
             _addPresentationVerbProcessing = addPresentationVerbProcessing;
             _presentationManager = presentationManager;
             _addSpeakerVerbProcessing = addSpeakerVerbProcessing;
             _speakerManager = speakerManager;
+            _assignSpeakerToPresentationVerbProcessing = assignSpeakerToPresentationVerbProcessing;
         }
         public void Run(string[] args)
         {
@@ -34,6 +36,7 @@ namespace PlanificatorCMD
                     (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
                     (AddPresentationVerb opts) => _addPresentationVerbProcessing.AddPresentation(opts),
                     (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
+                    (AssignSpeakerToPresentationVerb opts) => _assignSpeakerToPresentationVerbProcessing.AssignSpeakerToPresentation(opts),
                     errs => 1
                     );
 

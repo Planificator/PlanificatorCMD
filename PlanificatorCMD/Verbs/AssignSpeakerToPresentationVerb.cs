@@ -6,9 +6,9 @@ namespace PlanificatorCMD.Verbs
     class AssignSpeakerToPresentationVerb : IAssignSpeakerToPresentationVerb
     {
         [Option('s', "speakerIndex", Required = true, HelpText = "Inserting Speker Index which is shown in firs column in show_speakers verb")]
-        public int speakerIndex { get; set; }
+        public int SpeakerIndex { get; set; }
 
         [Option('p', "presentationIndex", Required = true, HelpText = "Inserting Speker Index which is shown in firs column in show_presentation verb")]
-        public int presentationIndex { get; set; }
+        public int PresentationIndex { get; set; }
     }
 }
