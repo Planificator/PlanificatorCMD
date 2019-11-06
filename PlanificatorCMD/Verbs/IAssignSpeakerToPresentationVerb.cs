@@ -1,8 +1,8 @@
 ﻿namespace PlanificatorCMD.Verbs
 {
-    interface IAssignSpeakerToPresentationVerb
+    public interface IAssignSpeakerToPresentationVerb
     {
-        int presentationIndex { get; set; }
-        int speakerIndex { get; set; }
+        int PresentationIndex { get; set; }
+        int SpeakerIndex { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace PlanificatorCMD.Managers
             return 0;
         }
 
-        private void ShowPresentation(Presentation presentation, bool displayOption)
+        public void ShowPresentation(Presentation presentation, bool displayOption)
         {
             var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
             

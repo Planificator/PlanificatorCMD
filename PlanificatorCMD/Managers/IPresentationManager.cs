@@ -7,5 +7,10 @@ namespace PlanificatorCMD.Managers
     {
         void AddPresentation(ICollection<PresentationTag> presentation);
         int ShowAllPresentation(bool displayOption);
+        void ShowPresentation(Presentation presentation, bool displayOption);
+        void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex);
+        int GetPresentationsCount();
+        
+
     }
 }
