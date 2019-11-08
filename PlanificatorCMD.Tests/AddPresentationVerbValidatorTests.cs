@@ -36,7 +36,6 @@ namespace PlanificatorCMD.Tests
         [InlineData(null)]
         public void IsValid_NotValidShortDescrition_False(string shortDescrition)
         {
-            var expected = false;
             AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
             {
                 Title = "tyt-pyt",
@@ -47,8 +46,8 @@ namespace PlanificatorCMD.Tests
 
             AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-            var actual = sut.IsValid(addPresentationVerb);
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(addPresentationVerb);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Theory]
@@ -60,7 +59,6 @@ namespace PlanificatorCMD.Tests
         [InlineData(null)]
         public void IsValid_NotValidTitle_False(string title)
         {
-            var expected = false;
             AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
             {
                 Title = title,
@@ -71,8 +69,8 @@ namespace PlanificatorCMD.Tests
 
             AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-            var actual = sut.IsValid(addPresentationVerb);
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(addPresentationVerb);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Theory]
@@ -92,7 +90,6 @@ namespace PlanificatorCMD.Tests
         [InlineData(null)]
         public void IsValid_NotValidLongDescription_False(string longD)
         {
-            var expected = false;
             AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
             {
                 Title = "jiyl",
@@ -103,8 +100,8 @@ namespace PlanificatorCMD.Tests
 
             AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-            var actual = sut.IsValid(addPresentationVerb);
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(addPresentationVerb);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Theory]
@@ -112,7 +109,6 @@ namespace PlanificatorCMD.Tests
         [InlineData(null)]
         public void IsValid_NotValidTags_False(string tags)
         {
-            var expected = false;
             AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
             {
                 Title = "jiyl",
@@ -123,8 +119,8 @@ namespace PlanificatorCMD.Tests
 
             AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-            var actual = sut.IsValid(addPresentationVerb);
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(addPresentationVerb);
+            Assert.Throws<ArgumentException>(act);
         }
     }
 }

@@ -20,13 +20,12 @@ namespace PlanificatorCMD.Tests
         [InlineData("cog@wheel")]
         public void IsValid_IsValidEmail_ShouldReturnFalse(string email)
         {
-            var expected = false;
             var validator = new AddSpeakerVerbValidator();
             var speaker = new AddSpeakerVerb() { Email = email, FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = @"C:\Users\vbutnaru\Desktop\InternProject\PlanificatorCMD\SpeakersPhotos\1.jpg" };
 
-            var act = validator.IsValid(speaker);
+            Action act = () => validator.IsValid(speaker);
 
-            Assert.Equal(expected, act);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Theory]
@@ -39,14 +38,13 @@ namespace PlanificatorCMD.Tests
         [InlineData("     ")]
         public void IsValid_IsValidPath_ShouldReturnFalse(string path)
         {
-            var expected = false;
             var validator = new AddSpeakerVerbValidator();
 
             var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = path };
 
-            var act = validator.IsValid(speaker);
+            Action act = () => validator.IsValid(speaker);
 
-            Assert.Equal(expected, act);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Theory]
@@ -55,14 +53,13 @@ namespace PlanificatorCMD.Tests
         [InlineData(@"C:\\abc.gif")]
         public void IsValid_IsValidFormat_ShouldReturnFalse(string path)
         {
-            var expected = false;
             var validator = new AddSpeakerVerbValidator();
 
             var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = path };
 
-            var act = validator.IsValid(speaker);
+            Action act = () => validator.IsValid(speaker);
 
-            Assert.Equal(expected, act);
+            Assert.Throws<ArgumentException>(act);
         }
     }
 }
