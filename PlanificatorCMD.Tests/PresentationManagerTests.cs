@@ -7,6 +7,7 @@ using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Managers;
 using PlanificatorCMD.Core;
 using PlanificatorCMD.Utils;
+using PlanificatorCMD.Wrappers;
 
 namespace PlanificatorCMD.Tests
 {
@@ -15,10 +16,11 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void AddPresentation_CallingAddPresentation_Once ()
         {
+            var cw = new Mock<IConsoleWrapper>();
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
 
-            var manager = new PresentationManager(repo.Object,display.Object);
+            var manager = new PresentationManager(repo.Object,display.Object, cw.Object);
 
             manager.AddPresentation(It.IsAny<ICollection<PresentationTag>>());
 
@@ -28,10 +30,11 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void ShowAllPresentation_CallingGetAllPresentation_Once()
         {
+            var cw = new Mock<IConsoleWrapper>();
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
 
-            var manager = new PresentationManager(repo.Object, display.Object);
+            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
             manager.ShowAllPresentation(true);
 
             repo.Verify(r => r.GetAllPresentations(), Times.Once);
@@ -45,10 +48,11 @@ namespace PlanificatorCMD.Tests
             ICollection<Presentation> presentations = null;
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
+            var cw = new Mock<IConsoleWrapper>();
 
             repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
 
-            var manager = new PresentationManager(repo.Object, display.Object);
+            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
 
             var act = manager.ShowAllPresentation(true);
 
@@ -67,10 +71,11 @@ namespace PlanificatorCMD.Tests
             };
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
+            var cw = new Mock<IConsoleWrapper>();
 
             repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
 
-            var manager = new PresentationManager(repo.Object, display.Object);
+            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
 
             var act = manager.ShowAllPresentation(true);
 

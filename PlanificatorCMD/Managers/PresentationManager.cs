@@ -1,6 +1,7 @@
 ﻿using PlanificatorCMD.Core;
 using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Utils;
+using PlanificatorCMD.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,11 +12,13 @@ namespace PlanificatorCMD.Managers
     {
         private readonly IPresentationRepository _presentationRepository;
         private readonly IDisplayPresentation _displayPresentation;
+        private readonly IConsoleWrapper _CW;
 
-        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentation displayPresentation)
+        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentation displayPresentation, IConsoleWrapper CW)
         {
             _presentationRepository = presentationRepository;
             _displayPresentation = displayPresentation;
+            _CW = CW;
         }
 
         public void AddPresentation(ICollection<PresentationTag> presentationTags)
@@ -45,7 +48,7 @@ namespace PlanificatorCMD.Managers
         {
             var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
             
-            _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption);
+            _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption, _CW);
 
         }
 
