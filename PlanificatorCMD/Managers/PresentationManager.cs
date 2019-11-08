@@ -30,7 +30,7 @@ namespace PlanificatorCMD.Managers
             if (presentations == null)
             {
                 Console.WriteLine("No presentations found");
-                return 1;
+                return ExecutionResult.Fail;
             }
 
             foreach(Presentation presentation in presentations)
@@ -38,7 +38,7 @@ namespace PlanificatorCMD.Managers
                 ShowPresentation(presentation, displayOption);
             }
 
-            return 0;
+            return ExecutionResult.Succes;
         }
 
         public void ShowPresentation(Presentation presentation, bool displayOption)

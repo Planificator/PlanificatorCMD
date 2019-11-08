@@ -29,9 +29,9 @@ namespace PlanificatorCMD
             List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
 
             if (_displaySpeakers.DisplayAllSpeakers(speakersList, displayOption) == false)
-                return 1;
+                return ExecutionResult.Fail;
 
-            return 0;
+            return ExecutionResult.Succes;
         }
 
         public SpeakerProfile GetSpeakerBySpeakerIndex(int speakerIndex)

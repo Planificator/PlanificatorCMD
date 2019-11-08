@@ -25,13 +25,13 @@ namespace PlanificatorCMD.DataProcessing
         { 
             if (!_presentationValidator.IsValid(addPresentationVerb))
             {
-                return 1;
+                return ExecutionResult.Fail;
             }
 
             var presentationTags = _presentationMapper.MapToPresentationTag(addPresentationVerb);
             _presentationManager.AddPresentation(presentationTags);
 
-            return 0;
+            return ExecutionResult.Succes;
         }
 
     }
