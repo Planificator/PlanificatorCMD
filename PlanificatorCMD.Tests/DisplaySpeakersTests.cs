@@ -19,8 +19,8 @@ namespace PlanificatorCMD.Tests
             var cw = new Mock<IConsoleWrapper>();
 
             var expected = false;
-            DisplaySpeakers sut = new DisplaySpeakers();
-            var actual = sut.DisplayAllSpeakers(speakers, displayOption, cw.Object);
+            DisplaySpeakers sut = new DisplaySpeakers(cw.Object);
+            var actual = sut.DisplayAllSpeakers(speakers, displayOption);
 
             Assert.Equal(actual, expected);
 
@@ -54,8 +54,8 @@ namespace PlanificatorCMD.Tests
 
             var cw = new Mock<IConsoleWrapper>();
             var expected = true;
-            DisplaySpeakers sut = new DisplaySpeakers();
-            var actual = sut.DisplayAllSpeakers(speakers, displayOption, cw.Object);
+            DisplaySpeakers sut = new DisplaySpeakers(cw.Object);
+            var actual = sut.DisplayAllSpeakers(speakers, displayOption);
 
             Assert.Equal(actual, expected);
 

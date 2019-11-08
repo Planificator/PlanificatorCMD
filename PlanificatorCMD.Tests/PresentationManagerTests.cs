@@ -20,7 +20,7 @@ namespace PlanificatorCMD.Tests
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
 
-            var manager = new PresentationManager(repo.Object,display.Object, cw.Object);
+            var manager = new PresentationManager(repo.Object,display.Object);
 
             manager.AddPresentation(It.IsAny<ICollection<PresentationTag>>());
 
@@ -34,7 +34,7 @@ namespace PlanificatorCMD.Tests
             var repo = new Mock<IPresentationRepository>();
             var display = new Mock<IDisplayPresentation>();
 
-            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
+            var manager = new PresentationManager(repo.Object, display.Object);
             manager.ShowAllPresentation(true);
 
             repo.Verify(r => r.GetAllPresentations(), Times.Once);
@@ -52,7 +52,7 @@ namespace PlanificatorCMD.Tests
 
             repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
 
-            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
+            var manager = new PresentationManager(repo.Object, display.Object);
 
             var act = manager.ShowAllPresentation(true);
 
@@ -75,7 +75,7 @@ namespace PlanificatorCMD.Tests
 
             repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
 
-            var manager = new PresentationManager(repo.Object, display.Object, cw.Object);
+            var manager = new PresentationManager(repo.Object, display.Object);
 
             var act = manager.ShowAllPresentation(true);
 
