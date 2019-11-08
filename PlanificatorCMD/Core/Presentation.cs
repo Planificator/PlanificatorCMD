@@ -12,7 +12,7 @@ namespace PlanificatorCMD.Core
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public ICollection<PresentationTag> PresentationTags { get; set; }
-        public ICollection<PresentationSpeaker> PresentationSpeakers { get; set; }
+        public virtual ICollection<PresentationTag> PresentationTags { get; set; }
+        public virtual ICollection<PresentationSpeaker> PresentationSpeakers { get; set; }
     }
 }
