@@ -6,6 +6,7 @@ using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
+using PlanificatorCMD.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,6 +52,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
 
             //DbContext + Application
+            builder.RegisterType<IConsoleWrapper>().As<ConsoleWrapper>();
             builder.RegisterType<DbContextOptions<PlanificatorDbContext>>();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<PlanificatorDbContext>().SingleInstance();

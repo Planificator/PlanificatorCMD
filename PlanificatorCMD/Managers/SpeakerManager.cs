@@ -1,6 +1,7 @@
 ﻿using PlanificatorCMD.Core;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Verbs;
+using PlanificatorCMD.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +13,13 @@ namespace PlanificatorCMD
     {
         private readonly ISpeakerRepository _speakerRepository;
         private readonly IDisplaySpeakers _displaySpeakers;
+        private readonly IConsoleWrapper _CW;
 
-        public SpeakerManager(ISpeakerRepository speakerRepository, IDisplaySpeakers displaySpeakers)
+        public SpeakerManager(ISpeakerRepository speakerRepository, IDisplaySpeakers displaySpeakers, IConsoleWrapper CW)
         {
             _speakerRepository = speakerRepository;
             _displaySpeakers = displaySpeakers;
+            _CW = CW;
         }
 
         public void AddSpeakerProfile(SpeakerProfile speaker)
@@ -28,7 +31,7 @@ namespace PlanificatorCMD
         {
             ICollection<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
 
-            if (_displaySpeakers.DisplayAllSpeakers(speakersList, displayOption) == false)
+            if (_displaySpeakers.DisplayAllSpeakers(speakersList, displayOption, _CW) == false)
                 return ExecutionResult.Fail;
 
             return ExecutionResult.Succes;
