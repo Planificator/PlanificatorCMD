@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace PlanificatorCMD
+namespace PlanificatorCMD.Managers
 {
     public class SpeakerManager : ISpeakerManager
     {
