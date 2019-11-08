@@ -2,8 +2,8 @@
 using PlanificatorCMD.Core;
 using Xunit;
 using PlanificatorCMD.Utils;
-using System.Collections.Generic;
 using PlanificatorCMD.Wrappers;
+using PlanificatorCMD.Managers;
 
 namespace PlanificatorCMD.Tests
 {
