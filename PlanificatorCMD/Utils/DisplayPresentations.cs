@@ -8,24 +8,29 @@ using System.Text;
 namespace PlanificatorCMD.Utils
 {
     public class DisplayPresentation : IDisplayPresentation
-
     {
-        public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption, IConsoleWrapper CW)
+        private readonly IConsoleWrapper _cw;
+
+        public DisplayPresentation(IConsoleWrapper cw)
         {
-            CW.WriteLine();
+            _cw = cw;
+        }
+        public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
+        {
+            _cw.WriteLine();
             if (displayOption == false)
             {
-                CW.WriteLine(presentation.Title + " " + presentation.ShortDescription);
+                _cw.WriteLine(presentation.Title + " " + presentation.ShortDescription);
             }
             if (displayOption == true)
             {
-                CW.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
+                _cw.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
                 foreach (var tag in tags)
                 {
-                    CW.Write(tag + " ");
+                    _cw.Write(tag + " ");
                 }
-                CW.WriteLine();
-                CW.WriteLine();
+                _cw.WriteLine();
+                _cw.WriteLine();
 
             }
         }

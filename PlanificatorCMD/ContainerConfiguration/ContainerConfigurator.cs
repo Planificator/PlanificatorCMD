@@ -52,7 +52,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<SpeakerRepository>().As<ISpeakerRepository>();
 
             //DbContext + Application
-            builder.RegisterType<IConsoleWrapper>().As<ConsoleWrapper>();
+            builder.RegisterType<ConsoleWrapper>().As<IConsoleWrapper>();
             builder.RegisterType<DbContextOptions<PlanificatorDbContext>>();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<PlanificatorDbContext>().SingleInstance();

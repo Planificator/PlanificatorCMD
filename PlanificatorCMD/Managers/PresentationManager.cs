@@ -12,13 +12,11 @@ namespace PlanificatorCMD.Managers
     {
         private readonly IPresentationRepository _presentationRepository;
         private readonly IDisplayPresentation _displayPresentation;
-        private readonly IConsoleWrapper _CW;
 
-        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentation displayPresentation, IConsoleWrapper CW)
+        public PresentationManager(IPresentationRepository presentationRepository, IDisplayPresentation displayPresentation)
         {
             _presentationRepository = presentationRepository;
             _displayPresentation = displayPresentation;
-            _CW = CW;
         }
 
         public void AddPresentation(ICollection<PresentationTag> presentationTags)
@@ -48,7 +46,7 @@ namespace PlanificatorCMD.Managers
         {
             var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
             
-            _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption, _CW);
+            _displayPresentation.DisplayAllPresentation(tags, presentation, displayOption);
 
         }
 

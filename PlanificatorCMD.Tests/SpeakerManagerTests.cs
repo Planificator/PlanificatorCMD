@@ -30,7 +30,7 @@ namespace PlanificatorCMD.Tests
                 }
             };
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object, cw.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
 
             sut.AddSpeakerProfile(speakerProfile);
 
@@ -44,7 +44,7 @@ namespace PlanificatorCMD.Tests
             Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
             var cw = new Mock<IConsoleWrapper>();
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object, cw.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
 
             sut.ShowSpeakersProfiles(true);
 
