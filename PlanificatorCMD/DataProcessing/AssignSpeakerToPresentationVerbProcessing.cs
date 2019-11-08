@@ -1,4 +1,5 @@
 ﻿using PlanificatorCMD.Managers;
+using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
 using System;
@@ -30,11 +31,11 @@ namespace PlanificatorCMD.DataProcessing
             if (!_validator.IsValid(speakerIndex, speakersCount)
                 || !_validator.IsValid(presentationIndex, presentatiosCount))
             {
-                return 1;
+                return ExecutionResult.Fail;
             }
             var speaker = _speakerManager.GetSpeakerBySpeakerIndex(speakerIndex);
             _presentationManager.AssignSpeakerToPresentation(speaker, presentationIndex);
-            return 0;
+            return ExecutionResult.Succes;
         }
 
 

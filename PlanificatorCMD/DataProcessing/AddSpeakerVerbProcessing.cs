@@ -25,12 +25,12 @@ namespace PlanificatorCMD.DataProcessing
         {
             if (!_validatorSpeaker.IsValid(addSpeakerVerb))
             {
-                return 1;
+                return ExecutionResult.Fail;
             }
 
             _speakerManager.AddSpeakerProfile(_speakerProfileMapper.MapToSpeaker(addSpeakerVerb));
 
-            return 0;
+            return ExecutionResult.Succes;
         }
 
     }
