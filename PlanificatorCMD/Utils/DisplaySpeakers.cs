@@ -7,7 +7,7 @@ namespace PlanificatorCMD.Utils
 {
     public class DisplaySpeakers : IDisplaySpeakers
     {
-        public bool DisplayAllSpeakers(IEnumerable<SpeakerProfile> speakers, bool displayOption)
+        public bool DisplayAllSpeakers(ICollection<SpeakerProfile> speakers, bool displayOption)
         {
             int i = 1;
             if (speakers == null)
