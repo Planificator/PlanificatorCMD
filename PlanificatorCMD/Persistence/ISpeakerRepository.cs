@@ -7,12 +7,10 @@ namespace PlanificatorCMD
 {
     public interface ISpeakerRepository
     {
-        public void AddSpeakerProfile(SpeakerProfile speaker);
-
-        public List<SpeakerProfile> GetAllSpeakersProfiles();
-        public int GetMaxId();
-        public int GetSpeakersCount();
-        public SpeakerProfile GetSpeakerBySpeakerIndex(int index);
-
+        void AddSpeakerProfile(SpeakerProfile speaker);
+        ICollection<SpeakerProfile> GetAllSpeakersProfiles();
+        int GetMaxId();
+        int GetSpeakersCount();
+        SpeakerProfile GetSpeakerBySpeakerIndex(int index);
     }
 }
