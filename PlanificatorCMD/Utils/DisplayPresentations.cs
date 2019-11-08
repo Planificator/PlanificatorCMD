@@ -1,4 +1,5 @@
 ﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +8,29 @@ using System.Text;
 namespace PlanificatorCMD.Utils
 {
     public class DisplayPresentation : IDisplayPresentation
-
     {
+        private readonly IConsoleWrapper _cw;
+
+        public DisplayPresentation(IConsoleWrapper cw)
+        {
+            _cw = cw;
+        }
         public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
         {
-            Console.WriteLine();
+            _cw.WriteLine();
             if (displayOption == false)
             {
-                Console.WriteLine(presentation.Title + " " + presentation.ShortDescription);
+                _cw.WriteLine(presentation.Title + " " + presentation.ShortDescription);
             }
             if (displayOption == true)
             {
-                Console.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
+                _cw.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
                 foreach (var tag in tags)
                 {
-                    Console.Write(tag + " ");
+                    _cw.Write(tag + " ");
                 }
-                Console.WriteLine();
-                Console.WriteLine();
+                _cw.WriteLine();
+                _cw.WriteLine();
 
             }
         }

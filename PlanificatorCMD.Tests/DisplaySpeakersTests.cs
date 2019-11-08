@@ -5,6 +5,7 @@ using Xunit;
 using Moq;
 using PlanificatorCMD.Core;
 using PlanificatorCMD.Utils;
+using PlanificatorCMD.Wrappers;
 
 namespace PlanificatorCMD.Tests
 {
@@ -15,9 +16,10 @@ namespace PlanificatorCMD.Tests
         {
             List<SpeakerProfile> speakers = null;
             bool displayOption = true;
+            var cw = new Mock<IConsoleWrapper>();
 
             var expected = false;
-            DisplaySpeakers sut = new DisplaySpeakers();
+            DisplaySpeakers sut = new DisplaySpeakers(cw.Object);
             var actual = sut.DisplayAllSpeakers(speakers, displayOption);
 
             Assert.Equal(actual, expected);
@@ -50,8 +52,9 @@ namespace PlanificatorCMD.Tests
 
             bool displayOption = true;
 
+            var cw = new Mock<IConsoleWrapper>();
             var expected = true;
-            DisplaySpeakers sut = new DisplaySpeakers();
+            DisplaySpeakers sut = new DisplaySpeakers(cw.Object);
             var actual = sut.DisplayAllSpeakers(speakers, displayOption);
 
             Assert.Equal(actual, expected);

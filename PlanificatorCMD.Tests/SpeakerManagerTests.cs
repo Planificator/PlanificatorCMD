@@ -3,6 +3,7 @@ using PlanificatorCMD.Core;
 using Xunit;
 using PlanificatorCMD.Utils;
 using System.Collections.Generic;
+using PlanificatorCMD.Wrappers;
 
 namespace PlanificatorCMD.Tests
 {
@@ -14,6 +15,7 @@ namespace PlanificatorCMD.Tests
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
             Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+            var cw = new Mock<IConsoleWrapper>();
 
             SpeakerProfile speakerProfile = new SpeakerProfile()
             {
@@ -40,6 +42,7 @@ namespace PlanificatorCMD.Tests
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
             Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+            var cw = new Mock<IConsoleWrapper>();
 
             SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
 
