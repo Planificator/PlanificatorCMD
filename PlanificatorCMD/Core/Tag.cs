@@ -10,6 +10,6 @@ namespace PlanificatorCMD.Core
     {
         public int TagId { get; set; }
         public string TagName { get; set; }
-        public ICollection<PresentationTag> PresentationTags { get; set; }
+        public virtual ICollection<PresentationTag> PresentationTags { get; set; }
     }
 }

@@ -2,14 +2,14 @@
 using PlanificatorCMD.Core;
 using Xunit;
 using PlanificatorCMD.Utils;
-using System.Collections.Generic;
 using PlanificatorCMD.Wrappers;
+using PlanificatorCMD.Managers;
 
 namespace PlanificatorCMD.Tests
 {
     public class SpeakerManagerTests
     {
-
+         
         [Fact]
         public void AddSpeakerProfile_IsCalledOnce()
         {
@@ -49,6 +49,32 @@ namespace PlanificatorCMD.Tests
             sut.ShowSpeakersProfiles(true);
 
             speakerRepository.Verify(s => s.GetAllSpeakersProfiles(), Times.Once);
+        }
+
+        [Fact]
+        public void GetSpeakerBySpeakerIndex_CallGetSpeakerBySpeakerIndex_Once()
+        {
+            Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
+            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+
+            sut.GetSpeakerBySpeakerIndex(It.IsAny<int>());
+
+            speakerRepository.Verify(s => s.GetSpeakerBySpeakerIndex(It.IsAny<int>()), Times.Once);
+        }
+
+        [Fact]
+        public void GetSpeakerCount_CallGetSpeakersCount_Once()
+        {
+            Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
+            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+
+            sut.GetSpeakersCount();
+
+            speakerRepository.Verify(s => s.GetSpeakersCount(), Times.Once);
         }
     }
 }

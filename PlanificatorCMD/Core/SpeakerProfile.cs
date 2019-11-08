@@ -15,6 +15,6 @@ namespace PlanificatorCMD.Core
         public string Bio { get; set; }
         public virtual Photo Photo { get; set; }
         public string Company { get; set; }
-        public ICollection<PresentationSpeaker> PresentationSpeakers { get; set; }
+        public virtual ICollection<PresentationSpeaker> PresentationSpeakers { get; set; }
     }
 }
