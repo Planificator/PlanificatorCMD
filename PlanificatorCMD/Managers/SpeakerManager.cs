@@ -26,7 +26,7 @@ namespace PlanificatorCMD
 
         public int ShowSpeakersProfiles(bool displayOption)
         {
-            List<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
+            ICollection<SpeakerProfile> speakersList = _speakerRepository.GetAllSpeakersProfiles();
 
             if (_displaySpeakers.DisplayAllSpeakers(speakersList, displayOption) == false)
                 return 1;

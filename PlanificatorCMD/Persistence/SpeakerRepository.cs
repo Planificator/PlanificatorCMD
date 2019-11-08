@@ -41,7 +41,7 @@ namespace PlanificatorCMD
             return _dbContext.SpeakerProfiles.ToList()[index];
         }
 
-        public List<SpeakerProfile> GetAllSpeakersProfiles()
+        public ICollection<SpeakerProfile> GetAllSpeakersProfiles()
         {
             if (_dbContext.SpeakerProfiles.Count() == 0)
                 return null;
