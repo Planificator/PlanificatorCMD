@@ -10,79 +10,79 @@ namespace PlanificatorCMD.Validators
     {
         public bool IsValid(IAddPresentationVerb addPresentationVerb)
         {
-            bool res = true;
+
             if (!IsValidTitle(addPresentationVerb.Title))
-                res = false;
+            {
+                return false;
+            }
             if (!IsValidShortDescription(addPresentationVerb.ShortDescription))
-                res = false;
+            {
+                return false;
+            }
             if (!IsValidLongDescription(addPresentationVerb.LongDescription))
-                res = false;
+            {
+                return false;
+            }
             if (!IsValidTags(addPresentationVerb.Tags))
-                res = false;
+            {
+                return false;
+            }
 
-            return res;
+            return true;
 
         }
 
-        private bool IsValidTags(string a)
+        private bool IsValidTags(string tag)
         {
-            if (a == null || a == String.Empty)
+            if (string.IsNullOrEmpty(tag))
             {
-                Console.WriteLine("Enter Tags");
-                return false;
+                throw new ArgumentException("Enter the tag", nameof(tag));
             }
 
             return true;
         }
 
-        private bool IsValidLongDescription(string a)
+        private bool IsValidLongDescription(string longDescription)
         {
-            if (a == null || a == String.Empty)
+            if (string.IsNullOrEmpty(longDescription))
             {
-                Console.WriteLine("Enter the long description");
-                return false;
+                throw new ArgumentException("Enter the long description", nameof(longDescription));
             }
 
-            if (a.Length > 800)
+            if (longDescription.Length > 800)
             {
-                Console.WriteLine("Long description is too long");
-                return false;
+                throw new ArgumentException("Long description is too long", nameof(longDescription));
             }
-      
-            return true;
-        }
-
-        private bool IsValidShortDescription(string a)
-        {
-            if (a == null || a == String.Empty)
-            {
-                Console.WriteLine("Enter the Short Description");
-                return false;
-            }
-
-            if (a.Length > 200)
-            {
-                Console.WriteLine("ShortDescription is too long");
-                return false;
-            }       
 
             return true;
         }
 
-        private bool IsValidTitle(string a)
+        private bool IsValidShortDescription(string shortDescription)
         {
-            if (a == null || a == String.Empty)
+            if (string.IsNullOrEmpty(shortDescription))
             {
-                Console.WriteLine("Enter the title of the presentation");
-                return false;
+                throw new ArgumentException("Enter the Short Description", nameof(shortDescription));
             }
 
-            if (a.Length > 100)
+            if (shortDescription.Length > 200)
             {
-                Console.WriteLine("Title is too long");
-                return false;
+                throw new ArgumentException("ShortDescription is too long", nameof(shortDescription));
             }
 
+            return true;
+        }
+
+        private bool IsValidTitle(string title)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                throw new ArgumentException("Enter the title of the presentation", nameof(title));
+            }
+
+            if (title.Length > 100)
+            {
+                throw new ArgumentException("Title is too long", nameof(title));
+            }
             return true;
         }
     }
