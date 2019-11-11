@@ -4,8 +4,8 @@ using PlanificatorCMD.Wrappers;
 
 namespace PlanificatorCMD.Utils
 {
-    public interface IDisplayPresentation
+    public interface IDisplayPresentations
     {
-        void DisplayAllPresentation(ICollection<string> tags,Presentation presentations, bool displayOption);
+        int ShowAllPresentations(bool displayOption);
     }
 }

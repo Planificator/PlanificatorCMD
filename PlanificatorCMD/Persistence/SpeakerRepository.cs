@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD.Persistence
@@ -36,13 +35,6 @@ namespace PlanificatorCMD.Persistence
         public SpeakerProfile GetSpeakerBySpeakerIndex(int index)
         {
             return _dbContext.SpeakerProfiles.ToList()[index];
-        }
-
-        public ICollection<SpeakerProfile> GetAllSpeakersProfiles()
-        {
-            if (_dbContext.SpeakerProfiles.Count() == 0)
-                return null;
-            return _dbContext.SpeakerProfiles.ToList();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using CommandLine;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Managers;
+using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
 
@@ -11,19 +12,19 @@ namespace PlanificatorCMD
 {
     public class Application : IApplication
     {
-        private readonly IPresentationManager _presentationManager;
         private readonly IAddSpeakerVerbProcessing _addSpeakerVerbProcessing;
-        private readonly ISpeakerManager _speakerManager;
         private readonly IAddPresentationVerbProcessing _addPresentationVerbProcessing;
         private readonly IAssignSpeakerToPresentationVerbProcessing _assignSpeakerToPresentationVerbProcessing;
+        private readonly IDisplayPresentations _displayPresentations;
+        private readonly IDisplaySpeakers _displaySpeakers;
 
-        public Application(IAddPresentationVerbProcessing addPresentationVerbProcessing, IAddSpeakerVerbProcessing addSpeakerVerbProcessing, ISpeakerManager speakerManager, IPresentationManager presentationManager, IAssignSpeakerToPresentationVerbProcessing assignSpeakerToPresentationVerbProcessing)
+        public Application(IAddPresentationVerbProcessing addPresentationVerbProcessing, IAddSpeakerVerbProcessing addSpeakerVerbProcessing, IAssignSpeakerToPresentationVerbProcessing assignSpeakerToPresentationVerbProcessing, IDisplayPresentations displayPresentations, IDisplaySpeakers displaySpeakers)
         {
             _addPresentationVerbProcessing = addPresentationVerbProcessing;
-            _presentationManager = presentationManager;
             _addSpeakerVerbProcessing = addSpeakerVerbProcessing;
-            _speakerManager = speakerManager;
             _assignSpeakerToPresentationVerbProcessing = assignSpeakerToPresentationVerbProcessing;
+            _displayPresentations = displayPresentations;
+            _displaySpeakers = displaySpeakers;
         }
         public void Run(string[] args)
         {
@@ -33,9 +34,9 @@ namespace PlanificatorCMD
                 Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, AddPresentationVerb ,ShowAllPresentation, AssignSpeakerToPresentationVerb>(args)
                 .MapResult(
                     (AddSpeakerVerb opts) => _addSpeakerVerbProcessing.AddSpeaker(opts),
-                    (ShowAllSpeakersVerb opts) => _speakerManager.ShowSpeakersProfiles(opts.DisplayOption),
+                    (ShowAllSpeakersVerb opts) => _displaySpeakers.DisplayAllSpeakers(opts.DisplayOption),
                     (AddPresentationVerb opts) => _addPresentationVerbProcessing.AddPresentation(opts),
-                    (ShowAllPresentation opts) => _presentationManager.ShowAllPresentation(opts.DisplayOption),
+                    (ShowAllPresentation opts) => _displayPresentations.ShowAllPresentations(opts.DisplayOption),
                     (AssignSpeakerToPresentationVerb opts) => _assignSpeakerToPresentationVerbProcessing.AssignSpeakerToPresentation(opts),
                     errs => 1
                     );

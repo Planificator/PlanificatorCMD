@@ -5,6 +5,6 @@ namespace PlanificatorCMD.Utils
 {
     public interface IDisplaySpeakers
     {
-        bool DisplayAllSpeakers(ICollection<SpeakerProfile> speakers, bool displayOption);
+        int DisplayAllSpeakers(bool displayOption);
     }
 }
