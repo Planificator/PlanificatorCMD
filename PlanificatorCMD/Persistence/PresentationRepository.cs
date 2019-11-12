@@ -54,28 +54,6 @@ namespace PlanificatorCMD.Persistence
             return _dbContext.Presentations.ToList();
         }
 
-        public ICollection<Presentation> GetAllPresentations()
-        {
-            if (_dbContext.Presentations.Count() == 0)
-                return null;
-
-
-            return _dbContext.Presentations.ToList();
-        }
-
-
-        public ICollection<string> GetAllTagsNames(int presentationId)
-        {
-
-            List<string> result = new List<string>();
-            if (_dbContext.Tags.Count() == 0)
-                return null;
-
-            result = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
-
-            return result;
-        }
-
         public int GetPresentationCount()
         {
             return _dbContext.Presentations.Count();
