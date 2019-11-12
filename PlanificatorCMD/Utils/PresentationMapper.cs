@@ -1,15 +1,12 @@
-
-﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Core;
 using PlanificatorCMD.Verbs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
     public class PresentationMapper : IPresentationMapper
     {
-        public ICollection<PresentationTag> MapToPresentationTag (IAddPresentationVerb addPresentationVerb)
+        public ICollection<PresentationTag> MapToPresentationTag(IAddPresentationVerb addPresentationVerb)
         {
             ICollection<string> tags = addPresentationVerb.Tags.Split(" ");
 
@@ -22,7 +19,7 @@ namespace PlanificatorCMD.Utils
 
             ICollection<PresentationTag> presentationTags = new List<PresentationTag>();
 
-            foreach (var tagName in tags) 
+            foreach (var tagName in tags)
             {
                 PresentationTag presentationTag = new PresentationTag()
                 {

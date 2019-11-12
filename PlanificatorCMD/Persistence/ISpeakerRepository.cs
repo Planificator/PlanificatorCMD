@@ -1,7 +1,5 @@
-﻿using System;
+﻿using PlanificatorCMD.Core;
 using System.Collections.Generic;
-using System.Text;
-using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD
 {
@@ -12,6 +10,5 @@ namespace PlanificatorCMD
         int GetMaxId();
         int GetSpeakersCount();
         SpeakerProfile GetSpeakerBySpeakerIndex(int index);
-        ICollection<SpeakerProfile> GetAllSpeakersProfiles();
     }
 }

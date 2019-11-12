@@ -20,23 +20,23 @@ namespace PlanificatorCMD.Utils
         {
             ICollection<SpeakerProfile> speakerProfiles = _speakerRepository.GetAllSpeakersProfiles();
             int i = 1;
-            if (speakers == null)
+            if (speakerProfiles == null)
             {
                 _consoleWrapper.WriteLine("No speakers found");
                 return ExecutionResult.Fail;
             }
             if (displayOption == true)
-                foreach (SpeakerProfile s in speakers)
+                foreach (SpeakerProfile s in speakerProfiles)
                 {
                     _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
                 }
 
             else
-                foreach (var s in speakers)
+                foreach (var s in speakerProfiles)
                 {
                     _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
                 }
-            return true;
+            return ExecutionResult.Succes;
         }
     }
 }

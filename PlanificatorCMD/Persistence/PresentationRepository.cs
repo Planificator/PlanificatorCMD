@@ -1,7 +1,6 @@
 ﻿using PlanificatorCMD.Core;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace PlanificatorCMD.Persistence
 {
@@ -36,6 +35,7 @@ namespace PlanificatorCMD.Persistence
             _dbContext.PresentationSpeakers.Add(presentationSpeaker);
             _dbContext.SaveChanges();
         }
+
         public ICollection<string> GetAllTagsNames(int presentationId)
         {
             List<string> tags = new List<string>();
@@ -46,6 +46,7 @@ namespace PlanificatorCMD.Persistence
 
             return tags;
         }
+
         public ICollection<Presentation> GetAllPresentations()
         {
             if (_dbContext.Presentations.Count() == 0)

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Moq;
-using PlanificatorCMD.Core;
+﻿using Moq;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
@@ -42,9 +38,7 @@ namespace PlanificatorCMD.Tests
             Assert.Equal(expected, actual);
         }
 
-
         // My tests like examples (they don't work properly, but are good like a template)
-
 
         //[Fact]
         //public void DisplayAllSpeakers_ReturnsSuccess_WithValidSpeakersList()
@@ -87,7 +81,6 @@ namespace PlanificatorCMD.Tests
         //    Assert.Equal(2, speakerRepository.Object.GetSpeakersCount());
         //    Assert.Equal(speakers, speakerRepository.Object.GetAllSpeakersProfiles().ToList());
         //}
-
 
         //[Fact]
         //public void DisplayAllSpeakers_WriteLineMethodIsCalledManyTimes_WithValidSpeakersList()

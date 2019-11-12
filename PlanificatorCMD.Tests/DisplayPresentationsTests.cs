@@ -1,9 +1,7 @@
 ﻿using Moq;
 using PlanificatorCMD.Persistence;
-using PlanificatorCMD.Tests.PresentationRepositoryTests;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
-using System.Linq;
 using Xunit;
 
 namespace PlanificatorCMD.Tests
@@ -19,7 +17,7 @@ namespace PlanificatorCMD.Tests
 
             var service = new DisplayPresentations(presentationRepository.Object, consoleWrapper.Object);
 
-            var actual = service.ShowAllPresentations(true);
+            var actual = service.DisplayAllPresentations(true);
 
             Assert.Equal(expected, actual);
         }
@@ -33,12 +31,11 @@ namespace PlanificatorCMD.Tests
 
             var service = new DisplayPresentations(presentationRepository.Object, consoleWrapper.Object);
 
-            var actual = service.ShowAllPresentations(true);
+            var actual = service.DisplayAllPresentations(true);
 
             consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
             Assert.Equal(expected, actual);
         }
-
 
         // OLD TESTS FROM PRESENTATION_MANAGER !!!
         // Needs a little change to work properly
@@ -83,7 +80,6 @@ namespace PlanificatorCMD.Tests
 
         //    List<Presentation> presentations = new List<Presentation>
         //    {
-
         //        new Presentation { Title = "Gala" , ShortDescription = "Gala de seara " , LongDescription = "Gala de seara astazi" }
         //    };
         //    var repo = new Mock<IPresentationRepository>();

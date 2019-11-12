@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PlanificatorCMD.Core;
+using System.Collections.Generic;
 using System.Linq;
-using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD.Persistence
 {

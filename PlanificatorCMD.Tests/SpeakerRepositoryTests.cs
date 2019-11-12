@@ -223,89 +223,89 @@ namespace PlanificatorCMD.Tests
             }
         }
 
-        [Fact]
-        public void GetAllSpeakerProfile_returns_all_speaker_profiles()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+        //[Fact]
+        //public void GetAllSpeakerProfile_returns_all_speaker_profiles()
+        //{
+        //    var connection = new SqliteConnection("DataSource=:memory:");
+        //    connection.Open();
 
-            List<SpeakerProfile> speakerProfiles = new List<SpeakerProfile>
-            {
-                new SpeakerProfile
-                {
-                    FirstName = "Test FN",
-                    LastName = "Test LN",
-                    Email = "test@test.test",
-                    Bio = "Test Bio",
-                    Company = "Test Compnay",
-                    Photo = new Photo { Path = "testPath.jpg" }
-                },
-                new SpeakerProfile
-                {
-                    FirstName = "Test2 FN",
-                    LastName = "Test2 LN",
-                    Email = "test2@test.test",
-                    Bio = "Test2 Bio",
-                    Company = "Test2 Compnay",
-                    Photo = new Photo { Path = "test2Path.jpg" }
-                }
-            };
+        //    List<SpeakerProfile> speakerProfiles = new List<SpeakerProfile>
+        //    {
+        //        new SpeakerProfile
+        //        {
+        //            FirstName = "Test FN",
+        //            LastName = "Test LN",
+        //            Email = "test@test.test",
+        //            Bio = "Test Bio",
+        //            Company = "Test Compnay",
+        //            Photo = new Photo { Path = "testPath.jpg" }
+        //        },
+        //        new SpeakerProfile
+        //        {
+        //            FirstName = "Test2 FN",
+        //            LastName = "Test2 LN",
+        //            Email = "test2@test.test",
+        //            Bio = "Test2 Bio",
+        //            Company = "Test2 Compnay",
+        //            Photo = new Photo { Path = "test2Path.jpg" }
+        //        }
+        //    };
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        //    try
+        //    {
+        //        var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
+        //            .UseSqlite(connection)
+        //            .Options;
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
+        //        using (var context = new PlanificatorDbContext(options))
+        //        {
+        //            context.Database.EnsureCreated();
 
-                    var service = new SpeakerRepository(context);
+        //            var service = new SpeakerRepository(context);
 
-                    foreach (SpeakerProfile speakerProfile in speakerProfiles)
-                    {
-                        service.AddSpeakerProfile(speakerProfile);
-                    }
+        //            foreach (SpeakerProfile speakerProfile in speakerProfiles)
+        //            {
+        //                service.AddSpeakerProfile(speakerProfile);
+        //            }
 
-                    context.SaveChanges();
+        //            context.SaveChanges();
 
-                    Assert.Equal(speakerProfiles, service.GetAllSpeakersProfiles());
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //            Assert.Equal(speakerProfiles, service.GetAllSpeakersProfiles());
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
 
-        [Fact]
-        public void GetAllSpeakerProfile_ReturnsNull_IfSpeakerProfileEntity_IsEmpty()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+        //[Fact]
+        //public void GetAllSpeakerProfile_ReturnsNull_IfSpeakerProfileEntity_IsEmpty()
+        //{
+        //    var connection = new SqliteConnection("DataSource=:memory:");
+        //    connection.Open();
 
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        //    try
+        //    {
+        //        var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
+        //            .UseSqlite(connection)
+        //            .Options;
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
+        //        using (var context = new PlanificatorDbContext(options))
+        //        {
+        //            context.Database.EnsureCreated();
 
-                    var service = new SpeakerRepository(context);
+        //            var service = new SpeakerRepository(context);
 
-                    Assert.Null(service.GetAllSpeakersProfiles());
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //            Assert.Null(service.GetAllSpeakersProfiles());
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
 
 
     }

@@ -18,7 +18,7 @@ namespace PlanificatorCMD.Tests
         {
             var repo = new Mock<IPresentationRepository>();
 
-            var manager = new PresentationManager(repo.Object,display.Object);
+            var manager = new PresentationManager(repo.Object);
 
             manager.AddPresentation(It.IsAny<ICollection<PresentationTag>>());
 

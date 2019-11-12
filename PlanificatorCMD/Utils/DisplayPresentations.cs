@@ -1,10 +1,11 @@
 ﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
 
 namespace PlanificatorCMD.Utils
 {
-    public class DisplayPresentation : IDisplayPresentation
+    public class DisplayPresentations : IDisplayPresentations
     {
         private readonly IConsoleWrapper _consoleWrapper;
         private readonly IPresentationRepository _presentationRepository;
@@ -14,7 +15,7 @@ namespace PlanificatorCMD.Utils
             _presentationRepository = presentationRepository;
             _consoleWrapper = consoleWrapper;
         }
-        public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
+        public int DisplayAllPresentations(bool displayOption)
         {
             ICollection<Presentation> presentations = _presentationRepository.GetAllPresentations();
 
@@ -33,8 +34,7 @@ namespace PlanificatorCMD.Utils
                 }
             if (displayOption == true)
             {
-                _cw.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
-                foreach (var tag in tags)
+                foreach (Presentation presentation in presentations)
                 {
                     var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
                     _consoleWrapper.Write(i++ + ")\t" + presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
@@ -43,7 +43,7 @@ namespace PlanificatorCMD.Utils
                         _consoleWrapper.Write(tag + " ");
                     }
                     _consoleWrapper.WriteLine();
-                } 
+                }
             }
             _consoleWrapper.WriteLine();
             return ExecutionResult.Succes;
