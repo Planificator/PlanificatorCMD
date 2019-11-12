@@ -13,5 +13,7 @@ namespace PlanificatorCMD.Persistence
         public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex);
 
         public int GetPresentationCount();
+        ICollection<Presentation> GetAllPresentations();
+        ICollection<string> GetAllTagsNames(int presentationId);
     }
 }

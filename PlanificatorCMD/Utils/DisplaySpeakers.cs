@@ -2,36 +2,39 @@
 using PlanificatorCMD.Wrappers;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
     public class DisplaySpeakers : IDisplaySpeakers
     {
-        private readonly IConsoleWrapper _cw;
+        private readonly IConsoleWrapper _consoleWrapper;
+        private readonly ISpeakerRepository _speakerRepository;
 
-        public DisplaySpeakers(IConsoleWrapper cw)
+        public DisplaySpeakers(ISpeakerRepository speakerRepository, IConsoleWrapper consoleWrapper)
         {
-            _cw = cw;
+            _speakerRepository = speakerRepository;
+            _consoleWrapper = consoleWrapper;
         }
-        public bool DisplayAllSpeakers(ICollection<SpeakerProfile> speakers, bool displayOption)
+
+        public int DisplayAllSpeakers(bool displayOption)
         {
+            ICollection<SpeakerProfile> speakerProfiles = _speakerRepository.GetAllSpeakersProfiles();
             int i = 1;
             if (speakers == null)
             {
-                _cw.WriteLine("No speakers found");
-                return false;
+                _consoleWrapper.WriteLine("No speakers found");
+                return ExecutionResult.Fail;
             }
             if (displayOption == true)
                 foreach (SpeakerProfile s in speakers)
                 {
-                    _cw.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
+                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
                 }
 
             else
                 foreach (var s in speakers)
                 {
-                    _cw.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
+                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
                 }
             return true;
         }
