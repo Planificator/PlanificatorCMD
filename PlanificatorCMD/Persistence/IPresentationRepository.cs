@@ -8,5 +8,7 @@ namespace PlanificatorCMD.Persistence
         void AddPresentation(ICollection<PresentationTag> presentation);
         public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex);
         public int GetPresentationCount();
+        ICollection<Presentation> GetAllPresentations();
+        ICollection<string> GetAllTagsNames(int presentationId);
     }
 }

@@ -1,49 +1,41 @@
 ﻿using PlanificatorCMD.Core;
-using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PlanificatorCMD.Utils
 {
     public class DisplaySpeakers : IDisplaySpeakers
     {
-        private readonly IConsoleWrapper _cw;
-        private readonly PlanificatorDbContext _dbContext;
+        private readonly IConsoleWrapper _consoleWrapper;
+        private readonly ISpeakerRepository _speakerRepository;
 
-        public DisplaySpeakers(PlanificatorDbContext dbContext, IConsoleWrapper cw)
+        public DisplaySpeakers(ISpeakerRepository speakerRepository, IConsoleWrapper consoleWrapper)
         {
-            _cw = cw;
-            _dbContext = dbContext;
+            _speakerRepository = speakerRepository;
+            _consoleWrapper = consoleWrapper;
         }
+
         public int DisplayAllSpeakers(bool displayOption)
         {
-            ICollection<SpeakerProfile> speakerProfiles = GetAllSpeakersProfiles();
+            ICollection<SpeakerProfile> speakerProfiles = _speakerRepository.GetAllSpeakersProfiles();
             int i = 1;
             if (speakerProfiles == null)
             {
-                _cw.WriteLine("No speakers found");
+                _consoleWrapper.WriteLine("No speakers found");
                 return ExecutionResult.Fail;
             }
             if (displayOption == true)
                 foreach (SpeakerProfile s in speakerProfiles)
                 {
-                    _cw.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
+                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
                 }
 
             else
                 foreach (SpeakerProfile s in speakerProfiles)
                 {
-                    _cw.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
+                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
                 }
             return ExecutionResult.Succes;
-        }
-
-        private ICollection<SpeakerProfile> GetAllSpeakersProfiles()
-        {
-            if (_dbContext.SpeakerProfiles.Count() == 0)
-                return null;
-            return _dbContext.SpeakerProfiles.ToList();
         }
     }
 }

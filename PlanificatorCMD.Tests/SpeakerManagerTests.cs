@@ -7,7 +7,6 @@ namespace PlanificatorCMD.Tests
 {
     public class SpeakerManagerTests
     {
-         
         [Fact]
         public void AddSpeakerProfile_IsCalledOnce()
         {

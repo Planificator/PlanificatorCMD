@@ -16,184 +16,116 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void DisplayAllSpeakers_ReturnsFail_WithNoSpeakers()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var speakerRepository = new Mock<ISpeakerRepository>();
+            var expected = ExecutionResult.Fail;
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+            bool displayOption = true;
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Fail;
+            var sut = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
+            var actual = sut.DisplayAllSpeakers(displayOption);
 
-                    bool displayOption = true;
-
-                    var sut = new DisplaySpeakers(context, cw.Object);
-                    var actual = sut.DisplayAllSpeakers(displayOption);
-
-
-                    Assert.Equal(actual, expected);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        [Fact]
-        public void DisplayAllSpeakers_ReturnsSuccess_WithValidSpeakersList()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
-
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Succes;
-                    var displayOption = true;
-
-                    var service = new DisplaySpeakers(context, cw.Object);
-                    List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
-                        new SpeakerProfile()
-                        {
-                          FirstName = "Vasily",
-                         LastName = "Pascal",
-                          Bio = "I'm .NET intern",
-                          Email = "vasilypascal@gmail.com",
-                          Company = "Endava",
-                          Photo = new Photo
-                          {
-                              Path = @"...\something\13.jpg"
-                          }}, new SpeakerProfile(){ FirstName = "Valentin",
-                          LastName = "Butnaru",
-                          Bio = "I'm .NET intern",
-                          Email = "valentin@gmail.com",
-                          Company = "Endava",
-                          Photo = new Photo
-                          {
-                              Path = @"...\something\14.jpg"
-                          }} };
-
-                    context.SpeakerProfiles.AddRange(speakers);
-                    context.SaveChanges();
-
-                    var actual = service.DisplayAllSpeakers(displayOption);
-
-                    Assert.Equal(expected, actual);
-
-                    Assert.Equal(speakers.Count(), context.SpeakerProfiles.Count());
-                    Assert.Equal(2, context.SpeakerProfiles.Count());
-                    Assert.Equal(speakers, context.SpeakerProfiles.ToList());
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
+            Assert.Equal(actual, expected);
         }
 
         [Fact]
         public void DisplayAllSpeakers_WriteLineMethodIsCalledOnce_WithNoSpeakersList()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var speakerRepository = new Mock<ISpeakerRepository>();
+            var expected = ExecutionResult.Fail;
+            var displayOption = true;
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+            var service = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Fail;
-                    var displayOption = true;
+            var actual = service.DisplayAllSpeakers(displayOption);
 
-                    var service = new DisplaySpeakers(context, cw.Object);
-
-                    var actual = service.DisplayAllSpeakers(displayOption);
-
-                    cw.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
-                    Assert.Equal(expected, actual);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
+            consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
+            Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void DisplayAllSpeakers_WriteLineMethodIsCalledManyTimes_WithValidSpeakersList()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        // My tests like examples (they don't work properly, but are good like a template)
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Succes;
-                    var displayoptions = true;
 
-                    var service = new DisplaySpeakers(context, cw.Object);
+        //[Fact]
+        //public void DisplayAllSpeakers_ReturnsSuccess_WithValidSpeakersList()
+        //{
+        //    var consoleWrapper = new Mock<IConsoleWrapper>();
+        //    var speakerRepository = new Mock<ISpeakerRepository>();
+        //    var expected = ExecutionResult.Succes;
+        //    var displayOption = true;
 
-                    List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
-                        new SpeakerProfile()
-                        {
-                          FirstName = "Vasily",
-                         LastName = "Pascal",
-                          Bio = "I'm .NET intern",
-                          Email = "vasilypascal@gmail.com",
-                          Company = "Endava",
-                          Photo = new Photo
-                          {
-                              Path = @"...\something\13.jpg"
-                          }}, new SpeakerProfile(){ FirstName = "Valentin",
-                          LastName = "Butnaru",
-                          Bio = "I'm .NET intern",
-                          Email = "valentin@gmail.com",
-                          Company = "Endava",
-                          Photo = new Photo
-                          {
-                              Path = @"...\something\14.jpg"
-                          }} };
+        //    List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
+        //                new SpeakerProfile()
+        //                {
+        //                  FirstName = "Vasily",
+        //                 LastName = "Pascal",
+        //                  Bio = "I'm .NET intern",
+        //                  Email = "vasilypascal@gmail.com",
+        //                  Company = "Endava",
+        //                  Photo = new Photo
+        //                  {
+        //                      Path = @"...\something\13.jpg"
+        //                  }}, new SpeakerProfile(){ FirstName = "Valentin",
+        //                  LastName = "Butnaru",
+        //                  Bio = "I'm .NET intern",
+        //                  Email = "valentin@gmail.com",
+        //                  Company = "Endava",
+        //                  Photo = new Photo
+        //                  {
+        //                      Path = @"...\something\14.jpg"
+        //                  }} };
 
-                    context.SpeakerProfiles.AddRange(speakers);
-                    context.SaveChanges();
+        //    speakerRepository.Object.AddSpeakerProfile(speakers[0]);
+        //    speakerRepository.Object.AddSpeakerProfile(speakers[1]);
+        //    var service = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
 
-                    var actual = service.DisplayAllSpeakers(displayoptions);
+        //    var actual = service.DisplayAllSpeakers(displayOption);
 
-                    Assert.Equal(expected, actual);
-                    cw.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Exactly(context.SpeakerProfiles.Count()));
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //    Assert.Equal(expected, actual);
+
+        //    Assert.Equal(speakers.Count(), speakerRepository.Object.GetSpeakersCount());
+        //    Assert.Equal(2, speakerRepository.Object.GetSpeakersCount());
+        //    Assert.Equal(speakers, speakerRepository.Object.GetAllSpeakersProfiles().ToList());
+        //}
+
+
+        //[Fact]
+        //public void DisplayAllSpeakers_WriteLineMethodIsCalledManyTimes_WithValidSpeakersList()
+        //{
+        //var consoleWrapper = new Mock<IConsoleWrapper>();
+        //var speakerRepository = new Mock<ISpeakerRepository>();
+        //var expected = ExecutionResult.Succes;
+        //var displayoptions = true;
+
+        //var service = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
+
+        //List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
+        //            new SpeakerProfile()
+        //            {
+        //              FirstName = "Vasily",
+        //             LastName = "Pascal",
+        //              Bio = "I'm .NET intern",
+        //              Email = "vasilypascal@gmail.com",
+        //              Company = "Endava",
+        //              Photo = new Photo
+        //              {
+        //                  Path = @"...\something\13.jpg"
+        //              }}, new SpeakerProfile(){ FirstName = "Valentin",
+        //              LastName = "Butnaru",
+        //              Bio = "I'm .NET intern",
+        //              Email = "valentin@gmail.com",
+        //              Company = "Endava",
+        //              Photo = new Photo
+        //              {
+        //                  Path = @"...\something\14.jpg"
+        //              }} };
+
+        //var actual = service.DisplayAllSpeakers(displayoptions);
+
+        //Assert.Equal(expected, actual);
+        //consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Exactly(speakerRepository.Object.GetSpeakersCount()));
+        //}
     }
 }

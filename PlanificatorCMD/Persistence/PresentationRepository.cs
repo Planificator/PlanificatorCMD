@@ -1,5 +1,4 @@
 ﻿using PlanificatorCMD.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +34,23 @@ namespace PlanificatorCMD.Persistence
             };
             _dbContext.PresentationSpeakers.Add(presentationSpeaker);
             _dbContext.SaveChanges();
+        }
+        public ICollection<string> GetAllTagsNames(int presentationId)
+        {
+            List<string> tags = new List<string>();
+            if (_dbContext.Tags.Count() == 0)
+                return null;
+
+            tags = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
+
+            return tags;
+        }
+        public ICollection<Presentation> GetAllPresentations()
+        {
+            if (_dbContext.Presentations.Count() == 0)
+                return null;
+
+            return _dbContext.Presentations.ToList();
         }
 
         public int GetPresentationCount()

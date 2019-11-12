@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Moq;
+﻿using Moq;
 using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Tests.PresentationRepositoryTests;
 using PlanificatorCMD.Utils;
@@ -15,144 +13,90 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void ShowAllPresentations_ReturnsFail_WithNoPresentations()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var presentationRepository = new Mock<IPresentationRepository>();
+            var expected = ExecutionResult.Fail;
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+            var service = new DisplayPresentations(presentationRepository.Object, consoleWrapper.Object);
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Fail;
+            var actual = service.ShowAllPresentations(true);
 
-                    var service = new DisplayPresentations(context, cw.Object);
-
-                    var actual = service.ShowAllPresentations(true);
-
-                    Assert.Equal(expected, actual);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void ShowAllPresentation_ReturnsSuccess_WithValidPresentations()
+        public void ShowAllPresentations_WriteLineMethodIsCalledOnce_WithNoPresentations()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var presentationRepository = new Mock<IPresentationRepository>();
+            var expected = ExecutionResult.Fail;
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+            var service = new DisplayPresentations(presentationRepository.Object, consoleWrapper.Object);
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Succes;
+            var actual = service.ShowAllPresentations(true);
 
-                    var service = new DisplayPresentations(context, cw.Object);
-
-                    var testData = new PresentationRepositoryTestsData();
-                    context.PresentationTags.AddRange(testData.presentationTags);
-                    context.SaveChanges();
-
-                    var actual = service.ShowAllPresentations(true);
-
-                    Assert.Equal(expected, actual);
-
-                    Assert.Equal(testData.presentationTags.Count(), context.PresentationTags.Count());
-                    Assert.Equal(1, context.Presentations.Count());
-                    Assert.Equal(testData.tags.Count(), context.Tags.Count());
-
-                    Assert.Equal(testData.presentationTags, context.PresentationTags);
-                    Assert.Equal(testData.presentation.ToString(), context.Presentations.Single().ToString());
-                    Assert.Equal(testData.tags, context.Tags);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
+            consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
+            Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void ShowAllPresentation_WriteLineMethodIsCalledOnce_WithNoPresentations()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        // OLD TESTS FROM PRESENTATION_MANAGER !!!
+        // Needs a little change to work properly
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Fail;
 
-                    var service = new DisplayPresentations(context, cw.Object);
+        //[Fact]
+        //public void ShowAllPresentations_CallingGetAllPresentation_Once()
+        //{
+        //    var cw = new Mock<IConsoleWrapper>();
+        //    var repo = new Mock<IPresentationRepository>();
+        //    var display = new Mock<IDisplayPresentations>();
 
-                    var actual = service.ShowAllPresentations(true);
+        //    var manager = new PresentationManager(repo.Object);
+        //    manager.ShowAllPresentation(true);
 
-                    cw.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
-                    Assert.Equal(expected, actual);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //    repo.Verify(r => r.GetAllPresentations(), Times.Once);
+        //}
 
-        [Fact]
-        public void ShowAllPresentation_WriteLineMethodIsCalledManyTimes_WithValidPresentations()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+        //[Fact]
+        //public void ShowAllPresentations_ReturnsFalse()
+        //{
+        //    var expected = 1;  // In our App 1 means false.
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        //    ICollection<Presentation> presentations = null;
+        //    var repo = new Mock<IPresentationRepository>();
+        //    var display = new Mock<IDisplayPresentations>();
+        //    var cw = new Mock<IConsoleWrapper>();
 
-                using (var context = new PlanificatorDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    var cw = new Mock<IConsoleWrapper>();
-                    var expected = ExecutionResult.Succes;
+        //    repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
 
-                    var service = new DisplayPresentations(context, cw.Object);
+        //    var manager = new PresentationManager(repo.Object, display.Object);
 
-                    var testData = new PresentationRepositoryTestsData();
-                    context.PresentationTags.AddRange(testData.presentationTags);
-                    context.SaveChanges();
+        //    var act = manager.ShowAllPresentation(true);
 
-                    var actual = service.ShowAllPresentations(true);
+        //    Assert.Equal(expected, act);
+        //}
 
-                    Assert.Equal(expected, actual);
-                    cw.Verify(c => c.WriteLine(), Times.Exactly(2 + context.Presentations.Count()));
-                    cw.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(context.Presentations.Count() + context.Tags.Count()));
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //[Fact]
+        //public void ShowAllPresentations_ReturnsTrue()
+        //{
+        //    var expected = 0;  // In our App 0 means true.
+
+        //    List<Presentation> presentations = new List<Presentation>
+        //    {
+
+        //        new Presentation { Title = "Gala" , ShortDescription = "Gala de seara " , LongDescription = "Gala de seara astazi" }
+        //    };
+        //    var repo = new Mock<IPresentationRepository>();
+        //    var display = new Mock<IDisplayPresentations>();
+        //    var cw = new Mock<IConsoleWrapper>();
+
+        //    repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
+
+        //    var manager = new PresentationManager(repo.Object, display.Object);
+
+        //    var act = manager.ShowAllPresentation(true);
+
+        //    Assert.Equal(expected, act);
+        //}
     }
 }

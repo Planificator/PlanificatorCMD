@@ -16,9 +16,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void AddPresentation_CallingAddPresentation_Once ()
         {
-            var cw = new Mock<IConsoleWrapper>();
             var repo = new Mock<IPresentationRepository>();
-            var display = new Mock<IDisplayPresentations>();
 
             var manager = new PresentationManager(repo.Object);
 
@@ -27,59 +25,29 @@ namespace PlanificatorCMD.Tests
             repo.Verify(r => r.AddPresentation(It.IsAny<ICollection<PresentationTag>>()), Times.Once);
         }
 
-        //[Fact]
-        //public void ShowAllPresentation_CallingGetAllPresentation_Once()
-        //{
-        //    var cw = new Mock<IConsoleWrapper>();
-        //    var repo = new Mock<IPresentationRepository>();
-        //    var display = new Mock<IDisplayPresentations>();
+        [Fact]
+        public void AssignSpeakerToPresentation_CallingAssignSpeakerToPresentation_Once()
+        {
+            var repo = new Mock<IPresentationRepository>();
 
-        //    var manager = new PresentationManager(repo.Object);
-        //    manager.ShowAllPresentation(true);
+            var manager = new PresentationManager(repo.Object);
 
-        //    repo.Verify(r => r.GetAllPresentations(), Times.Once);
-        //}
+            manager.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<int>());
 
-        //[Fact]
-        //public void ShowAllPresentation_ReturnsFalse()
-        //{
-        //    var expected = 1;  // In our App 1 means false.
+            repo.Verify(r => r.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<int>()), Times.Once);
+        }
+        
+        [Fact]
+        public void GetPresentationsCount_CallingGetPresentationCount_Once()
+        {
+            var repo = new Mock<IPresentationRepository>();
 
-        //    ICollection<Presentation> presentations = null;
-        //    var repo = new Mock<IPresentationRepository>();
-        //    var display = new Mock<IDisplayPresentations>();
-        //    var cw = new Mock<IConsoleWrapper>();
+            var manager = new PresentationManager(repo.Object);
+            var expected = 0;
 
-        //    repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
+            var actual = manager.GetPresentationsCount();
 
-        //    var manager = new PresentationManager(repo.Object, display.Object);
-
-        //    var act = manager.ShowAllPresentation(true);
-
-        //    Assert.Equal(expected, act);
-        //}
-
-        //[Fact]
-        //public void ShowAllPresentation_ReturnsTrue()
-        //{
-        //    var expected = 0;  // In our App 0 means true.
-
-        //    List<Presentation> presentations = new List<Presentation>
-        //    {
-
-        //        new Presentation { Title = "Gala" , ShortDescription = "Gala de seara " , LongDescription = "Gala de seara astazi" }
-        //    };
-        //    var repo = new Mock<IPresentationRepository>();
-        //    var display = new Mock<IDisplayPresentations>();
-        //    var cw = new Mock<IConsoleWrapper>();
-
-        //    repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
-
-        //    var manager = new PresentationManager(repo.Object, display.Object);
-
-        //    var act = manager.ShowAllPresentation(true);
-
-        //    Assert.Equal(expected, act);
-        //}
+            Assert.Equal(expected, actual);
+        }
     }
 }
