@@ -29,7 +29,7 @@ namespace PlanificatorCMD.ContainerConfiguration
 
             //presentation show
             builder.RegisterType<ShowAllPresentation>().As<IShowAllPresentation>();
-            builder.RegisterType<DisplayPresentations>().As<IDisplayPresentations>();
+            builder.RegisterType<DisplayPresentation>().As<IDisplayPresentation>();
             //assign speaker to presentation
             builder.RegisterType<AssignSpeakerToPresentationVerb>().As<IAssignSpeakerToPresentationVerb>();
 
