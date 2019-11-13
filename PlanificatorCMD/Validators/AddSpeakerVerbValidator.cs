@@ -16,12 +16,12 @@ namespace PlanificatorCMD.Validators
 
             if(!IsValidPath(addSpeakerVerb.PhotoPath))
             {
-                throw new ArgumentException("Invalid path", nameof(addSpeakerVerb.PhotoPath));
+                throw new ArgumentNullException("Invalid path", nameof(addSpeakerVerb.PhotoPath));
             }
 
             if(!IsValidFormat(addSpeakerVerb.PhotoPath))
             {
-                throw new ArgumentException("Not supported format", nameof(addSpeakerVerb.PhotoPath));
+                throw new ArgumentException("Not supported format of the image");
             }
 
             return true;

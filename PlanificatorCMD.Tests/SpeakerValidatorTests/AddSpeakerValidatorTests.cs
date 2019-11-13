@@ -8,8 +8,9 @@ using PlanificatorCMD.Validators;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Core;
 using System.IO;
+using System.Reflection;
 
-namespace PlanificatorCMD.Tests
+namespace PlanificatorCMD.Tests.SpeakerValidatorTests
 {
     public class AddSpeakerValidatorTests
     {
@@ -27,7 +28,7 @@ namespace PlanificatorCMD.Tests
                 LastName = "Lapusneanu",
                 Bio = "Dev",
                 Company = "Endava",
-                PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath + @"\1.jpg")
+                PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, @"PlanificatorCMD.Tests\SpeakerValidatorTests\test.jpg")
             };
 
             var actual = validator.IsValid(speaker);
@@ -82,7 +83,7 @@ namespace PlanificatorCMD.Tests
 
             Action act = () => validator.IsValid(speaker);
 
-            Assert.Throws<ArgumentException>(act);
+            Assert.Throws<ArgumentNullException>("Invalid path", act);
         }
 
         [Fact]
@@ -90,7 +91,7 @@ namespace PlanificatorCMD.Tests
         {
             var validator = new AddSpeakerVerbValidator();
 
-            var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath + @"\test.png") };
+            var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, @"PlanificatorCMD.Tests\SpeakerValidatorTests\test.png" )};
 
             Action act = () => validator.IsValid(speaker);
 
