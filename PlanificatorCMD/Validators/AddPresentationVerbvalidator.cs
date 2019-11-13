@@ -13,19 +13,19 @@ namespace PlanificatorCMD.Validators
 
             if (!IsValidTitle(addPresentationVerb.Title))
             {
-                return false;
+                throw new ArgumentException("Incorrect insert of the title", nameof(addPresentationVerb.Title));
             }
             if (!IsValidShortDescription(addPresentationVerb.ShortDescription))
             {
-                return false;
+                throw new ArgumentException("Incorrect insert of the short description", nameof(addPresentationVerb.ShortDescription));
             }
             if (!IsValidLongDescription(addPresentationVerb.LongDescription))
             {
-                return false;
+                throw new ArgumentException("Incorrect insert of the long description", nameof(addPresentationVerb.LongDescription));
             }
             if (!IsValidTags(addPresentationVerb.Tags))
             {
-                return false;
+                throw new ArgumentException("Enter the tag", nameof(addPresentationVerb.Tags));
             }
 
             return true;
@@ -36,7 +36,7 @@ namespace PlanificatorCMD.Validators
         {
             if (string.IsNullOrEmpty(tag))
             {
-                throw new ArgumentException("Enter the tag", nameof(tag));
+                return false;
             }
 
             return true;
@@ -44,14 +44,9 @@ namespace PlanificatorCMD.Validators
 
         private bool IsValidLongDescription(string longDescription)
         {
-            if (string.IsNullOrEmpty(longDescription))
+            if (string.IsNullOrEmpty(longDescription) || longDescription.Length > 800)
             {
-                throw new ArgumentException("Enter the long description", nameof(longDescription));
-            }
-
-            if (longDescription.Length > 800)
-            {
-                throw new ArgumentException("Long description is too long", nameof(longDescription));
+                return false;
             }
 
             return true;
@@ -59,14 +54,9 @@ namespace PlanificatorCMD.Validators
 
         private bool IsValidShortDescription(string shortDescription)
         {
-            if (string.IsNullOrEmpty(shortDescription))
+            if (string.IsNullOrEmpty(shortDescription) || shortDescription.Length > 200)
             {
-                throw new ArgumentException("Enter the Short Description", nameof(shortDescription));
-            }
-
-            if (shortDescription.Length > 200)
-            {
-                throw new ArgumentException("ShortDescription is too long", nameof(shortDescription));
+                return false;
             }
 
             return true;
@@ -74,15 +64,11 @@ namespace PlanificatorCMD.Validators
 
         private bool IsValidTitle(string title)
         {
-            if (string.IsNullOrEmpty(title))
+            if (string.IsNullOrEmpty(title) || title.Length > 100)
             {
-                throw new ArgumentException("Enter the title of the presentation", nameof(title));
+                return false;
             }
 
-            if (title.Length > 100)
-            {
-                throw new ArgumentException("Title is too long", nameof(title));
-            }
             return true;
         }
     }
