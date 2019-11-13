@@ -1,47 +1,45 @@
-﻿using PlanificatorCMD.Utils;
-using PlanificatorCMD.Verbs;
+﻿using PlanificatorCMD.Verbs;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PlanificatorCMD.Validators
 {
     public class AddSpeakerVerbValidator : IAddSpeakerVerbValidator
     {
-
         public bool IsValid(IAddSpeakerVerb addSpeakerVerb)
         {
-            if (!IsValidEmail(addSpeakerVerb.Email))
+            if(!IsValidEmail(addSpeakerVerb.Email))
             {
-                return false;
+                throw new ArgumentException("Incorrect format of email", nameof(addSpeakerVerb.Email));
             }
-            if (!IsValidPath(addSpeakerVerb.PhotoPath))
+
+            if(!IsValidPath(addSpeakerVerb.PhotoPath))
             {
-                return false;
+                throw new ArgumentException("Invalid path", nameof(addSpeakerVerb.PhotoPath));
             }
-            if (!IsValidFormat(addSpeakerVerb.PhotoPath))
+
+            if(!IsValidFormat(addSpeakerVerb.PhotoPath))
             {
-                return false;
+                throw new ArgumentException("Not supported format", nameof(addSpeakerVerb.PhotoPath));
             }
 
             return true;
-
         }
+
         private bool IsValidFormat(string path)
         {
-            string[] imageEndsWith = { ".jpg" };
+            string[] imageEndsWith = { ".JPG" };
             string extension = Path.GetExtension(path);
-            if (StringComparer.InvariantCultureIgnoreCase.Compare(extension, imageEndsWith.ToString()) < 0)
-                throw new ArgumentException("Not supported format", nameof(extension));
+            if (StringComparer.InvariantCultureIgnoreCase.Compare(extension,imageEndsWith) < 0)
+            {
+                return false;
+            }
 
             return true;
-
         }
-        public static bool IsValidEmail(string email)
+
+        public bool IsValidEmail(string email)
         {
             string expression = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 
@@ -52,15 +50,17 @@ namespace PlanificatorCMD.Validators
                     return true;
                 }
             }
-            throw new ArgumentException("Incorrect format of email", nameof(email));
+            return false;
         }
+
         private bool IsValidPath(string path)
         {
-            Regex r = new Regex(@"^(([a-zA-Z]:)|(\))(\{1}|((\{1})[^\]([^/:*?<>""|]*))+)$");
-            if (!r.IsMatch(path))
-                throw new ArgumentException("Invalid path", path);
+            if (!File.Exists(path))
+            {
+                return false;
+            }
+
             return true;
         }
     }
 }
-
