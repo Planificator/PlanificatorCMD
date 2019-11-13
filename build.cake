@@ -82,13 +82,14 @@ Task("Test")
       EnsureDirectoryExists(Paths.CoverageDir);
       var testSettings = new DotNetCoreTestSettings {
          ResultsDirectory = Directory("TestResults"),
-         ArgumentCustomization = args => args.Append($"--logger trx")
+         ArgumentCustomization = args => args.Append($"--logger trx"),
       };
       var coverletSettings = new CoverletSettings {
          CollectCoverage = true,
          CoverletOutputDirectory = Paths.CoverageDir,
          CoverletOutputFormat = CoverletOutputFormat.cobertura,
-         CoverletOutputName = $"{Guid.NewGuid().ToString("N")}.cobertura.xml"
+         CoverletOutputName = $"{Guid.NewGuid().ToString("N")}.cobertura.xml",
+         Exclude = new List<String> { "[*]*.Migrations*"}
       };
       DotNetCoreTest(Paths.TestProjectDirectory, testSettings, coverletSettings);
    });
