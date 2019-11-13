@@ -49,10 +49,7 @@ namespace PlanificatorCMD.Validators
 
             if (Regex.IsMatch(email, expression))
             {
-                if (Regex.Replace(email, expression, string.Empty).Length == 0)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
