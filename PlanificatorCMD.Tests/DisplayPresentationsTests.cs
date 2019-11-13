@@ -94,5 +94,31 @@ namespace PlanificatorCMD.Tests
 
             Assert.Equal(expected, act);
         }
+
+        [Fact]
+        public void DisplayAllPresentations_WithOptionFalse_ReturnsSucces()
+        {
+            var expected = ExecutionResult.Succes;
+
+            List<Presentation> presentations = new List<Presentation>
+            {
+                new Presentation { Title = "Gala" , ShortDescription = "Gala de seara " , LongDescription = "Gala de seara astazi" }
+            };
+            List<string> tags = new List<string>
+            {
+                "test1",
+                "test2"
+            };
+            var repo = new Mock<IPresentationRepository>();
+            var cw = new Mock<IConsoleWrapper>();
+
+            repo.Setup(r => r.GetAllPresentations()).Returns(presentations);
+            repo.Setup(r => r.GetAllTagsNames(presentations[0].PresentationId)).Returns(tags);
+            var display = new DisplayPresentations(repo.Object, cw.Object);
+
+            var act = display.DisplayAllPresentations(false);
+
+            Assert.Equal(expected, act);
+        }
     }
 }
