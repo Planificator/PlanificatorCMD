@@ -89,7 +89,7 @@ Task("Test")
          CoverletOutputDirectory = Paths.CoverageDir,
          CoverletOutputFormat = CoverletOutputFormat.cobertura,
          CoverletOutputName = $"{Guid.NewGuid().ToString("N")}.cobertura.xml",
-         Exclude = new List<String> { "[*]*.Migrations*"}
+         Exclude = new List<String> { "[*]*.Migrations*", "[*]*.PlanificatorDbContext"}
       };
       DotNetCoreTest(Paths.TestProjectDirectory, testSettings, coverletSettings);
    });
