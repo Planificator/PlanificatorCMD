@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using PlanificatorCMD.Core;
-
-namespace PlanificatorCMD.Utils
+﻿namespace PlanificatorCMD.Utils
 {
     public interface IDisplaySpeakers
     {
-        bool DisplayAllSpeakers(ICollection<SpeakerProfile> speakers, bool displayOption);
+        int DisplayAllSpeakers(bool displayOption);
     }
 }

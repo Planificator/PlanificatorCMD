@@ -1,15 +1,11 @@
 ﻿using PlanificatorCMD.Core;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Verbs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
     public class SpeakerProfileMapper : ISpeakerProfileMapper
     {
-
         private readonly IPhotoPathProcessing _photoPathProcessing;
 
         public SpeakerProfileMapper(IPhotoPathProcessing photoPathProcessing)

@@ -1,38 +1,52 @@
 ﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Wrappers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PlanificatorCMD.Utils
 {
-    public class DisplayPresentation : IDisplayPresentation
+    public class DisplayPresentations : IDisplayPresentations
     {
-        private readonly IConsoleWrapper _cw;
+        private readonly IConsoleWrapper _consoleWrapper;
+        private readonly IPresentationRepository _presentationRepository;
 
-        public DisplayPresentation(IConsoleWrapper cw)
+        public DisplayPresentations(IPresentationRepository presentationRepository, IConsoleWrapper consoleWrapper)
         {
-            _cw = cw;
+            _presentationRepository = presentationRepository;
+            _consoleWrapper = consoleWrapper;
         }
-        public void DisplayAllPresentation(ICollection<string> tags, Presentation presentation, bool displayOption)
+        public int DisplayAllPresentations(bool displayOption)
         {
-            _cw.WriteLine();
-            if (displayOption == false)
+            ICollection<Presentation> presentations = _presentationRepository.GetAllPresentations();
+
+            if (presentations == null)
             {
-                _cw.WriteLine(presentation.Title + " " + presentation.ShortDescription);
+                _consoleWrapper.WriteLine("no presentations found");
+                return ExecutionResult.Fail;
             }
+
+            _consoleWrapper.WriteLine();
+            int i = 1;
+            if (displayOption == false)
+                foreach (Presentation presentation in presentations)
+                {
+                    _consoleWrapper.WriteLine(i++ + ")\t" + presentation.Title + " " + presentation.ShortDescription);
+                }
             if (displayOption == true)
             {
-                _cw.Write(presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
-                foreach (var tag in tags)
+                foreach (Presentation presentation in presentations)
                 {
-                    _cw.Write(tag + " ");
+                    var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
+                    _consoleWrapper.Write(i++ + ")\t" + presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
+                    foreach (var tag in tags)
+                    {
+                        _consoleWrapper.Write(tag + " ");
+                    }
+                    _consoleWrapper.WriteLine();
                 }
-                _cw.WriteLine();
-                _cw.WriteLine();
-
             }
+            _consoleWrapper.WriteLine();
+            return ExecutionResult.Succes;
         }
     }
 }

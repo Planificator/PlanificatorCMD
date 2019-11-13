@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using PlanificatorCMD.Core;
-using PlanificatorCMD.Wrappers;
-
-namespace PlanificatorCMD.Utils
+﻿namespace PlanificatorCMD.Utils
 {
-    public interface IDisplayPresentation
+    public interface IDisplayPresentations
     {
-        void DisplayAllPresentation(ICollection<string> tags,Presentation presentations, bool displayOption);
+        int DisplayAllPresentations(bool displayOption);
     }
 }

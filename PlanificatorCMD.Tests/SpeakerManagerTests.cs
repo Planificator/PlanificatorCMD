@@ -9,12 +9,10 @@ namespace PlanificatorCMD.Tests
 {
     public class SpeakerManagerTests
     {
-         
         [Fact]
         public void AddSpeakerProfile_IsCalledOnce()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
-            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
             var cw = new Mock<IConsoleWrapper>();
 
             SpeakerProfile speakerProfile = new SpeakerProfile()
@@ -30,34 +28,33 @@ namespace PlanificatorCMD.Tests
                 }
             };
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
 
             sut.AddSpeakerProfile(speakerProfile);
 
             speakerRepository.Verify(s => s.AddSpeakerProfile(speakerProfile), Times.Once);
         }
 
-        [Fact]
-        public void ShowSpeakersProfiles_GetAllSpeakersProfiles_IsCalledOnce()
-        {
-            Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
-            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
-            var cw = new Mock<IConsoleWrapper>();
+        //[Fact]
+        //public void ShowSpeakersProfiles_GetAllSpeakersProfiles_IsCalledOnce()
+        //{
+        //    Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
+        //    Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
+        //    var cw = new Mock<IConsoleWrapper>();
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+        //    SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
 
-            sut.ShowSpeakersProfiles(true);
+        //    sut.ShowSpeakersProfiles(true);
 
-            speakerRepository.Verify(s => s.GetAllSpeakersProfiles(), Times.Once);
-        }
+        //    speakerRepository.Verify(s => s.GetAllSpeakersProfiles(), Times.Once);
+        //}
 
         [Fact]
         public void GetSpeakerBySpeakerIndex_CallGetSpeakerBySpeakerIndex_Once()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
-            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
 
             sut.GetSpeakerBySpeakerIndex(It.IsAny<int>());
 
@@ -68,9 +65,8 @@ namespace PlanificatorCMD.Tests
         public void GetSpeakerCount_CallGetSpeakersCount_Once()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
-            Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
 
-            SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
+            SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
 
             sut.GetSpeakersCount();
 

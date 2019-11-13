@@ -1,7 +1,5 @@
-﻿using System;
+﻿using PlanificatorCMD.Core;
 using System.Collections.Generic;
-using System.Text;
-using PlanificatorCMD.Core;
 
 namespace PlanificatorCMD
 {
