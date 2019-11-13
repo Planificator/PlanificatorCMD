@@ -28,7 +28,7 @@ namespace PlanificatorCMD.Tests
                 Bio = "Dev",
                 Company = "Endava",
                 PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath + @"\1.jpg")
-        };
+            };
 
             var actual = validator.IsValid(speaker);
 
@@ -85,16 +85,12 @@ namespace PlanificatorCMD.Tests
             Assert.Throws<ArgumentException>(act);
         }
 
-        [Theory]
-        [InlineData(@"C:\\abc.png")]
-        [InlineData(@"C:\\abc.jpeg")]
-        [InlineData(@"C:\\abc.gif")]
-        [InlineData(null)]
-        public void IsValid_IsValidFormat_ShouldReturnFalse(string path)
+        [Fact]
+        public void IsValid_IsValidFormat_ShouldReturnFalse()
         {
             var validator = new AddSpeakerVerbValidator();
 
-            var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = path };
+            var speaker = new AddSpeakerVerb() { Email = "example@example.com", FirstName = "Sergiu", LastName = "Lapusneanu", Bio = "Dev", Company = "Endava", PhotoPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, Constants.Constants.speakerPhotosPath + @"\test.png") };
 
             Action act = () => validator.IsValid(speaker);
 

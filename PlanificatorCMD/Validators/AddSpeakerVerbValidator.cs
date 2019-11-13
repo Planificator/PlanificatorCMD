@@ -30,13 +30,17 @@ namespace PlanificatorCMD.Validators
         private bool IsValidFormat(string path)
         {
             string[] imageEndsWith = { ".JPG" };
-            string extension = Path.GetExtension(path);
-            if (StringComparer.InvariantCultureIgnoreCase.Compare(extension,imageEndsWith) < 0)
+            string extension = Path.GetExtension(path).ToUpper();
+            
+            for(int i = 0; i< imageEndsWith.Length; i++)
             {
-                return false;
+                if(imageEndsWith[i] == extension)
+                {
+                    return true;
+                }
             }
 
-            return true;
+            return false;
         }
 
         public bool IsValidEmail(string email)

@@ -6,6 +6,7 @@ using Moq;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Managers;
 using PlanificatorCMD.Verbs;
+using PlanificatorCMD.Utils;
 
 namespace PlanificatorCMD.Tests
 {
@@ -16,12 +17,12 @@ namespace PlanificatorCMD.Tests
         {
             string[] args = new string[11] { "add_speaker", "-f" ,"firstname","-l" ,"lastname","-e","example@example.com","-p","path","-b","bio"};
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
-            var presManager = new Mock<IPresentationManager>();
-            var spekManager = new Mock<ISpeakerManager>();
+            var displaySpeakers = new Mock<IDisplaySpeakers>();
+            var displayPresentation = new Mock<IDisplayPresentations>();
             var prosPresentation = new Mock<IAddPresentationVerbProcessing>();
             var assingPresentation = new Mock<IAssignSpeakerToPresentationVerbProcessing>();
 
-            var app = new Application(prosPresentation.Object, prosSpeaker.Object, spekManager.Object, presManager.Object, assingPresentation.Object);
+            var app = new Application(prosPresentation.Object, prosSpeaker.Object, displaySpeakers.Object, displayPresentation.Object, assingPresentation.Object);
 
             app.Run(args);
 
@@ -33,16 +34,16 @@ namespace PlanificatorCMD.Tests
         {
             string[] args = new string[3] { "show_speakers","-o","true" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
-            var presManager = new Mock<IPresentationManager>();
-            var spekManager = new Mock<ISpeakerManager>();
+            var displaySpeakers = new Mock<IDisplaySpeakers>();
+            var displayPresentation = new Mock<IDisplayPresentations>();
             var prosPresentation = new Mock<IAddPresentationVerbProcessing>();
             var assingPresentation = new Mock<IAssignSpeakerToPresentationVerbProcessing>();
 
-            var app = new Application(prosPresentation.Object, prosSpeaker.Object, spekManager.Object, presManager.Object, assingPresentation.Object);
+            var app = new Application(prosPresentation.Object, prosSpeaker.Object, displaySpeakers.Object, displayPresentation.Object, assingPresentation.Object);
 
             app.Run(args);
 
-            spekManager.Verify(s => s.ShowSpeakersProfiles(true), Times.Once);
+            displaySpeakers.Verify(s => s.DisplayAllSpeakers(true), Times.Once);
         }
 
 
@@ -51,12 +52,12 @@ namespace PlanificatorCMD.Tests
         {
             string[] args = new string[9] { "add_presentation", "-t", "title", "-s", "short", "-l", "long", "-T", "tags" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
-            var presManager = new Mock<IPresentationManager>();
-            var spekManager = new Mock<ISpeakerManager>();
+            var displaySpeakers = new Mock<IDisplaySpeakers>();
+            var displayPresentation = new Mock<IDisplayPresentations>();
             var prosPresentation = new Mock<IAddPresentationVerbProcessing>();
             var assingPresentation = new Mock<IAssignSpeakerToPresentationVerbProcessing>();
 
-            var app = new Application(prosPresentation.Object, prosSpeaker.Object, spekManager.Object, presManager.Object, assingPresentation.Object);
+            var app = new Application(prosPresentation.Object, prosSpeaker.Object, displaySpeakers.Object, displayPresentation.Object, assingPresentation.Object);
 
             app.Run(args);
 
@@ -70,16 +71,16 @@ namespace PlanificatorCMD.Tests
         {
             string[] args = new string[3] { "show_presentations", "-o", "true" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
-            var presManager = new Mock<IPresentationManager>();
-            var spekManager = new Mock<ISpeakerManager>();
+            var displaySpeakers = new Mock<IDisplaySpeakers>();
+            var displayPresentation = new Mock<IDisplayPresentations>();
             var prosPresentation = new Mock<IAddPresentationVerbProcessing>();
             var assingPresentation = new Mock<IAssignSpeakerToPresentationVerbProcessing>();
 
-            var app = new Application(prosPresentation.Object, prosSpeaker.Object, spekManager.Object, presManager.Object, assingPresentation.Object);
+            var app = new Application(prosPresentation.Object, prosSpeaker.Object, displaySpeakers.Object, displayPresentation.Object, assingPresentation.Object);
 
             app.Run(args);
 
-            presManager.Verify(p => p.ShowAllPresentation(true), Times.Once);
+            displayPresentation.Verify(p => p.DisplayAllPresentations(true), Times.Once);
         }
 
         [Fact]
@@ -87,12 +88,12 @@ namespace PlanificatorCMD.Tests
         {
             string[] args = new string[5] { "assign_speaker_to_presentation", "-s", "1", "-p" ,"1"};
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
-            var presManager = new Mock<IPresentationManager>();
-            var spekManager = new Mock<ISpeakerManager>();
+            var displaySpeakers = new Mock<IDisplaySpeakers>();
+            var displayPresentation = new Mock<IDisplayPresentations>();
             var prosPresentation = new Mock<IAddPresentationVerbProcessing>();
             var assingPresentation = new Mock<IAssignSpeakerToPresentationVerbProcessing>();
 
-            var app = new Application(prosPresentation.Object, prosSpeaker.Object, spekManager.Object, presManager.Object, assingPresentation.Object);
+            var app = new Application(prosPresentation.Object, prosSpeaker.Object, displaySpeakers.Object, displayPresentation.Object, assingPresentation.Object);
 
             app.Run(args);
 
