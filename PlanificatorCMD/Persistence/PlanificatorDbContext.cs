@@ -108,6 +108,15 @@ namespace PlanificatorCMD.Persistence
                 .HasOne<SpeakerProfile>(pt => pt.SpeakerProfile)
                 .WithMany(t => t.PresentationSpeakers)
                 .HasForeignKey(pt => pt.SpeakerId);
+
+            //Presentation with Speaker Ownership Many to One
+            modelBuilder.Entity<Presentation>()
+                .HasOne<SpeakerProfile>(p => p.PresentationOwner)
+                .WithMany(s => s.OwnedPresentations);
+
+            modelBuilder.Entity<SpeakerProfile>()
+                .HasMany<Presentation>(s => s.OwnedPresentations)
+                .WithOne(p => p.PresentationOwner);
         }     
     }
 }
