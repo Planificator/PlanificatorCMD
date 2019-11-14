@@ -1,6 +1,8 @@
 ﻿using Moq;
+using PlanificatorCMD.Core;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
+using System.Collections.Generic;
 using Xunit;
 
 namespace PlanificatorCMD.Tests
@@ -35,88 +37,81 @@ namespace PlanificatorCMD.Tests
             var actual = service.DisplayAllSpeakers(displayOption);
 
             consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
+        }
+
+
+        [Fact]
+        public void DisplayAllSpeaker_ShouldReturnExecutionResultSucces_WithFalseDisplayOption()
+        {
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var speakerRepository = new Mock<ISpeakerRepository>();
+            var expected = ExecutionResult.Succes;
+
+            bool displayOption = false;
+
+            List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
+                        new SpeakerProfile()
+                        {
+                          FirstName = "Vasily",
+                         LastName = "Pascal",
+                          Bio = "I'm .NET intern",
+                          Email = "vasilypascal@gmail.com",
+                          Company = "Endava",
+                          Photo = new Photo
+                          {
+                              Path = @"...\something\13.jpg"
+                          }}, new SpeakerProfile(){ FirstName = "Valentin",
+                          LastName = "Butnaru",
+                          Bio = "I'm .NET intern",
+                          Email = "valentin@gmail.com",
+                          Company = "Endava",
+                          Photo = new Photo
+                          {
+                              Path = @"...\something\14.jpg"
+                          }} };
+
+            speakerRepository.Setup(s => s.GetAllSpeakersProfiles()).Returns(speakers);
+            var sut = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
+            var actual = sut.DisplayAllSpeakers(displayOption);
+
             Assert.Equal(expected, actual);
         }
 
-        // My tests like examples (they don't work properly, but are good like a template)
+        [Fact]
+        public void DisplayAllSpeaker_ShouldReturnExecutionResultSucces_WithTrueDisplayOption()
+        {
+            var consoleWrapper = new Mock<IConsoleWrapper>();
+            var speakerRepository = new Mock<ISpeakerRepository>();
+            var expected = ExecutionResult.Succes;
 
-        //[Fact]
-        //public void DisplayAllSpeakers_ReturnsSuccess_WithValidSpeakersList()
-        //{
-        //    var consoleWrapper = new Mock<IConsoleWrapper>();
-        //    var speakerRepository = new Mock<ISpeakerRepository>();
-        //    var expected = ExecutionResult.Succes;
-        //    var displayOption = true;
+            bool displayOption = true;
 
-        //    List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
-        //                new SpeakerProfile()
-        //                {
-        //                  FirstName = "Vasily",
-        //                 LastName = "Pascal",
-        //                  Bio = "I'm .NET intern",
-        //                  Email = "vasilypascal@gmail.com",
-        //                  Company = "Endava",
-        //                  Photo = new Photo
-        //                  {
-        //                      Path = @"...\something\13.jpg"
-        //                  }}, new SpeakerProfile(){ FirstName = "Valentin",
-        //                  LastName = "Butnaru",
-        //                  Bio = "I'm .NET intern",
-        //                  Email = "valentin@gmail.com",
-        //                  Company = "Endava",
-        //                  Photo = new Photo
-        //                  {
-        //                      Path = @"...\something\14.jpg"
-        //                  }} };
+            List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
+                        new SpeakerProfile()
+                        {
+                          FirstName = "Vasily",
+                         LastName = "Pascal",
+                          Bio = "I'm .NET intern",
+                          Email = "vasilypascal@gmail.com",
+                          Company = "Endava",
+                          Photo = new Photo
+                          {
+                              Path = @"...\something\13.jpg"
+                          }}, new SpeakerProfile(){ FirstName = "Valentin",
+                          LastName = "Butnaru",
+                          Bio = "I'm .NET intern",
+                          Email = "valentin@gmail.com",
+                          Company = "Endava",
+                          Photo = new Photo
+                          {
+                              Path = @"...\something\14.jpg"
+                          }} };
 
-        //    speakerRepository.Object.AddSpeakerProfile(speakers[0]);
-        //    speakerRepository.Object.AddSpeakerProfile(speakers[1]);
-        //    var service = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
+            speakerRepository.Setup(s => s.GetAllSpeakersProfiles()).Returns(speakers);
+            var sut = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
+            var actual = sut.DisplayAllSpeakers(displayOption);
 
-        //    var actual = service.DisplayAllSpeakers(displayOption);
-
-        //    Assert.Equal(expected, actual);
-
-        //    Assert.Equal(speakers.Count(), speakerRepository.Object.GetSpeakersCount());
-        //    Assert.Equal(2, speakerRepository.Object.GetSpeakersCount());
-        //    Assert.Equal(speakers, speakerRepository.Object.GetAllSpeakersProfiles().ToList());
-        //}
-
-        //[Fact]
-        //public void DisplayAllSpeakers_WriteLineMethodIsCalledManyTimes_WithValidSpeakersList()
-        //{
-        //var consoleWrapper = new Mock<IConsoleWrapper>();
-        //var speakerRepository = new Mock<ISpeakerRepository>();
-        //var expected = ExecutionResult.Succes;
-        //var displayoptions = true;
-
-        //var service = new DisplaySpeakers(speakerRepository.Object, consoleWrapper.Object);
-
-        //List<SpeakerProfile> speakers = new List<SpeakerProfile>() {
-        //            new SpeakerProfile()
-        //            {
-        //              FirstName = "Vasily",
-        //             LastName = "Pascal",
-        //              Bio = "I'm .NET intern",
-        //              Email = "vasilypascal@gmail.com",
-        //              Company = "Endava",
-        //              Photo = new Photo
-        //              {
-        //                  Path = @"...\something\13.jpg"
-        //              }}, new SpeakerProfile(){ FirstName = "Valentin",
-        //              LastName = "Butnaru",
-        //              Bio = "I'm .NET intern",
-        //              Email = "valentin@gmail.com",
-        //              Company = "Endava",
-        //              Photo = new Photo
-        //              {
-        //                  Path = @"...\something\14.jpg"
-        //              }} };
-
-        //var actual = service.DisplayAllSpeakers(displayoptions);
-
-        //Assert.Equal(expected, actual);
-        //consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Exactly(speakerRepository.Object.GetSpeakersCount()));
-        //}
+            Assert.Equal(expected, actual);
+        }
     }
 }
