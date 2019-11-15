@@ -50,13 +50,13 @@ namespace PlanificatorCMD.Tests
         //}
 
         [Fact]
-        public void GetSpeakerBySpeakerIndex_CallGetSpeakerBySpeakerIndex_Once()
+        public void GetSpeakerBySpeakerId_CallGetSpeakerBySpeakerId_Once()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
 
             SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
 
-            sut.GetSpeakerBySpeakerIndex(It.IsAny<int>());
+            sut.GetSpeakerBySpeakerId(It.IsAny<int>());
 
             speakerRepository.Verify(s => s.GetSpeakerBySpeakerIndex(It.IsAny<int>()), Times.Once);
         }
