@@ -6,9 +6,8 @@ namespace PlanificatorCMD
     {
         void AddSpeakerProfile(SpeakerProfile speaker);
 
-        //int ShowSpeakersProfiles(bool DisplayOption);
         int GetSpeakersCount();
 
-        SpeakerProfile GetSpeakerBySpeakerIndex(int speakerIndex);
+        SpeakerProfile GetSpeakerBySpeakerId(int speakerId);
     }
 }

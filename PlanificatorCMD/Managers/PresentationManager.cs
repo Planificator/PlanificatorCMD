@@ -18,9 +18,9 @@ namespace PlanificatorCMD.Managers
             _presentationRepository.AddPresentation(presentationTags);
         }
 
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex)
+        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationId)
         {
-            _presentationRepository.AssignSpeakerToPresentation(speaker, presentationIndex);
+            _presentationRepository.AssignSpeakerToPresentation(speaker, presentationId);
         }
 
         public int GetPresentationsCount()

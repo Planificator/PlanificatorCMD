@@ -72,7 +72,7 @@ namespace PlanificatorCMD.Tests
 
             assingprocessor.AssignSpeakerToPresentation(verb);
 
-            spekManager.Verify(s => s.GetSpeakerBySpeakerIndex(It.IsAny<int>()), Times.Once);
+            spekManager.Verify(s => s.GetSpeakerBySpeakerId(It.IsAny<int>()), Times.Once);
         }
 
         [Fact]

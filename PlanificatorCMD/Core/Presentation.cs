@@ -14,5 +14,6 @@ namespace PlanificatorCMD.Core
         public string LongDescription { get; set; }
         public virtual ICollection<PresentationTag> PresentationTags { get; set; }
         public virtual ICollection<PresentationSpeaker> PresentationSpeakers { get; set; }
+        public virtual SpeakerProfile PresentationOwner { get; set;}
     }
 }

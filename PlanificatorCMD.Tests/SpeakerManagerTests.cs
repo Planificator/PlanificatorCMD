@@ -35,28 +35,14 @@ namespace PlanificatorCMD.Tests
             speakerRepository.Verify(s => s.AddSpeakerProfile(speakerProfile), Times.Once);
         }
 
-        //[Fact]
-        //public void ShowSpeakersProfiles_GetAllSpeakersProfiles_IsCalledOnce()
-        //{
-        //    Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
-        //    Mock<IDisplaySpeakers> displaySpeakers = new Mock<IDisplaySpeakers>();
-        //    var cw = new Mock<IConsoleWrapper>();
-
-        //    SpeakerManager sut = new SpeakerManager(speakerRepository.Object, displaySpeakers.Object);
-
-        //    sut.ShowSpeakersProfiles(true);
-
-        //    speakerRepository.Verify(s => s.GetAllSpeakersProfiles(), Times.Once);
-        //}
-
         [Fact]
-        public void GetSpeakerBySpeakerIndex_CallGetSpeakerBySpeakerIndex_Once()
+        public void GetSpeakerBySpeakerId_CallGetSpeakerBySpeakerId_Once()
         {
             Mock<ISpeakerRepository> speakerRepository = new Mock<ISpeakerRepository>();
 
             SpeakerManager sut = new SpeakerManager(speakerRepository.Object);
 
-            sut.GetSpeakerBySpeakerIndex(It.IsAny<int>());
+            sut.GetSpeakerBySpeakerId(It.IsAny<int>());
 
             speakerRepository.Verify(s => s.GetSpeakerBySpeakerIndex(It.IsAny<int>()), Times.Once);
         }

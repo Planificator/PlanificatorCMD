@@ -16,9 +16,9 @@ namespace PlanificatorCMD.Managers
             _speakerRepository.AddSpeakerProfile(speaker);
         }
 
-        public SpeakerProfile GetSpeakerBySpeakerIndex(int speakerIndex)
+        public SpeakerProfile GetSpeakerBySpeakerId(int speakerId)
         {
-            return _speakerRepository.GetSpeakerBySpeakerIndex(speakerIndex);
+            return _speakerRepository.GetSpeakerBySpeakerIndex(speakerId);
         }
 
         public int GetSpeakersCount()

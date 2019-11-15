@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PlanificatorCMD.Core;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace PlanificatorCMD.Persistence
 {
@@ -89,12 +87,14 @@ namespace PlanificatorCMD.Persistence
             modelBuilder.Entity<PresentationTag>()
                 .HasOne<Presentation>(pt => pt.Presentation)
                 .WithMany(p => p.PresentationTags)
-                .HasForeignKey(pt => pt.PresentationId);
+                .HasForeignKey(pt => pt.PresentationId)
+                .IsRequired();
 
             modelBuilder.Entity<PresentationTag>()
                 .HasOne<Tag>(pt => pt.Tag)
                 .WithMany(t => t.PresentationTags)
-                .HasForeignKey(pt => pt.TagId);
+                .HasForeignKey(pt => pt.TagId)
+                .IsRequired();
 
             //PresentationSpeaker Many to Many Configuration
             modelBuilder.Entity<PresentationSpeaker>().HasKey(pt => new { pt.PresentationId, pt.SpeakerId });
@@ -102,12 +102,28 @@ namespace PlanificatorCMD.Persistence
             modelBuilder.Entity<PresentationSpeaker>()
                 .HasOne<Presentation>(pt => pt.Presentation)
                 .WithMany(p => p.PresentationSpeakers)
-                .HasForeignKey(pt => pt.PresentationId);
+                .HasForeignKey(pt => pt.PresentationId)
+                .IsRequired();
 
             modelBuilder.Entity<PresentationSpeaker>()
                 .HasOne<SpeakerProfile>(pt => pt.SpeakerProfile)
                 .WithMany(t => t.PresentationSpeakers)
-                .HasForeignKey(pt => pt.SpeakerId);
+                .HasForeignKey(pt => pt.SpeakerId)
+                .IsRequired();
+
+            //Presentation Many to One Speaker Relationship
+            modelBuilder.Entity<Presentation>()
+                .HasOne<SpeakerProfile>(p => p.PresentationOwner)
+                .WithMany(s => s.OwnedPresentations)
+                .IsRequired();
+
+            modelBuilder.Entity<SpeakerProfile>()
+                .HasMany<Presentation>(s => s.OwnedPresentations)
+                .WithOne(p => p.PresentationOwner)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+
         }     
     }
 }
