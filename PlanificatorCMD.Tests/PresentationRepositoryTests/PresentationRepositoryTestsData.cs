@@ -26,7 +26,8 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
         {
             Title = "Test",
             LongDescription = "Test",
-            ShortDescription = "Test"
+            ShortDescription = "Test",
+            PresentationOwner = new SpeakerProfile {FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST"} }
         };
 
         public List<PresentationTag> presentationTags = new List<PresentationTag>();

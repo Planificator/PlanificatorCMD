@@ -1,4 +1,5 @@
-﻿using PlanificatorCMD.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using PlanificatorCMD.Core;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,10 +24,8 @@ namespace PlanificatorCMD.Persistence
             _dbContext.SaveChanges();
         }
 
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationIndex)
+        public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation)
         {
-            var presentation = _dbContext.Presentations.ToList()[presentationIndex];
-
             PresentationSpeaker presentationSpeaker = new PresentationSpeaker
             {
                 SpeakerProfile = speaker,
@@ -59,5 +58,11 @@ namespace PlanificatorCMD.Persistence
         {
             return _dbContext.Presentations.Count();
         }
+
+        public Presentation GetPresentationById(int presentationId)
+        {
+            return _dbContext.Presentations.SingleOrDefault(p => p.PresentationId == presentationId);
+        }
+
     }
 }

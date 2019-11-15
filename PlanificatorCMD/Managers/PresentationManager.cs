@@ -18,14 +18,19 @@ namespace PlanificatorCMD.Managers
             _presentationRepository.AddPresentation(presentationTags);
         }
 
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationId)
+        public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation)
         {
-            _presentationRepository.AssignSpeakerToPresentation(speaker, presentationId);
+            _presentationRepository.AssignSpeakerToPresentation(speaker, presentation);
         }
 
         public int GetPresentationsCount()
         {
             return _presentationRepository.GetPresentationCount();
+        }
+
+        public Presentation GetPresentationById(int presentationId)
+        {
+            return new Presentation();
         }
     }
 }
