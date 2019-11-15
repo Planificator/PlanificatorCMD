@@ -27,5 +27,10 @@ namespace PlanificatorCMD.Managers
         {
             return _presentationRepository.GetPresentationCount();
         }
+
+        public int GetPresentationById(int presentationId)
+        {
+            return 0;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace PlanificatorCMD.Managers
         void AddPresentation(ICollection<PresentationTag> presentation);
         void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationId);
         int GetPresentationsCount();
+        int GetPresentationById(int presentationId);
     }
 }
