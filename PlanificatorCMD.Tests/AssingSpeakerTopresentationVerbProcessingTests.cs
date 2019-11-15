@@ -89,7 +89,7 @@ namespace PlanificatorCMD.Tests
 
             assingprocessor.AssignSpeakerToPresentation(verb);
 
-            presManager.Verify(p => p.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<int>()), Times.Once);
+            presManager.Verify(p => p.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<Presentation>()), Times.Once);
         }
     }
 }

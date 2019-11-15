@@ -6,8 +6,8 @@ namespace PlanificatorCMD.Managers
     public interface IPresentationManager
     {
         void AddPresentation(ICollection<PresentationTag> presentation);
-        void AssignSpeakerToPresentation(SpeakerProfile speaker, int presentationId);
+        void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation);
         int GetPresentationsCount();
-        int GetPresentationById(int presentationId);
+        Presentation GetPresentationById(int presentationId);
     }
 }

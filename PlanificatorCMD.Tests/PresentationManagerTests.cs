@@ -32,9 +32,9 @@ namespace PlanificatorCMD.Tests
 
             var manager = new PresentationManager(repo.Object);
 
-            manager.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<int>());
+            manager.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<Presentation>());
 
-            repo.Verify(r => r.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<int>()), Times.Once);
+            repo.Verify(r => r.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<Presentation>()), Times.Once);
         }
         
         [Fact]

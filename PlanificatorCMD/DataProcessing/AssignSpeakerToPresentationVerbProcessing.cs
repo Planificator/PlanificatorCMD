@@ -34,7 +34,7 @@ namespace PlanificatorCMD.DataProcessing
                 return ExecutionResult.Fail;
             }
             var speaker = _speakerManager.GetSpeakerBySpeakerId(speakerIndex);
-            _presentationManager.AssignSpeakerToPresentation(speaker, presentationIndex);
+            //_presentationManager.AssignSpeakerToPresentation(speaker, presentationIndex);
             return ExecutionResult.Succes;
         }
 

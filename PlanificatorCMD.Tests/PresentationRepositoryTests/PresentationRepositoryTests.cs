@@ -267,14 +267,12 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
 
                     speakerServie.AddSpeakerProfile(speaker);
                     presentationService.AddPresentation(testData.presentationTags);
-                    presentationService.AssignSpeakerToPresentation(speaker, 0);
+                    presentationService.AssignSpeakerToPresentation(speaker, testData.presentation);
 
                     context.SaveChanges();
 
-                    Assert.Equal(1, context.SpeakerProfiles.Count());
-                    Assert.Equal(1, context.Presentations.Count());
                     Assert.Equal(1, context.PresentationSpeakers.Count());
-                    Assert.Equal(speaker, context.PresentationSpeakers.Include(p => p.SpeakerProfile).Single().SpeakerProfile);
+                    Assert.Equal(speaker, context.PresentationSpeakers.Single().SpeakerProfile);
                     Assert.Equal(testData.presentation, context.PresentationSpeakers.Include(p => p.Presentation).Single().Presentation);
 
                 }
