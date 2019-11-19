@@ -30,7 +30,7 @@ namespace PlanificatorCMD.Managers
 
         public Presentation GetPresentationById(int presentationId)
         {
-            return new Presentation();
+            return _presentationRepository.GetPresentationById(presentationId);
         }
     }
 }

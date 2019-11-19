@@ -2,7 +2,7 @@
 {
     public interface IAssignSpeakerToPresentationVerb
     {
-        int PresentationIndex { get; set; }
-        int SpeakerIndex { get; set; }
+        int PresentationId { get; set; }
+        int SpeakerId { get; set; }
     }
 }

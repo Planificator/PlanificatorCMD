@@ -27,7 +27,6 @@ namespace PlanificatorCMD.DataProcessing
             {
                 return ExecutionResult.Fail;
             }
-
             var presentationTags = _presentationMapper.MapToPresentationTag(addPresentationVerb);
             _presentationManager.AddPresentation(presentationTags);
 

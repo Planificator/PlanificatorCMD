@@ -50,7 +50,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void Run_CallingAddPresentation_Once()
         {
-            string[] args = new string[9] { "add_presentation", "-t", "title", "-s", "short", "-l", "long", "-T", "tags" };
+            string[] args = new string[11] { "add_presentation", "-t", "title", "-s", "short", "-l", "long", "-T", "tags", "-o" ,"1" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
             var displaySpeakers = new Mock<IDisplaySpeakers>();
             var displayPresentation = new Mock<IDisplayPresentations>();

@@ -1,7 +1,9 @@
-﻿namespace PlanificatorCMD.Validators
+﻿using PlanificatorCMD.Core;
+
+namespace PlanificatorCMD.Validators
 {
     public interface IAssignSpeakerToPresentationVerbValidator
     {
-        bool IsValid(int index, int totalCount);
+        bool IsValid(SpeakerProfile speakerProfile, Presentation presentation);
     }
 }
