@@ -29,7 +29,7 @@ namespace PlanificatorCMD.Persistence
             PresentationSpeaker presentationSpeaker = new PresentationSpeaker
             {
                 SpeakerProfile = speaker,
-                Presentation = presentation
+                Presentation = presentation,
             };
             _dbContext.PresentationSpeakers.Add(presentationSpeaker);
             _dbContext.SaveChanges();
@@ -61,7 +61,7 @@ namespace PlanificatorCMD.Persistence
 
         public Presentation GetPresentationById(int presentationId)
         {
-            return _dbContext.Presentations.SingleOrDefault(p => p.PresentationId == presentationId);
+            return _dbContext.Presentations.Include(s => s.PresentationOwner).Include(s => s.PresentationSpeakers).SingleOrDefault(p => p.PresentationId == presentationId);
         }
 
     }

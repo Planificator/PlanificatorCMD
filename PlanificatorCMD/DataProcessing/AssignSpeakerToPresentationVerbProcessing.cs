@@ -2,9 +2,6 @@
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.DataProcessing
 {
@@ -23,21 +20,16 @@ namespace PlanificatorCMD.DataProcessing
 
         public int AssignSpeakerToPresentation(IAssignSpeakerToPresentationVerb assignSpeakerToPresentationVerb)
         {
-            var speakerIndex = assignSpeakerToPresentationVerb.SpeakerIndex - 1;
-            var presentationIndex = assignSpeakerToPresentationVerb.PresentationIndex - 1;
-            var speakersCount = _speakerManager.GetSpeakersCount();
-            var presentatiosCount = _presentationManager.GetPresentationsCount();
+            var speakerId = assignSpeakerToPresentationVerb.SpeakerId;
+            var presentationId = assignSpeakerToPresentationVerb.PresentationId;
+            var speaker = _speakerManager.GetSpeakerBySpeakerId(speakerId);
+            var presentation = _presentationManager.GetPresentationById(presentationId);
 
-            if (!_validator.IsValid(speakerIndex, speakersCount)
-                || !_validator.IsValid(presentationIndex, presentatiosCount))
-            {
+            if (!_validator.IsValid(speaker, presentation))
                 return ExecutionResult.Fail;
-            }
-            var speaker = _speakerManager.GetSpeakerBySpeakerId(speakerIndex);
-            //_presentationManager.AssignSpeakerToPresentation(speaker, presentationIndex);
+
+            _presentationManager.AssignSpeakerToPresentation(speaker, presentation);
             return ExecutionResult.Succes;
         }
-
-
     }
 }

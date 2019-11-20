@@ -19,5 +19,9 @@ namespace PlanificatorCMD.Verbs
 
         [Option('T', "tags", Required = true, HelpText = "Introducting the string of tags")]
         public string Tags { get; set; }
+
+        [Option('o', "presentation Owner", Required = true, HelpText = "Introducting ID of Presentation Owner")]
+        public int PresentationOwnerSpeakerId { get; set; }
     }
 }
+

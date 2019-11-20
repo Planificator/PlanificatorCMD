@@ -33,9 +33,9 @@ namespace PlanificatorCMD.Persistence
             return _dbContext.SpeakerProfiles.Count();
         }
 
-        public SpeakerProfile GetSpeakerBySpeakerIndex(int index)
+        public SpeakerProfile GetSpeakerBySpeakerId(int speakerId)
         {
-            return _dbContext.SpeakerProfiles.ToList()[index];
+            return _dbContext.SpeakerProfiles.SingleOrDefault(s => s.SpeakerId == speakerId);
         }
 
         public ICollection<SpeakerProfile> GetAllSpeakersProfiles()

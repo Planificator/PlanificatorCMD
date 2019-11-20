@@ -1,42 +1,202 @@
 ﻿using Xunit;
 using Moq;
 using PlanificatorCMD.Validators;
+using PlanificatorCMD.Core;
+using System.Collections.Generic;
+using System;
 
 namespace PlanificatorCMD.Tests
 {
     public class AssignSpeakerToPresentationVerbValidatorTests
     {
-        [Theory]
-        [InlineData(0, 0)]
-        [InlineData(0, 1)]
-        [InlineData(1, 1)]
-        [InlineData(9, 10)]
-        [InlineData(20, 20)]
-        public void IsValid_ReturnsTrue_WithValidIndexAndCount(int index, int totalCount)
+        [Fact]
+        public void IsValid_ReturnsTrue_WithValidId()
         {
+
+            Presentation presentation = new Presentation
+            {
+                PresentationId = 1,
+                Title = "Test",
+                LongDescription = "Test",
+                ShortDescription = "Test",
+                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } },
+
+            };
+            SpeakerProfile speaker = new SpeakerProfile
+            {
+                SpeakerId = 2,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+
             var expected = true;
 
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(index, totalCount);
-
+            
+            var actual = sut.IsValid(speaker, presentation);
+            
             Assert.Equal(actual, expected);
         }
 
-        [Theory]
-        [InlineData(1, 0)]
-        [InlineData(-1, 1)]
-        [InlineData(-1, 0)]
-        [InlineData(20, 19)]
-        [InlineData(-3, 0)]
-        [InlineData(-10, -5)]
-        public void IsValid_ReturnsFalse_WithInvalidIndexAndCount(int index, int totalCount)
+        [Fact]
+        public void IsValid_ReturnsFalse_WithNullPresentation()
         {
-            var expected = false;
+            Presentation presentation = null;
+
+            SpeakerProfile speaker = new SpeakerProfile
+            {
+                SpeakerId = 2,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
 
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(index, totalCount);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
+
+        [Fact]
+        public void IsValid_ReturnsFalse_WithNullSpeaker()
+        {
+            Presentation presentation = new Presentation
+            {
+                PresentationId = 1,
+                Title = "Test",
+                LongDescription = "Test",
+                ShortDescription = "Test",
+                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
+            };
+
+            SpeakerProfile speaker = null;
+
+            AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
+        }
+
+        [Fact]
+        public void IsValid_ReturnsFalse_WithNullSpeakerAndNullPresentation()
+        {
+            Presentation presentation = null;
+
+            SpeakerProfile speaker = null;
+
+            AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
+        }
+
+        [Fact]
+        public void IsValid_ReturnsFalse_WithSameOwnerIdAndSpeakerId()
+        {
+            Presentation presentation = new Presentation
+            {
+                PresentationId = 1,
+                Title = "Test",
+                LongDescription = "Test",
+                ShortDescription = "Test",
+                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
+            };
+            SpeakerProfile speaker = new SpeakerProfile
+            {
+                SpeakerId = 1,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+
+            AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
+        }
+
+        [Fact]
+        public void IsValid_ReturnsFalse_WithSamePresentationSpeakersIdsAndSpeakerId()
+        {
+            SpeakerProfile presentationSpeaker1 = new SpeakerProfile
+            {
+                SpeakerId = 1,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+            SpeakerProfile presentationSpeaker2 = new SpeakerProfile
+            {
+                SpeakerId = 2,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+
+            Presentation presentation = new Presentation
+            {
+                PresentationId = 1,
+                Title = "Test",
+                LongDescription = "Test",
+                ShortDescription = "Test",
+                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
+            };
+            PresentationSpeaker presentationSpeakers1 = new PresentationSpeaker
+            {
+                Presentation = presentation,
+                PresentationId = 1,
+                SpeakerProfile = presentationSpeaker1,
+                SpeakerId = presentationSpeaker1.SpeakerId
+            };
+            PresentationSpeaker presentationSpeakers2 = new PresentationSpeaker
+            {
+                Presentation = presentation,
+                PresentationId = 1,
+                SpeakerProfile = presentationSpeaker2,
+                SpeakerId = presentationSpeaker2.SpeakerId
+            };
+            List<PresentationSpeaker> PS = new List<PresentationSpeaker>();
+            PS.Add(presentationSpeakers1);
+            PS.Add(presentationSpeakers2);
+            presentation.PresentationSpeakers = PS;
+
+            SpeakerProfile speaker = new SpeakerProfile
+            {
+                SpeakerId = 1,
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "company",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+
+            AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
+        }
+
     }
 }

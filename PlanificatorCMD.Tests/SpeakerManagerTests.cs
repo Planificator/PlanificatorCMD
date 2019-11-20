@@ -44,7 +44,7 @@ namespace PlanificatorCMD.Tests
 
             sut.GetSpeakerBySpeakerId(It.IsAny<int>());
 
-            speakerRepository.Verify(s => s.GetSpeakerBySpeakerIndex(It.IsAny<int>()), Times.Once);
+            speakerRepository.Verify(s => s.GetSpeakerBySpeakerId(It.IsAny<int>()), Times.Once);
         }
 
         [Fact]

@@ -26,18 +26,17 @@ namespace PlanificatorCMD.Utils
             }
 
             _consoleWrapper.WriteLine();
-            int i = 1;
             if (displayOption == false)
                 foreach (Presentation presentation in presentations)
                 {
-                    _consoleWrapper.WriteLine(i++ + ")\t" + presentation.Title + " " + presentation.ShortDescription);
+                    _consoleWrapper.WriteLine(presentation.PresentationId + ")\t" + presentation.Title + " " + presentation.ShortDescription);
                 }
             if (displayOption == true)
             {
                 foreach (Presentation presentation in presentations)
                 {
                     var tags = _presentationRepository.GetAllTagsNames(presentation.PresentationId);
-                    _consoleWrapper.Write(i++ + ")\t" + presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
+                    _consoleWrapper.Write(presentation.PresentationId + ")\t" + presentation.Title + " " + presentation.ShortDescription + " " + presentation.LongDescription + " ");
                     foreach (var tag in tags)
                     {
                         _consoleWrapper.Write(tag + " ");

@@ -9,6 +9,6 @@ namespace PlanificatorCMD
         ICollection<SpeakerProfile> GetAllSpeakersProfiles();
         int GetMaxId();
         int GetSpeakersCount();
-        SpeakerProfile GetSpeakerBySpeakerIndex(int index);
+        SpeakerProfile GetSpeakerBySpeakerId(int speakerId);
     }
 }

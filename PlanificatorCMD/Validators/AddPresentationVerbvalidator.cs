@@ -1,4 +1,5 @@
-﻿using PlanificatorCMD.Verbs;
+﻿using PlanificatorCMD.Core;
+using PlanificatorCMD.Verbs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,12 @@ namespace PlanificatorCMD.Validators
 {
     public class AddPresentationVerbValidator : IAddPresentationVerbValidator
     {
-        public bool IsValid(IAddPresentationVerb addPresentationVerb)
+        public bool IsValid(IAddPresentationVerb addPresentationVerb, SpeakerProfile presentationOwner)
         {
-
+            if (!IsValidPresentationOwner(presentationOwner))
+            {
+                throw new ArgumentException("Speaker by selected Id is not existing", nameof(addPresentationVerb.PresentationOwnerSpeakerId));
+            }
             if (!IsValidTitle(addPresentationVerb.Title))
             {
                 throw new ArgumentException("Incorrect insert of the title", nameof(addPresentationVerb.Title));
@@ -27,9 +31,16 @@ namespace PlanificatorCMD.Validators
             {
                 throw new ArgumentException("Enter the tag", nameof(addPresentationVerb.Tags));
             }
-
+            
             return true;
 
+        }
+
+        private bool IsValidPresentationOwner(SpeakerProfile presentationOwner)
+        {
+            if (presentationOwner == null)
+                return false;
+            return true;
         }
 
         private bool IsValidTags(string tag)
