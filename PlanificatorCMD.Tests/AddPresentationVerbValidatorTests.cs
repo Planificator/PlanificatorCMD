@@ -121,6 +121,6 @@
 
 //            Action act = () => sut.IsValid(addPresentationVerb);
 //            Assert.Throws<ArgumentException>(act);
-//        }s
+//        }
 //    }
 //}

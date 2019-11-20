@@ -3,21 +3,24 @@ using Moq;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Core;
 using System.Collections.Generic;
+using System;
 
 namespace PlanificatorCMD.Tests
 {
     public class AssignSpeakerToPresentationVerbValidatorTests
     {
         [Fact]
-        public void IsValid_ReturnsTrue_WithValidIndexAndCount()
+        public void IsValid_ReturnsTrue_WithValidId()
         {
+
             Presentation presentation = new Presentation
             {
                 PresentationId = 1,
                 Title = "Test",
                 LongDescription = "Test",
                 ShortDescription = "Test",
-                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
+                PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } },
+
             };
             SpeakerProfile speaker = new SpeakerProfile
             {
@@ -33,8 +36,9 @@ namespace PlanificatorCMD.Tests
             var expected = true;
 
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
+            
             var actual = sut.IsValid(speaker, presentation);
-
+            
             Assert.Equal(actual, expected);
         }
 
@@ -54,12 +58,11 @@ namespace PlanificatorCMD.Tests
                 Photo = new Photo { Path = "testPath.jpg" }
             };
 
-            var expected = false;
-
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(speaker, presentation);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
@@ -76,12 +79,11 @@ namespace PlanificatorCMD.Tests
 
             SpeakerProfile speaker = null;
 
-            var expected = false;
-
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(speaker, presentation);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
@@ -91,12 +93,11 @@ namespace PlanificatorCMD.Tests
 
             SpeakerProfile speaker = null;
 
-            var expected = false;
-
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(speaker, presentation);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
@@ -121,12 +122,11 @@ namespace PlanificatorCMD.Tests
                 Photo = new Photo { Path = "testPath.jpg" }
             };
 
-            var expected = false;
-
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(speaker, presentation);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
@@ -152,11 +152,6 @@ namespace PlanificatorCMD.Tests
                 Company = "company",
                 Photo = new Photo { Path = "testPath.jpg" }
             };
-
-            
-            //var presentationSpeakers = new List<SpeakerProfile>();
-            //presentationSpeakers.Add(presentationSpeaker1);
-            //presentationSpeakers.Add(presentationSpeaker2);
 
             Presentation presentation = new Presentation
             {
@@ -196,12 +191,11 @@ namespace PlanificatorCMD.Tests
                 Photo = new Photo { Path = "testPath.jpg" }
             };
 
-            var expected = false;
-
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            var actual = sut.IsValid(speaker, presentation);
 
-            Assert.Equal(actual, expected);
+            Action act = () => sut.IsValid(speaker, presentation);
+
+            Assert.Throws<ArgumentException>(act);
         }
 
     }

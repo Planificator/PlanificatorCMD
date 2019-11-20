@@ -2,9 +2,6 @@
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.DataProcessing
 {
@@ -34,7 +31,5 @@ namespace PlanificatorCMD.DataProcessing
             _presentationManager.AssignSpeakerToPresentation(speaker, presentation);
             return ExecutionResult.Succes;
         }
-
-
     }
 }
