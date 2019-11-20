@@ -19,7 +19,6 @@ namespace PlanificatorCMD.Utils
         public int DisplayAllSpeakers(bool displayOption)
         {
             ICollection<SpeakerProfile> speakerProfiles = _speakerRepository.GetAllSpeakersProfiles();
-            int i = 1;
             if (speakerProfiles == null)
             {
                 _consoleWrapper.WriteLine("No speakers found");
@@ -28,13 +27,13 @@ namespace PlanificatorCMD.Utils
             if (displayOption == true)
                 foreach (SpeakerProfile s in speakerProfiles)
                 {
-                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
+                    _consoleWrapper.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
                 }
 
             else
                 foreach (var s in speakerProfiles)
                 {
-                    _consoleWrapper.WriteLine(i++ + ")\t" + s.FirstName + " " + s.LastName);
+                    _consoleWrapper.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName);
                 }
             return ExecutionResult.Succes;
         }

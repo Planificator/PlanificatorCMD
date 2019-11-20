@@ -16,18 +16,23 @@ namespace PlanificatorCMD.Tests
     {
 
         [Fact]
-        public void AddPresentation_CallingValidOnce()
+        public void AddPresentation_CallingIsValidOnce()
         {
             var validator = new Mock<IAddPresentationVerbValidator>();
             var mapper = new Mock<IPresentationMapper>();
             var manager = new Mock<IPresentationManager>();
-
-            var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object);
+            var repository = new Mock<ISpeakerRepository>();
+            
+            
+            
             var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa" };
+            repository.Setup(s => s.GetSpeakerBySpeakerId(verb.PresentationOwnerSpeakerId)).Returns(It.IsAny<SpeakerProfile>());
 
-            prossec.AddPresentation(verb);
+            var processing = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object, repository.Object);
+            
+            processing.AddPresentation(verb);
 
-            validator.Verify(v => v.IsValid(verb), Times.Once);
+            validator.Verify(v => v.IsValid(verb, It.IsAny<SpeakerProfile>()), Times.Once);
 
         }
 
@@ -37,14 +42,18 @@ namespace PlanificatorCMD.Tests
             var validator = new Mock<IAddPresentationVerbValidator>();
             var mapper = new Mock<IPresentationMapper>();
             var manager = new Mock<IPresentationManager>();
+            var repository = new Mock<ISpeakerRepository>();
+            
+            var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa", PresentationOwnerSpeakerId = 1 };
 
-            var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object);
-            var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa" };
-            validator.Setup(v => v.IsValid(verb)).Returns(true);
+            var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object, repository.Object);
+
+            repository.Setup(r => r.GetSpeakerBySpeakerId(verb.PresentationOwnerSpeakerId)).Returns(It.IsAny<SpeakerProfile>());
+            validator.Setup(v => v.IsValid(verb, It.IsAny<SpeakerProfile>())).Returns(true);
 
             prossec.AddPresentation(verb);
 
-            mapper.Verify(m => m.MapToPresentationTag(verb), Times.Once);
+            mapper.Verify(m => m.MapToPresentationTag(verb, It.IsAny<SpeakerProfile>()), Times.Once);
 
         }
 
@@ -55,10 +64,14 @@ namespace PlanificatorCMD.Tests
             var validator = new Mock<IAddPresentationVerbValidator>();
             var mapper = new Mock<IPresentationMapper>();
             var manager = new Mock<IPresentationManager>();
+            var repository = new Mock<ISpeakerRepository>();
 
-            var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object);
+            var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object, repository.Object);
+
             var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa" };
-            validator.Setup(v => v.IsValid(verb)).Returns(true);
+            repository.Setup(r => r.GetSpeakerBySpeakerId(verb.PresentationOwnerSpeakerId)).Returns(It.IsAny<SpeakerProfile>());
+            validator.Setup(v => v.IsValid(verb, It.IsAny<SpeakerProfile>())).Returns(true);
+            mapper.Setup(m => m.MapToPresentationTag(verb, It.IsAny<SpeakerProfile>()));
 
             prossec.AddPresentation(verb);
 

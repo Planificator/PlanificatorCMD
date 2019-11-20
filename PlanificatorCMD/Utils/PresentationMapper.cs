@@ -6,7 +6,7 @@ namespace PlanificatorCMD.Utils
 {
     public class PresentationMapper : IPresentationMapper
     {
-        public ICollection<PresentationTag> MapToPresentationTag(IAddPresentationVerb addPresentationVerb)
+        public ICollection<PresentationTag> MapToPresentationTag(IAddPresentationVerb addPresentationVerb, SpeakerProfile presentationOwner)
         {
             ICollection<string> tags = addPresentationVerb.Tags.Split(" ");
 
@@ -14,7 +14,8 @@ namespace PlanificatorCMD.Utils
             {
                 Title = addPresentationVerb.Title,
                 ShortDescription = addPresentationVerb.ShortDescription,
-                LongDescription = addPresentationVerb.LongDescription
+                LongDescription = addPresentationVerb.LongDescription,
+                PresentationOwner = presentationOwner
             };
 
             ICollection<PresentationTag> presentationTags = new List<PresentationTag>();
