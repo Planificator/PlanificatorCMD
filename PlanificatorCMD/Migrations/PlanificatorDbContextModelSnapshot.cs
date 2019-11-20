@@ -151,7 +151,7 @@ namespace PlanificatorCMD.Migrations
                     b.HasOne("PlanificatorCMD.Core.SpeakerProfile", "SpeakerProfile")
                         .WithOne("Photo")
                         .HasForeignKey("PlanificatorCMD.Core.Photo", "PhotoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -169,13 +169,13 @@ namespace PlanificatorCMD.Migrations
                     b.HasOne("PlanificatorCMD.Core.Presentation", "Presentation")
                         .WithMany("PresentationSpeakers")
                         .HasForeignKey("PresentationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlanificatorCMD.Core.SpeakerProfile", "SpeakerProfile")
                         .WithMany("PresentationSpeakers")
                         .HasForeignKey("SpeakerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -184,13 +184,13 @@ namespace PlanificatorCMD.Migrations
                     b.HasOne("PlanificatorCMD.Core.Presentation", "Presentation")
                         .WithMany("PresentationTags")
                         .HasForeignKey("PresentationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlanificatorCMD.Core.Tag", "Tag")
                         .WithMany("PresentationTags")
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
