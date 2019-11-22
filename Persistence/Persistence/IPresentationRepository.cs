@@ -5,11 +5,7 @@ namespace Persistence.Persistence
 {
     public interface IPresentationRepository
     {
-        void AddPresentation(ICollection<PresentationTag> presentation);
-
         ICollection<Presentation> GetAllPresentations();
-
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentationIndex);
 
         public int GetPresentationCount();
 

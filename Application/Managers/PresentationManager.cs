@@ -6,31 +6,33 @@ namespace Application.Managers
 {
     public class PresentationManager : IPresentationManager
     {
-        private readonly IPresentationRepository _presentationRepository;
+        //private readonly IPresentationRepository _presentationRepository;
+        private readonly PlanificatorDbContext _planificatorDbContext;
 
-        public PresentationManager(IPresentationRepository presentationRepository)
+        public PresentationManager(PlanificatorDbContext planificatorDbContext)
         {
-            _presentationRepository = presentationRepository;
+            //_presentationRepository = presentationRepository;
+            _planificatorDbContext = planificatorDbContext;
         }
 
         public void AddPresentation(ICollection<PresentationTag> presentationTags)
         {
-            _presentationRepository.AddPresentation(presentationTags);
+            foreach (var presantationTag in presentationTags)
+            {
+                _planificatorDbContext.PresentationTags.Add(presantationTag);
+            }
+            _planificatorDbContext.SaveChanges();
         }
 
         public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation)
         {
-            _presentationRepository.AssignSpeakerToPresentation(speaker, presentation);
-        }
-
-        public int GetPresentationsCount()
-        {
-            return _presentationRepository.GetPresentationCount();
-        }
-
-        public Presentation GetPresentationById(int presentationId)
-        {
-            return _presentationRepository.GetPresentationById(presentationId);
+            PresentationSpeaker presentationSpeaker = new PresentationSpeaker
+            {
+                SpeakerProfile = speaker,
+                Presentation = presentation,
+            };
+            _planificatorDbContext.PresentationSpeakers.Add(presentationSpeaker);
+            _planificatorDbContext.SaveChanges();
         }
     }
 }

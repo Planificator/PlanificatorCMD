@@ -14,27 +14,6 @@ namespace Persistence.Persistence
             _dbContext = dbContext;
         }
 
-        public void AddPresentation(ICollection<PresentationTag> presentationTags)
-        {
-            foreach (var presantationTag in presentationTags)
-            {
-                _dbContext.PresentationTags.Add(presantationTag);
-            }
-
-            _dbContext.SaveChanges();
-        }
-
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation)
-        {
-            PresentationSpeaker presentationSpeaker = new PresentationSpeaker
-            {
-                SpeakerProfile = speaker,
-                Presentation = presentation,
-            };
-            _dbContext.PresentationSpeakers.Add(presentationSpeaker);
-            _dbContext.SaveChanges();
-        }
-
         public ICollection<string> GetAllTagsNames(int presentationId)
         {
             List<string> tags = new List<string>();

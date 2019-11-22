@@ -13,11 +13,6 @@ namespace Persistence.Persistence
             _dbContext = dbContext;
         }
 
-        public void AddSpeakerProfile(SpeakerProfile speaker)
-        {
-            _dbContext.SpeakerProfiles.Add(speaker);
-            _dbContext.SaveChanges();
-        }
 
         public int GetMaxId()
         {

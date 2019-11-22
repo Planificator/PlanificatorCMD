@@ -8,9 +8,5 @@ namespace Application.Managers
         void AddPresentation(ICollection<PresentationTag> presentation);
 
         void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation);
-
-        int GetPresentationsCount();
-
-        Presentation GetPresentationById(int presentationId);
     }
 }

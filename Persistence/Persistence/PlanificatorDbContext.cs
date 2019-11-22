@@ -1,11 +1,13 @@
 ﻿using Domain.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Persistence.Persistence
 {
-    public class PlanificatorDbContext : DbContext, IPlanificatorDbContext
+    public class PlanificatorDbContext : DbContext
     {
         public DbSet<SpeakerProfile> SpeakerProfiles { get; set; }
         public DbSet<Photo> Photos { get; set; }
@@ -22,6 +24,7 @@ namespace Persistence.Persistence
         public PlanificatorDbContext()
         {
         }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
