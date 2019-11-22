@@ -7,6 +7,5 @@ namespace PlanificatorCMD.Verbs
     {
         [Option('o', "option", HelpText = "Display Option: \"True\" - Showing all Presentation info.", Required = false, Default = false)]
         public bool DisplayOption { get; set; }
-
     }
 }

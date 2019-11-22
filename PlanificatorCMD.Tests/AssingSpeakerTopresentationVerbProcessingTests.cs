@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Application.Core;
+using Application.Managers;
 using Moq;
-using PlanificatorCMD.Managers;
-using PlanificatorCMD.Validators;
 using PlanificatorCMD.DataProcessing;
+using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using PlanificatorCMD.Core;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
@@ -25,7 +22,7 @@ namespace PlanificatorCMD.Tests
 
             assingprocessor.AssignSpeakerToPresentation(verb);
 
-            validator.Verify(v => v.IsValid(It.IsAny<SpeakerProfile>(),It.IsAny<Presentation>()), Times.Once);
+            validator.Verify(v => v.IsValid(It.IsAny<SpeakerProfile>(), It.IsAny<Presentation>()), Times.Once);
         }
 
         [Fact]

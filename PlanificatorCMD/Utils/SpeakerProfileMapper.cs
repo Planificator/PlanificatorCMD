@@ -1,4 +1,4 @@
-﻿using PlanificatorCMD.Core;
+﻿using Application.Core;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Verbs;
 

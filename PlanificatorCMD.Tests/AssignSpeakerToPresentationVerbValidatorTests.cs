@@ -1,9 +1,8 @@
-﻿using Xunit;
-using Moq;
+﻿using Application.Core;
 using PlanificatorCMD.Validators;
-using PlanificatorCMD.Core;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
@@ -12,7 +11,6 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void IsValid_ReturnsTrue_WithValidId()
         {
-
             Presentation presentation = new Presentation
             {
                 PresentationId = 1,
@@ -20,7 +18,6 @@ namespace PlanificatorCMD.Tests
                 LongDescription = "Test",
                 ShortDescription = "Test",
                 PresentationOwner = new SpeakerProfile { SpeakerId = 1, FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } },
-
             };
             SpeakerProfile speaker = new SpeakerProfile
             {
@@ -36,9 +33,9 @@ namespace PlanificatorCMD.Tests
             var expected = true;
 
             AssignSpeakerToPresentationVerbValidator sut = new AssignSpeakerToPresentationVerbValidator();
-            
+
             var actual = sut.IsValid(speaker, presentation);
-            
+
             Assert.Equal(actual, expected);
         }
 
@@ -197,6 +194,5 @@ namespace PlanificatorCMD.Tests
 
             Assert.Throws<ArgumentException>(act);
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using PlanificatorCMD.Core;
+﻿using Application.Core;
 
 namespace PlanificatorCMD.Validators
 {

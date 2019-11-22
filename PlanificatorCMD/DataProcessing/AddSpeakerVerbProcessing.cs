@@ -1,15 +1,12 @@
-﻿using PlanificatorCMD.Utils;
+﻿using Application.Managers;
+using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.DataProcessing
 {
     public class AddSpeakerVerbProcessing : IAddSpeakerVerbProcessing
     {
-
         private readonly IAddSpeakerVerbValidator _validatorSpeaker;
         private readonly ISpeakerProfileMapper _speakerProfileMapper;
         private readonly ISpeakerManager _speakerManager;
@@ -32,6 +29,5 @@ namespace PlanificatorCMD.DataProcessing
 
             return ExecutionResult.Succes;
         }
-
     }
 }

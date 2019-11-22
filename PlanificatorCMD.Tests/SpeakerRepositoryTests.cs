@@ -1,10 +1,10 @@
-﻿using PlanificatorCMD.Persistence;
+﻿using Application.Core;
+using Application.Persistence;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using PlanificatorCMD.Core;
-using System.Collections.Generic;
 
 namespace PlanificatorCMD.Tests
 {
@@ -38,11 +38,9 @@ namespace PlanificatorCMD.Tests
                 {
                     context.Database.EnsureCreated();
 
-
                     var service = new SpeakerRepository(context);
                     service.AddSpeakerProfile(testSpeakerProfile);
                     context.SaveChanges();
-
 
                     Assert.Equal(1, context.SpeakerProfiles.Count());
                     Assert.Equal(testSpeakerProfile.ToString(), context.SpeakerProfiles.Single().ToString());
@@ -66,14 +64,11 @@ namespace PlanificatorCMD.Tests
                     .UseSqlite(connection)
                     .Options;
 
-
                 using (var context = new PlanificatorDbContext(options))
                 {
                     context.Database.EnsureCreated();
 
-
                     var service = new SpeakerRepository(context);
-
 
                     Assert.Equal(0, service.GetMaxId());
                 }
@@ -205,14 +200,11 @@ namespace PlanificatorCMD.Tests
                     .UseSqlite(connection)
                     .Options;
 
-
                 using (var context = new PlanificatorDbContext(options))
                 {
                     context.Database.EnsureCreated();
 
-
                     var service = new SpeakerRepository(context);
-
 
                     Assert.Null(service.GetAllSpeakersProfiles());
                 }
@@ -285,7 +277,6 @@ namespace PlanificatorCMD.Tests
         //    var connection = new SqliteConnection("DataSource=:memory:");
         //    connection.Open();
 
-
         //    try
         //    {
         //        var options = new DbContextOptionsBuilder<PlanificatorDbContext>()
@@ -306,43 +297,5 @@ namespace PlanificatorCMD.Tests
         //        connection.Close();
         //    }
         //}
-
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

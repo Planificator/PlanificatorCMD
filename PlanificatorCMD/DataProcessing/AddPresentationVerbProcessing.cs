@@ -1,5 +1,5 @@
-﻿using PlanificatorCMD.Managers;
-using PlanificatorCMD.Persistence;
+﻿using Application.Managers;
+using Application.Persistence;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
@@ -21,7 +21,7 @@ namespace PlanificatorCMD.DataProcessing
             _speakerRepository = speakerRepository;
         }
 
-        public int AddPresentation(IAddPresentationVerb addPresentationVerb) 
+        public int AddPresentation(IAddPresentationVerb addPresentationVerb)
         {
             var presentationOwner = _speakerRepository.GetSpeakerBySpeakerId(addPresentationVerb.PresentationOwnerSpeakerId);
             if (!_presentationValidator.IsValid(addPresentationVerb, presentationOwner))
@@ -33,6 +33,5 @@ namespace PlanificatorCMD.DataProcessing
 
             return ExecutionResult.Succes;
         }
-
     }
 }

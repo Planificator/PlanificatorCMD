@@ -1,5 +1,6 @@
-﻿using Moq;
-using PlanificatorCMD.Core;
+﻿using Application.Core;
+using Application.Persistence;
+using Moq;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
@@ -38,7 +39,6 @@ namespace PlanificatorCMD.Tests
 
             consoleWrapper.Verify(c => c.WriteLine(It.IsAny<string>()), Times.Once);
         }
-
 
         [Fact]
         public void DisplayAllSpeaker_ShouldReturnExecutionResultSucces_WithFalseDisplayOption()

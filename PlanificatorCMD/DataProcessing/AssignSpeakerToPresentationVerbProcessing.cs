@@ -1,4 +1,4 @@
-﻿using PlanificatorCMD.Managers;
+﻿using Application.Managers;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;

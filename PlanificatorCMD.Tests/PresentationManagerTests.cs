@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Application.Core;
+using Application.Managers;
+using Application.Persistence;
 using Moq;
-using PlanificatorCMD.Persistence;
-using PlanificatorCMD.Managers;
-using PlanificatorCMD.Core;
-using PlanificatorCMD.Utils;
-using PlanificatorCMD.Wrappers;
+using System.Collections.Generic;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
     public class PresentationManagerTests
     {
         [Fact]
-        public void AddPresentation_CallingAddPresentation_Once ()
+        public void AddPresentation_CallingAddPresentation_Once()
         {
             var repo = new Mock<IPresentationRepository>();
 
@@ -36,7 +32,7 @@ namespace PlanificatorCMD.Tests
 
             repo.Verify(r => r.AssignSpeakerToPresentation(It.IsAny<SpeakerProfile>(), It.IsAny<Presentation>()), Times.Once);
         }
-        
+
         [Fact]
         public void GetPresentationsCount_CallingGetPresentationCount_Once()
         {

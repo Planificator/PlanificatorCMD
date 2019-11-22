@@ -1,9 +1,9 @@
-﻿using Moq;
-using PlanificatorCMD.Core;
-using Xunit;
-using PlanificatorCMD.Utils;
+﻿using Application.Core;
+using Application.Managers;
+using Application.Persistence;
+using Moq;
 using PlanificatorCMD.Wrappers;
-using PlanificatorCMD.Managers;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {

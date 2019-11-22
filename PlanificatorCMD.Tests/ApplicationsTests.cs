@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Moq;
+﻿using Moq;
 using PlanificatorCMD.DataProcessing;
-using PlanificatorCMD.Managers;
-using PlanificatorCMD.Verbs;
 using PlanificatorCMD.Utils;
+using PlanificatorCMD.Verbs;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
@@ -15,7 +11,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void Run_CallingAddSpeaker_Once()
         {
-            string[] args = new string[11] { "add_speaker", "-f" ,"firstname","-l" ,"lastname","-e","example@example.com","-p","path","-b","bio"};
+            string[] args = new string[11] { "add_speaker", "-f", "firstname", "-l", "lastname", "-e", "example@example.com", "-p", "path", "-b", "bio" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
             var displaySpeakers = new Mock<IDisplaySpeakers>();
             var displayPresentation = new Mock<IDisplayPresentations>();
@@ -32,7 +28,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void Run_CallingShowSpeakers_Once()
         {
-            string[] args = new string[3] { "show_speakers","-o","true" };
+            string[] args = new string[3] { "show_speakers", "-o", "true" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
             var displaySpeakers = new Mock<IDisplaySpeakers>();
             var displayPresentation = new Mock<IDisplayPresentations>();
@@ -46,11 +42,10 @@ namespace PlanificatorCMD.Tests
             displaySpeakers.Verify(s => s.DisplayAllSpeakers(true), Times.Once);
         }
 
-
         [Fact]
         public void Run_CallingAddPresentation_Once()
         {
-            string[] args = new string[11] { "add_presentation", "-t", "title", "-s", "short", "-l", "long", "-T", "tags", "-o" ,"1" };
+            string[] args = new string[11] { "add_presentation", "-t", "title", "-s", "short", "-l", "long", "-T", "tags", "-o", "1" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
             var displaySpeakers = new Mock<IDisplaySpeakers>();
             var displayPresentation = new Mock<IDisplayPresentations>();
@@ -63,8 +58,6 @@ namespace PlanificatorCMD.Tests
 
             prosPresentation.Verify(p => p.AddPresentation(It.IsAny<AddPresentationVerb>()), Times.Once);
         }
-
-
 
         [Fact]
         public void Run_CallingShowPresentations_Once()
@@ -86,7 +79,7 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void Run_CallingAssingSpeakerToPresentation_Once()
         {
-            string[] args = new string[5] { "assign_speaker_to_presentation", "-s", "1", "-p" ,"1"};
+            string[] args = new string[5] { "assign_speaker_to_presentation", "-s", "1", "-p", "1" };
             var prosSpeaker = new Mock<IAddSpeakerVerbProcessing>();
             var displaySpeakers = new Mock<IDisplaySpeakers>();
             var displayPresentation = new Mock<IDisplayPresentations>();
@@ -99,6 +92,5 @@ namespace PlanificatorCMD.Tests
 
             assingPresentation.Verify(a => a.AssignSpeakerToPresentation(It.IsAny<IAssignSpeakerToPresentationVerb>()), Times.Once);
         }
-
     }
 }

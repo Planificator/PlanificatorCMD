@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Application.Core;
+using Application.Managers;
 using Moq;
-using PlanificatorCMD.Validators;
-using PlanificatorCMD.Utils;
 using PlanificatorCMD.DataProcessing;
+using PlanificatorCMD.Utils;
+using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using PlanificatorCMD.Core;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {

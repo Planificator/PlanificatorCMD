@@ -1,10 +1,10 @@
-﻿using PlanificatorCMD.Persistence;
+﻿using Application.Core;
+using Application.Persistence;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using PlanificatorCMD.Core;
-using System.Collections.Generic;
 
 namespace PlanificatorCMD.Tests.PresentationRepositoryTests
 {
@@ -37,7 +37,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
 
                     Assert.Equal(tagsNames.Count, service.GetAllTagsNames(testData.presentation.PresentationId).Count);
                     Assert.Equal(tagsNames, service.GetAllTagsNames(testData.presentation.PresentationId));
-
                 }
             }
             finally
@@ -76,7 +75,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     Assert.Equal(testData.presentationTags, context.PresentationTags);
                     Assert.Equal(testData.presentation.ToString(), context.Presentations.Single().ToString());
                     Assert.Equal(testData.tags, context.Tags);
-
                 }
             }
             finally
@@ -107,7 +105,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     Assert.Null(service.GetAllTagsNames(1));
                     Assert.Null(service.GetAllTagsNames(2));
                     Assert.Null(service.GetAllTagsNames(3));
-
                 }
             }
             finally
@@ -135,7 +132,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     var service = new PresentationRepository(context);
 
                     Assert.Null(service.GetAllPresentations());
-
                 }
             }
             finally
@@ -171,7 +167,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     presentations.Add(testData2.presentation);
                     presentations.Add(testData3.presentation);
 
-
                     service.AddPresentation(testData1.presentationTags);
                     service.AddPresentation(testData2.presentationTags);
                     service.AddPresentation(testData3.presentationTags);
@@ -180,7 +175,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
 
                     Assert.Equal(context.Presentations.Count(), service.GetAllPresentations().Count);
                     Assert.Equal(presentations, service.GetAllPresentations());
-
                 }
             }
             finally
@@ -216,7 +210,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     presentations.Add(testData2.presentation);
                     presentations.Add(testData3.presentation);
 
-
                     service.AddPresentation(testData1.presentationTags);
                     service.AddPresentation(testData2.presentationTags);
                     service.AddPresentation(testData3.presentationTags);
@@ -224,7 +217,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     context.SaveChanges();
 
                     Assert.Equal(presentations.Count(), service.GetPresentationCount());
-
                 }
             }
             finally
@@ -248,7 +240,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                 Company = "Test company",
                 Photo = new Photo { Path = "Test Path" }
             };
-
 
             try
             {
@@ -274,7 +265,6 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                     Assert.Equal(1, context.PresentationSpeakers.Count());
                     Assert.Equal(speaker, context.PresentationSpeakers.Single().SpeakerProfile);
                     Assert.Equal(testData.presentation, context.PresentationSpeakers.Include(p => p.Presentation).Single().Presentation);
-
                 }
             }
             finally
@@ -282,6 +272,5 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
                 connection.Close();
             }
         }
-
     }
 }

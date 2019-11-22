@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Application.Core;
+using Application.Managers;
+using Application.Persistence;
 using Moq;
-using PlanificatorCMD.Validators;
-using PlanificatorCMD.Utils;
-using PlanificatorCMD.Managers;
 using PlanificatorCMD.DataProcessing;
+using PlanificatorCMD.Utils;
+using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
-using PlanificatorCMD.Core;
+using System.Collections.Generic;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
     public class AddPresentationVerbProcessingTests
     {
-
         [Fact]
         public void AddPresentation_CallingIsValidOnce()
         {
@@ -22,18 +20,15 @@ namespace PlanificatorCMD.Tests
             var mapper = new Mock<IPresentationMapper>();
             var manager = new Mock<IPresentationManager>();
             var repository = new Mock<ISpeakerRepository>();
-            
-            
-            
+
             var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa" };
             repository.Setup(s => s.GetSpeakerBySpeakerId(verb.PresentationOwnerSpeakerId)).Returns(It.IsAny<SpeakerProfile>());
 
             var processing = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object, repository.Object);
-            
+
             processing.AddPresentation(verb);
 
             validator.Verify(v => v.IsValid(verb, It.IsAny<SpeakerProfile>()), Times.Once);
-
         }
 
         [Fact]
@@ -43,7 +38,7 @@ namespace PlanificatorCMD.Tests
             var mapper = new Mock<IPresentationMapper>();
             var manager = new Mock<IPresentationManager>();
             var repository = new Mock<ISpeakerRepository>();
-            
+
             var verb = new AddPresentationVerb() { Title = "Gala", ShortDescription = "Gala de seara", LongDescription = "Gala de seara astazi", Tags = "#Tusa", PresentationOwnerSpeakerId = 1 };
 
             var prossec = new AddPresentationVerbProcessing(validator.Object, mapper.Object, manager.Object, repository.Object);
@@ -54,9 +49,7 @@ namespace PlanificatorCMD.Tests
             prossec.AddPresentation(verb);
 
             mapper.Verify(m => m.MapToPresentationTag(verb, It.IsAny<SpeakerProfile>()), Times.Once);
-
         }
-
 
         [Fact]
         public void AddPresentation_CallingManagerAddPresentationOnce()

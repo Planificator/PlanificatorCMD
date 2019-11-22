@@ -1,6 +1,6 @@
-﻿using Moq;
-using PlanificatorCMD.Core;
-using PlanificatorCMD.Persistence;
+﻿using Application.Core;
+using Application.Persistence;
+using Moq;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
