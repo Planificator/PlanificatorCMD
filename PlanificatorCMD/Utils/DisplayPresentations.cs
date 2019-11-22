@@ -1,5 +1,5 @@
-﻿using Application.Core;
-using Application.Persistence;
+﻿using Domain.Core;
+using Persistence.Persistence;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
 

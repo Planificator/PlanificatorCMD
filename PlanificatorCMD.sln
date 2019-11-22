@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanificatorCMD", "Planific
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlanificatorCMD.Tests", "PlanificatorCMD.Tests\PlanificatorCMD.Tests.csproj", "{14608AEE-F7C8-41FA-A39D-9A7305FF3E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{E6BF96AC-2204-434E-9C1E-215290721ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{E6BF96AC-2204-434E-9C1E-215290721ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{A2617D49-D26F-429D-A53F-29C8061715F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1DDBCEAA-C28F-4FD8-9F89-95EE6A4944D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{E6BF96AC-2204-434E-9C1E-215290721ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6BF96AC-2204-434E-9C1E-215290721ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6BF96AC-2204-434E-9C1E-215290721ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2617D49-D26F-429D-A53F-29C8061715F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2617D49-D26F-429D-A53F-29C8061715F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2617D49-D26F-429D-A53F-29C8061715F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2617D49-D26F-429D-A53F-29C8061715F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDBCEAA-C28F-4FD8-9F89-95EE6A4944D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDBCEAA-C28F-4FD8-9F89-95EE6A4944D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDBCEAA-C28F-4FD8-9F89-95EE6A4944D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDBCEAA-C28F-4FD8-9F89-95EE6A4944D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

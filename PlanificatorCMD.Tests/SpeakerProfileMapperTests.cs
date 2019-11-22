@@ -1,4 +1,4 @@
-﻿using Application.Core;
+﻿using Domain.Core;
 using Moq;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Utils;

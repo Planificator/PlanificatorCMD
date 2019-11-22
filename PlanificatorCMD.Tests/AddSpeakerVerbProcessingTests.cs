@@ -1,5 +1,5 @@
-﻿using Application.Core;
-using Application.Managers;
+﻿using Application.Managers;
+using Domain.Core;
 using Moq;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Utils;

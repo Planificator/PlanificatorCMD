@@ -1,7 +1,7 @@
-﻿using Application.Core;
-using Application.Persistence;
+﻿using Domain.Core;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Persistence;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;

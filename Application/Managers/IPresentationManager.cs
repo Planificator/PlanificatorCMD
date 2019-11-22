@@ -1,4 +1,4 @@
-﻿using Application.Core;
+﻿using Domain.Core;
 using System.Collections.Generic;
 
 namespace Application.Managers

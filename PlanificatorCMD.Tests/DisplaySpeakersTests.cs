@@ -1,6 +1,6 @@
-﻿using Application.Core;
-using Application.Persistence;
+﻿using Domain.Core;
 using Moq;
+using Persistence.Persistence;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;

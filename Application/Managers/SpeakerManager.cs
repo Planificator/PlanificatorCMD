@@ -1,5 +1,6 @@
-﻿using Application.Core;
-using Application.Persistence;
+﻿using Domain.Core;
+
+using Persistence.Persistence;
 
 namespace Application.Managers
 {

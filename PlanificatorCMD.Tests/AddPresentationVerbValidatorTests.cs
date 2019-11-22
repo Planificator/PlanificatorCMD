@@ -1,126 +1,175 @@
-﻿//using PlanificatorCMD.Verbs;
-//using PlanificatorCMD.Validators;
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using Xunit;
+﻿using Domain.Core;
+using PlanificatorCMD.Validators;
+using PlanificatorCMD.Verbs;
+using System;
+using Xunit;
 
-//namespace PlanificatorCMD.Tests
-//{
-//    public class AddPresentationVerbValidatorTests
-//    {
-//        [Fact]
-//        public void IsValid_ValidVerb_True()
-//        {
-//            var expected = true;
-//            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
-//            {
-//                Title = "tyt-pyt",
-//                ShortDescription = "lkjkj",
-//                LongDescription = "jiyl",
-//                Tags = "ygugkj"
-//            };
+namespace PlanificatorCMD.Tests
+{
+    public class AddPresentationVerbValidatorTests
+    {
+        [Fact]
+        public void IsValid_ValidVerb_True()
+        {
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "Endava",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
 
-//            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+            var expected = true;
+            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
+            {
+                Title = "tyt-pyt",
+                ShortDescription = "lkjkj",
+                LongDescription = "jiyl",
+                Tags = "ygugkj"
+            };
 
-//            var actual = sut.IsValid(addPresentationVerb);
-//            Assert.Equal(actual, expected);
-//        }
+            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-//        [Theory]
-//        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
-//        [InlineData("")]
-//        [InlineData(null)]
-//        public void IsValid_NotValidShortDescrition_False(string shortDescrition)
-//        {
-//            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
-//            {
-//                Title = "tyt-pyt",
-//                ShortDescription = shortDescrition,
-//                LongDescription = "jiyl",
-//                Tags = "ygugkj"
-//            };
+            var actual = sut.IsValid(addPresentationVerb, testSpeakerProfile);
+            Assert.Equal(actual, expected);
+        }
 
-//            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+        [Theory]
+        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void IsValid_NotValidShortDescrition_False(string shortDescrition)
+        {
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "Endava",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
 
-//            Action act = () => sut.IsValid(addPresentationVerb);
-//            Assert.Throws<ArgumentException>(act);
-//        }
+            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
+            {
+                Title = "tyt-pyt",
+                ShortDescription = shortDescrition,
+                LongDescription = "jiyl",
+                Tags = "ygugkj"
+            };
 
-//        [Theory]
-//        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-//           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
-//        [InlineData("")]
-//        [InlineData(null)]
-//        public void IsValid_NotValidTitle_False(string title)
-//        {
-//            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
-//            {
-//                Title = title,
-//                ShortDescription = "ty-tpyt",
-//                LongDescription = "jiyl",
-//                Tags = "ygugkj"
-//            };
+            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-//            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+            Action act = () => sut.IsValid(addPresentationVerb, testSpeakerProfile);
+            Assert.Throws<ArgumentException>(act);
+        }
 
-//            Action act = () => sut.IsValid(addPresentationVerb);
-//            Assert.Throws<ArgumentException>(act);
-//        }
+        [Theory]
+        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void IsValid_NotValidTitle_False(string title)
+        {
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "Endava",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
 
-//        [Theory]
-//        [InlineData("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
-//            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")]
-//        [InlineData("")]
-//        [InlineData(null)]
-//        public void IsValid_NotValidLongDescription_False(string longD)
-//        {
-//            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
-//            {
-//                Title = "jiyl",
-//                ShortDescription = "ty-tpyt",
-//                LongDescription = longD,
-//                Tags = "ygugkj"
-//            };
+            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
+            {
+                Title = title,
+                ShortDescription = "ty-tpyt",
+                LongDescription = "jiyl",
+                Tags = "ygugkj"
+            };
 
-//            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
 
-//            Action act = () => sut.IsValid(addPresentationVerb);
-//            Assert.Throws<ArgumentException>(act);
-//        }
+            Action act = () => sut.IsValid(addPresentationVerb, testSpeakerProfile);
+            Assert.Throws<ArgumentException>(act);
+        }
 
-//        [Theory]
-//        [InlineData("")]
-//        [InlineData(null)]
-//        public void IsValid_NotValidTags_False(string tags)
-//        {
-//            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
-//            {
-//                Title = "jiyl",
-//                ShortDescription = "ty-tpyt",
-//                LongDescription = "ygugkj",
-//                Tags = tags
-//            };
+        [Theory]
+        [InlineData("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" +
+            "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")]
+        [InlineData("")]
+        [InlineData(null)]
+        public void IsValid_NotValidLongDescription_False(string longD)
+        {
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "Endava",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
 
-//            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
+            {
+                Title = "jiyl",
+                ShortDescription = "ty-tpyt",
+                LongDescription = longD,
+                Tags = "ygugkj"
+            };
 
-//            Action act = () => sut.IsValid(addPresentationVerb);
-//            Assert.Throws<ArgumentException>(act);
-//        }
-//    }
-//}
+            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(addPresentationVerb, testSpeakerProfile);
+            Assert.Throws<ArgumentException>(act);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void IsValid_NotValidTags_False(string tags)
+        {
+            var testSpeakerProfile = new SpeakerProfile
+            {
+                FirstName = "Test FN",
+                LastName = "Test LN",
+                Email = "test@test.test",
+                Bio = "Test Bio",
+                Company = "Endava",
+                Photo = new Photo { Path = "testPath.jpg" }
+            };
+
+            AddPresentationVerb addPresentationVerb = new AddPresentationVerb()
+            {
+                Title = "jiyl",
+                ShortDescription = "ty-tpyt",
+                LongDescription = "ygugkj",
+                Tags = tags
+            };
+
+            AddPresentationVerbValidator sut = new AddPresentationVerbValidator();
+
+            Action act = () => sut.IsValid(addPresentationVerb, testSpeakerProfile);
+            Assert.Throws<ArgumentException>(act);
+        }
+    }
+}

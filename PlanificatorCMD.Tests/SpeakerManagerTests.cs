@@ -1,7 +1,7 @@
-﻿using Application.Core;
-using Application.Managers;
-using Application.Persistence;
+﻿using Application.Managers;
+using Domain.Core;
 using Moq;
+using Persistence.Persistence;
 using PlanificatorCMD.Wrappers;
 using Xunit;
 
