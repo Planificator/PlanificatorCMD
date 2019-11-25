@@ -4,7 +4,7 @@ using PlanificatorCMD.Verbs;
 using System.Collections.Generic;
 using Xunit;
 
-namespace PlanificatorCMD.Tests
+namespace Application.Tests
 {
     public class PresentationMapperTests
     {
