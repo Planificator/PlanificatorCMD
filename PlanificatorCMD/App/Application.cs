@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommandLine;
+﻿using CommandLine;
 using PlanificatorCMD.DataProcessing;
-using PlanificatorCMD.Managers;
 using PlanificatorCMD.Utils;
-using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
+using System;
 
 namespace PlanificatorCMD
 {
@@ -26,9 +22,9 @@ namespace PlanificatorCMD
             _displayPresentations = displayPresentations;
             _assignSpeakerToPresentationVerbProcessing = assignSpeakerToPresentationVerbProcessing;
         }
+
         public void Run(string[] args)
         {
-
             try
             {
                 Parser.Default.ParseArguments<AddSpeakerVerb, ShowAllSpeakersVerb, AddPresentationVerb, ShowAllPresentation, AssignSpeakerToPresentationVerb>(args)
@@ -40,11 +36,10 @@ namespace PlanificatorCMD
                     (AssignSpeakerToPresentationVerb opts) => _assignSpeakerToPresentationVerbProcessing.AssignSpeakerToPresentation(opts),
                     errs => 1
                     );
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-               Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }

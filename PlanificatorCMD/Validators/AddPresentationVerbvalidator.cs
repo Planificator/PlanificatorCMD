@@ -1,9 +1,6 @@
-﻿using PlanificatorCMD.Core;
+﻿using Domain.Core;
 using PlanificatorCMD.Verbs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PlanificatorCMD.Validators
 {
@@ -31,9 +28,8 @@ namespace PlanificatorCMD.Validators
             {
                 throw new ArgumentException("Enter the tag", nameof(addPresentationVerb.Tags));
             }
-            
-            return true;
 
+            return true;
         }
 
         private bool IsValidPresentationOwner(SpeakerProfile presentationOwner)

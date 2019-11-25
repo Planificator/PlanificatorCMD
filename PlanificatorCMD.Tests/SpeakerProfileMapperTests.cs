@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Domain.Core;
 using Moq;
 using PlanificatorCMD.DataProcessing;
 using PlanificatorCMD.Utils;
-using PlanificatorCMD.Core;
 using PlanificatorCMD.Verbs;
+using Xunit;
 
 namespace PlanificatorCMD.Tests
 {
@@ -30,7 +27,8 @@ namespace PlanificatorCMD.Tests
 
             var photo = new Mock<IPhotoPathProcessing>();
             photo.Setup(p => p.PhotoCopy("1.jpg")).Returns("1.jpg");
-            var verb = new AddSpeakerVerb() {
+            var verb = new AddSpeakerVerb()
+            {
                 FirstName = "Sergiu",
                 LastName = "Chirila",
                 Bio = "Intern",
@@ -48,7 +46,6 @@ namespace PlanificatorCMD.Tests
         [Fact]
         public void MapToSpeaker_CallingPhotoCopy_Once()
         {
-
             var photo = new Mock<IPhotoPathProcessing>();
             var verb = new AddSpeakerVerb()
             {
@@ -67,7 +64,3 @@ namespace PlanificatorCMD.Tests
         }
     }
 }
-
-
-
-

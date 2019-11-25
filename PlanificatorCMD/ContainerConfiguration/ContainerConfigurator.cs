@@ -1,15 +1,12 @@
-﻿using Autofac;
+﻿using Application.Managers;
+using Autofac;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Persistence;
 using PlanificatorCMD.DataProcessing;
-using PlanificatorCMD.Managers;
-using PlanificatorCMD.Persistence;
 using PlanificatorCMD.Utils;
 using PlanificatorCMD.Validators;
 using PlanificatorCMD.Verbs;
 using PlanificatorCMD.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.ContainerConfiguration
 {
@@ -37,7 +34,7 @@ namespace PlanificatorCMD.ContainerConfiguration
             builder.RegisterType<AssignSpeakerToPresentationVerb>().As<IAssignSpeakerToPresentationVerb>();
             builder.RegisterType<AssignSpeakerToPresentationVerbProcessing>().As<IAssignSpeakerToPresentationVerbProcessing>();
             builder.RegisterType<AssignSpeakerToPresentationVerbValidator>().As<IAssignSpeakerToPresentationVerbValidator>();
-          
+
             //speaker add
             builder.RegisterType<AddSpeakerVerb>().As<IAddSpeakerVerb>();
             builder.RegisterType<AddSpeakerVerbProcessing>().As<IAddSpeakerVerbProcessing>();

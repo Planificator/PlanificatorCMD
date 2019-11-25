@@ -5,7 +5,6 @@ namespace PlanificatorCMD.Verbs
     [Verb("add_speaker", HelpText = "adding a new speaker")]
     public class AddSpeakerVerb : IAddSpeakerVerb
     {
-
         [Option('f', "firstname", Required = true, HelpText = "Inserting Firstname")]
         public string FirstName { get; set; }
 
@@ -23,6 +22,5 @@ namespace PlanificatorCMD.Verbs
 
         [Option('c', "company", Required = false, HelpText = "Inserting the company")]
         public string Company { get; set; }
-
-    }      
+    }
 }

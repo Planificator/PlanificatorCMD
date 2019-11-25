@@ -1,4 +1,4 @@
-﻿using PlanificatorCMD.Core;
+﻿using Domain.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

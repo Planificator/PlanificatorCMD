@@ -1,7 +1,5 @@
-﻿using PlanificatorCMD.Core;
-using System;
+﻿using Domain.Core;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Tests.PresentationRepositoryTests
 {
@@ -27,11 +25,9 @@ namespace PlanificatorCMD.Tests.PresentationRepositoryTests
             Title = "Test",
             LongDescription = "Test",
             ShortDescription = "Test",
-            PresentationOwner = new SpeakerProfile {FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST"} }
+            PresentationOwner = new SpeakerProfile { FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
         };
 
         public List<PresentationTag> presentationTags = new List<PresentationTag>();
-
-       
     }
 }

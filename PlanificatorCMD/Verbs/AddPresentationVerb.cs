@@ -1,11 +1,8 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlanificatorCMD.Verbs
 {
-     [Verb("add_presentation", HelpText = "adding a new presentation")]
+    [Verb("add_presentation", HelpText = "adding a new presentation")]
     public class AddPresentationVerb : IAddPresentationVerb
     {
         [Option('t', "title", Required = true, HelpText = "Inserting Title")]
@@ -24,4 +21,3 @@ namespace PlanificatorCMD.Verbs
         public int PresentationOwnerSpeakerId { get; set; }
     }
 }
-

@@ -1,5 +1,5 @@
-﻿using PlanificatorCMD.Core;
-using PlanificatorCMD.Persistence;
+﻿using Domain.Core;
+using Persistence.Persistence;
 using PlanificatorCMD.Wrappers;
 using System.Collections.Generic;
 
@@ -15,6 +15,7 @@ namespace PlanificatorCMD.Utils
             _presentationRepository = presentationRepository;
             _consoleWrapper = consoleWrapper;
         }
+
         public int DisplayAllPresentations(bool displayOption)
         {
             ICollection<Presentation> presentations = _presentationRepository.GetAllPresentations();

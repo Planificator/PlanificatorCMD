@@ -9,17 +9,17 @@ namespace PlanificatorCMD.Validators
     {
         public bool IsValid(IAddSpeakerVerb addSpeakerVerb)
         {
-            if(!IsValidEmail(addSpeakerVerb.Email))
+            if (!IsValidEmail(addSpeakerVerb.Email))
             {
                 throw new ArgumentException("Incorrect format of email", nameof(addSpeakerVerb.Email));
             }
 
-            if(!IsValidPath(addSpeakerVerb.PhotoPath))
+            if (!IsValidPath(addSpeakerVerb.PhotoPath))
             {
                 throw new ArgumentNullException("Invalid path", nameof(addSpeakerVerb.PhotoPath));
             }
 
-            if(!IsValidFormat(addSpeakerVerb.PhotoPath))
+            if (!IsValidFormat(addSpeakerVerb.PhotoPath))
             {
                 throw new ArgumentException("Not supported format of the image");
             }
@@ -31,10 +31,10 @@ namespace PlanificatorCMD.Validators
         {
             string[] imageEndsWith = { ".JPG" };
             string extension = Path.GetExtension(path).ToUpper();
-            
-            for(int i = 0; i< imageEndsWith.Length; i++)
+
+            for (int i = 0; i < imageEndsWith.Length; i++)
             {
-                if(imageEndsWith[i] == extension)
+                if (imageEndsWith[i] == extension)
                 {
                     return true;
                 }

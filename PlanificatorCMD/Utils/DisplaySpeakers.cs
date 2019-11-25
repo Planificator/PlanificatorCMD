@@ -1,6 +1,6 @@
-﻿using PlanificatorCMD.Core;
+﻿using Domain.Core;
+using Persistence.Persistence;
 using PlanificatorCMD.Wrappers;
-using System;
 using System.Collections.Generic;
 
 namespace PlanificatorCMD.Utils
@@ -29,7 +29,6 @@ namespace PlanificatorCMD.Utils
                 {
                     _consoleWrapper.WriteLine(s.SpeakerId + ")\t" + s.FirstName + " " + s.LastName + " " + s.Email + " " + s.Company + " " + s.Bio);
                 }
-
             else
                 foreach (var s in speakerProfiles)
                 {
