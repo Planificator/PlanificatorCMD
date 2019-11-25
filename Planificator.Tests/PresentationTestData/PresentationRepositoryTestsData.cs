@@ -1,7 +1,7 @@
 ﻿using Domain.Core;
 using System.Collections.Generic;
 
-namespace PlanificatorCMD.Tests.PresentationRepositoryTests
+namespace Planificator.Tests.PresentationTestData
 {
     public class PresentationRepositoryTestsData
     {
