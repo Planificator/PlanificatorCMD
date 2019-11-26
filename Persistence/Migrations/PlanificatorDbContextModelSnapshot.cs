@@ -14,24 +14,11 @@ namespace Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PlanificatorCMD.Core.Photo", b =>
-                {
-                    b.Property<int>("PhotoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PhotoId");
-
-                    b.ToTable("Photos");
-                });
-
-            modelBuilder.Entity("PlanificatorCMD.Core.Presentation", b =>
+            modelBuilder.Entity("Domain.Core.Presentation", b =>
                 {
                     b.Property<int>("PresentationId")
                         .ValueGeneratedOnAdd()
@@ -43,8 +30,9 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(800)")
                         .HasMaxLength(800);
 
-                    b.Property<int>("PresentationOwnerSpeakerId")
-                        .HasColumnType("int");
+                    b.Property<string>("PresentationOwnerSpeakerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
@@ -63,13 +51,13 @@ namespace Persistence.Migrations
                     b.ToTable("Presentations");
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.PresentationSpeaker", b =>
+            modelBuilder.Entity("Domain.Core.PresentationSpeaker", b =>
                 {
                     b.Property<int>("PresentationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SpeakerId")
-                        .HasColumnType("int");
+                    b.Property<string>("SpeakerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PresentationId", "SpeakerId");
 
@@ -78,7 +66,7 @@ namespace Persistence.Migrations
                     b.ToTable("PresentationSpeakers");
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.PresentationTag", b =>
+            modelBuilder.Entity("Domain.Core.PresentationTag", b =>
                 {
                     b.Property<int>("PresentationId")
                         .HasColumnType("int");
@@ -93,15 +81,12 @@ namespace Persistence.Migrations
                     b.ToTable("PresentationTags");
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.SpeakerProfile", b =>
+            modelBuilder.Entity("Domain.Core.SpeakerProfile", b =>
                 {
-                    b.Property<int>("SpeakerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("SpeakerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
@@ -124,12 +109,16 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.HasKey("SpeakerId");
 
                     b.ToTable("SpeakerProfiles");
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.Tag", b =>
+            modelBuilder.Entity("Domain.Core.Tag", b =>
                 {
                     b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
@@ -146,48 +135,39 @@ namespace Persistence.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.Photo", b =>
+            modelBuilder.Entity("Domain.Core.Presentation", b =>
                 {
-                    b.HasOne("PlanificatorCMD.Core.SpeakerProfile", "SpeakerProfile")
-                        .WithOne("Photo")
-                        .HasForeignKey("PlanificatorCMD.Core.Photo", "PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PlanificatorCMD.Core.Presentation", b =>
-                {
-                    b.HasOne("PlanificatorCMD.Core.SpeakerProfile", "PresentationOwner")
+                    b.HasOne("Domain.Core.SpeakerProfile", "PresentationOwner")
                         .WithMany("OwnedPresentations")
                         .HasForeignKey("PresentationOwnerSpeakerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.PresentationSpeaker", b =>
+            modelBuilder.Entity("Domain.Core.PresentationSpeaker", b =>
                 {
-                    b.HasOne("PlanificatorCMD.Core.Presentation", "Presentation")
+                    b.HasOne("Domain.Core.Presentation", "Presentation")
                         .WithMany("PresentationSpeakers")
                         .HasForeignKey("PresentationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlanificatorCMD.Core.SpeakerProfile", "SpeakerProfile")
+                    b.HasOne("Domain.Core.SpeakerProfile", "SpeakerProfile")
                         .WithMany("PresentationSpeakers")
                         .HasForeignKey("SpeakerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlanificatorCMD.Core.PresentationTag", b =>
+            modelBuilder.Entity("Domain.Core.PresentationTag", b =>
                 {
-                    b.HasOne("PlanificatorCMD.Core.Presentation", "Presentation")
+                    b.HasOne("Domain.Core.Presentation", "Presentation")
                         .WithMany("PresentationTags")
                         .HasForeignKey("PresentationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlanificatorCMD.Core.Tag", "Tag")
+                    b.HasOne("Domain.Core.Tag", "Tag")
                         .WithMany("PresentationTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)

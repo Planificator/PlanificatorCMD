@@ -7,6 +7,6 @@ public static class Paths
     public static string ArtifactsPattern => "**/[Aa]rtifacts";
     public static DirectoryPath CoverageDir => "coverage";
     public static string CoveragePattern => "**/[Cc]overage";
-    public static string TestProjectDirectory => "PlanificatorCMD.Tests";
+    public static string TestProjectDirectory => "Planificator.Tests";
     public static FilePath CoverageFile => "coverage.xml";
 }

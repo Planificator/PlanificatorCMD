@@ -1,4 +1,5 @@
 ﻿using Domain.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace Persistence.Persistence
     public class PlanificatorDbContext : DbContext
     {
         public DbSet<SpeakerProfile> SpeakerProfiles { get; set; }
-        public DbSet<Photo> Photos { get; set; }
         public DbSet<Presentation> Presentations { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PresentationTag> PresentationTags { get; set; }
@@ -56,7 +56,11 @@ namespace Persistence.Persistence
             modelBuilder.Entity<SpeakerProfile>()
                     .Property(s => s.Bio)
                     .HasMaxLength(100)
-                    .IsRequired();
+                    .IsRequired(false);
+            modelBuilder.Entity<SpeakerProfile>()
+                    .Property(s => s.PhotoPath)
+                    .HasMaxLength(200)
+                    .IsRequired(false);
             modelBuilder.Entity<SpeakerProfile>()
                     .Property(s => s.Company)
                     .HasMaxLength(60)
@@ -121,7 +125,7 @@ namespace Persistence.Persistence
             modelBuilder.Entity<SpeakerProfile>()
                 .HasMany<Presentation>(s => s.OwnedPresentations)
                 .WithOne(p => p.PresentationOwner)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);  
         }
     }
 }
