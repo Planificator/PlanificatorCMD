@@ -1,4 +1,5 @@
 ﻿using Domain.Core;
+using System;
 using System.Collections.Generic;
 
 namespace Planificator.Tests.PresentationTestData
@@ -25,7 +26,7 @@ namespace Planificator.Tests.PresentationTestData
             Title = "Test",
             LongDescription = "Test",
             ShortDescription = "Test",
-            PresentationOwner = new SpeakerProfile { FirstName = "a", LastName = "b", Email = "c", Bio = "b", Photo = new Photo { Path = "TEST" } }
+            PresentationOwner = new SpeakerProfile { SpeakerId = Guid.NewGuid().ToString(), FirstName = "a", LastName = "b", Email = "c", Bio = "b", PhotoPath = "TEST" }
         };
 
         public List<PresentationTag> presentationTags = new List<PresentationTag>();

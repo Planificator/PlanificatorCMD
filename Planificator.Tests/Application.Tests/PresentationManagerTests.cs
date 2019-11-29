@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Persistence;
 using Planificator.Tests.PresentationTestData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -57,12 +58,13 @@ namespace Application.Tests
 
             SpeakerProfile speaker = new SpeakerProfile
             {
+                SpeakerId = Guid.NewGuid().ToString(),
                 FirstName = "Test First Name",
                 LastName = "Test Last Name",
                 Email = "test@email.net",
                 Bio = "My test bio",
                 Company = "Test company",
-                Photo = new Photo { Path = "Test Path" }
+                PhotoPath = "Test Path"
             };
 
             try

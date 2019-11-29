@@ -6,12 +6,10 @@ namespace Application.Managers
 {
     public class PresentationManager : IPresentationManager
     {
-        //private readonly IPresentationRepository _presentationRepository;
         private readonly PlanificatorDbContext _planificatorDbContext;
 
         public PresentationManager(PlanificatorDbContext planificatorDbContext)
         {
-            //_presentationRepository = presentationRepository;
             _planificatorDbContext = planificatorDbContext;
         }
 

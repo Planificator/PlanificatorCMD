@@ -7,10 +7,8 @@ namespace Persistence.Persistence
     {
         ICollection<SpeakerProfile> GetAllSpeakersProfiles();
 
-        int GetMaxId();
-
         int GetSpeakersCount();
 
-        SpeakerProfile GetSpeakerBySpeakerId(int speakerId);
+        SpeakerProfile GetSpeakerBySpeakerId(string speakerId);
     }
 }
