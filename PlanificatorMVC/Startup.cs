@@ -42,6 +42,7 @@ namespace PlanificatorMVC
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddScoped<ISpeakerRepository, SpeakerRepository>();
             services.AddScoped<ISpeakerManager, SpeakerManager>();
         }
 

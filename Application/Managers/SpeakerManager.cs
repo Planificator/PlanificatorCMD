@@ -18,5 +18,10 @@ namespace Application.Managers
             _planificatorDbContext.SpeakerProfiles.Add(speaker);
             _planificatorDbContext.SaveChanges();
         }
+        public void UpdateSpeaker(SpeakerProfile speaker)
+        {
+            _planificatorDbContext.SpeakerProfiles.Update(speaker);
+            _planificatorDbContext.SaveChanges();
+        }
     }
 }
