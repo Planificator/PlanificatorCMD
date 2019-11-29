@@ -2,6 +2,7 @@
 using Domain.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -20,6 +22,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -31,8 +34,10 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ISpeakerManager speakerManager)
+            ISpeakerManager speakerManager,
+            IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -99,8 +104,9 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         SpeakerId = user.Id,
                         Email = user.Email,
                         FirstName = Input.FirstName,
-                        LastName = Input.LastName
-                    };
+                        LastName = Input.LastName,
+                        PhotoPath = @"\default.png"
+                };
                     _speakerManager.AddSpeakerProfile(speakerProfile);
                     _logger.LogInformation("Speaker Profile was created for this user.");
 

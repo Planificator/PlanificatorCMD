@@ -39,6 +39,13 @@ namespace PlanificatorMVC
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+            services.AddAuthentication(options => { /* Authentication options */ })
+          .AddGitHub(options =>
+          {
+              options.ClientId = Configuration["OAuth:Client_Id"];
+              options.ClientSecret = Configuration["OAuth:Client_Secret"];
+          });
             services.AddControllersWithViews();
             services.AddRazorPages();
 
