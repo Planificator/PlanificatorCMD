@@ -50,12 +50,12 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(50, ErrorMessage = "Insert FirstName", MinimumLength = 2)]
+            [StringLength(50, ErrorMessage = "Insert First Name", MinimumLength = 2)]
             [Display(Name = "FirstName")]
             public string FirstName { get; set; }
 
             [Required]
-            [StringLength(50, ErrorMessage = "Insert LastName", MinimumLength = 2)]
+            [StringLength(50, ErrorMessage = "Insert Last Name", MinimumLength = 2)]
             [Display(Name = "LastName")]
             public string LastName { get; set; }
 
