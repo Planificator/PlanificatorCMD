@@ -22,7 +22,6 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -34,10 +33,8 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ISpeakerManager speakerManager,
-            IHostingEnvironment hostingEnvironment)
+            ISpeakerManager speakerManager)
         {
-            _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;

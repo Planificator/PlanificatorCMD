@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence.Persistence;
 using Application.Managers;
+using AspNet.Security.OAuth.GitHub;
 
 namespace PlanificatorMVC
 {
@@ -41,11 +42,11 @@ namespace PlanificatorMVC
 
 
             services.AddAuthentication(options => { /* Authentication options */ })
-          .AddGitHub(options =>
-          {
-              options.ClientId = Configuration["OAuth:Client_Id"];
-              options.ClientSecret = Configuration["OAuth:Client_Secret"];
-          });
+            .AddGitHub(options =>
+            {
+               options.ClientId = Configuration["OAuth:Client_Id"];
+               options.ClientSecret = Configuration["OAuth:Client_Secret"];
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
 

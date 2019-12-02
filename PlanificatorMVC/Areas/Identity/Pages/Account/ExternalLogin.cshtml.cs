@@ -6,8 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Application.Managers;
-using Domain.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -21,7 +19,6 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly ISpeakerManager _speakerManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
@@ -31,10 +28,8 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender,
-            ISpeakerManager speakerManager)
+            IEmailSender emailSender)
         {
-            _speakerManager = speakerManager;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
@@ -130,17 +125,6 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    //OUR CODE {TRASH}
-                    var speakerProfile = new SpeakerProfile
-                    {
-                        SpeakerId = user.Id,
-                        Email = user.Email,
-                        FirstName = "",
-                        LastName = "",
-                        PhotoPath = @"\default.png"
-                    };
-                    _speakerManager.AddSpeakerProfile(speakerProfile);
-
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
