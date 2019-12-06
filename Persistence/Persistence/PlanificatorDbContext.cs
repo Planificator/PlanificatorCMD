@@ -1,10 +1,7 @@
 ﻿using Domain.Core;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Persistence.Persistence
 {
@@ -24,7 +21,6 @@ namespace Persistence.Persistence
         public PlanificatorDbContext()
         {
         }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -125,7 +121,7 @@ namespace Persistence.Persistence
             modelBuilder.Entity<SpeakerProfile>()
                 .HasMany<Presentation>(s => s.OwnedPresentations)
                 .WithOne(p => p.PresentationOwner)
-                .OnDelete(DeleteBehavior.Restrict);  
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

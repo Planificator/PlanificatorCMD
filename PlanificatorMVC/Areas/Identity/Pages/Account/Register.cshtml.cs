@@ -88,7 +88,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email, };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -102,6 +102,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         LastName = Input.LastName
                     };
                     _speakerManager.AddSpeakerProfile(speakerProfile);
+                    await _userManager.AddToRoleAsync(user, "Speaker");
                     _logger.LogInformation("Speaker Profile was created for this user.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

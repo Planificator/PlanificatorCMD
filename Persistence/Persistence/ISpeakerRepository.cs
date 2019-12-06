@@ -1,5 +1,6 @@
 ﻿using Domain.Core;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Persistence.Persistence
 {
@@ -10,5 +11,9 @@ namespace Persistence.Persistence
         int GetSpeakersCount();
 
         SpeakerProfile GetSpeakerBySpeakerId(string speakerId);
+
+        Task<SpeakerProfile> GetSpeakerBySpeakerEmailAsync(string email);
+
+        Task<SpeakerProfile> GetSpeakerBySpeakerEmailIncludingRelationshipsAsync(string email);
     }
 }

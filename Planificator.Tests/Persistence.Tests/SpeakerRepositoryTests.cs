@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Persistence;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace Persistence.Tests
@@ -38,7 +37,7 @@ namespace Persistence.Tests
                     Email = "test2@test.test",
                     Bio = "Test2 Bio",
                     Company = "Test2 Compnay",
-                    PhotoPath = "test2Path.jpg" 
+                    PhotoPath = "test2Path.jpg"
                 }
             };
 
