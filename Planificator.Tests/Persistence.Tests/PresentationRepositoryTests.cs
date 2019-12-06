@@ -141,7 +141,7 @@ namespace Persistence.Tests
 
                     context.SaveChanges();
 
-                    Assert.Equal(context.Presentations.Count(), query.GetAllPresentations().Count);
+                    Assert.Equal(context.Presentations.Count(), query.GetAllPresentations().Count());
                     Assert.Equal(presentations, query.GetAllPresentations());
                 }
             }

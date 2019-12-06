@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Persistence.Persistence
 {
@@ -14,23 +15,43 @@ namespace Persistence.Persistence
             _dbContext = dbContext;
         }
 
-        public ICollection<string> GetAllTagsNames(int presentationId)
+        public IEnumerable<string> GetAllTagsNames(int presentationId)
         {
             List<string> tags = new List<string>();
-            if (_dbContext.Tags.Count() == 0)
-                return null;
 
             tags = _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToList();
 
             return tags;
         }
 
-        public ICollection<Presentation> GetAllPresentations()
+        public async Task<IEnumerable<string>> GetAllTagsNamesAsync(int presentationId)
         {
-            if (_dbContext.Presentations.Count() == 0)
-                return null;
+            List<string> tags = new List<string>();
 
-            return _dbContext.Presentations.ToList();
+            tags = await _dbContext.Tags.Where(x => _dbContext.PresentationTags.Any(y => y.PresentationId == presentationId && x.TagId == y.TagId)).Select(x => x.TagName).ToListAsync();
+
+            return tags;
+        }
+
+        public IEnumerable<Presentation> GetAllPresentations()
+        {
+            //if (_dbContext.Presentations.Count() == 0)
+            //    return null;
+
+            return _dbContext.Presentations
+                .Include(p => p.PresentationTags)
+                .ThenInclude(pt => pt.Tag)
+                .ToList();
+        }
+
+        public async Task<IEnumerable<Presentation>> GetAllPresentationsAsync()
+        {
+            //if (_dbContext.Presentations.Count() == 0)
+            //return null;
+            return await _dbContext.Presentations
+                .Include(p => p.PresentationTags)
+                .ThenInclude(pt => pt.Tag)
+                .ToListAsync();
         }
 
         public int GetPresentationCount()
@@ -41,6 +62,11 @@ namespace Persistence.Persistence
         public Presentation GetPresentationById(int presentationId)
         {
             return _dbContext.Presentations.Include(s => s.PresentationOwner).Include(s => s.PresentationSpeakers).SingleOrDefault(p => p.PresentationId == presentationId);
+        }
+
+        public async Task<Presentation> GetPresentationByIdAsync(int presentationId)
+        {
+            return await _dbContext.Presentations.Include(s => s.PresentationOwner).Include(s => s.PresentationSpeakers).SingleOrDefaultAsync(p => p.PresentationId == presentationId);
         }
     }
 }

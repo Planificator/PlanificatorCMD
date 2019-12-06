@@ -1,5 +1,3 @@
-using System;
-
 namespace PlanificatorMVC.Models
 {
     public class ErrorViewModel
