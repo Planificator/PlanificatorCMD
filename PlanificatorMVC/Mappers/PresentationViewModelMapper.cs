@@ -41,13 +41,16 @@ namespace PlanificatorMVC.Mappers
             if (presentations.Count() == 0)
                 return null;
 
+
             foreach (Presentation presentation in presentations)
             {
                 presentationViewModels.Add
                 (
                     new PresentationViewModel
                     {
+
                         PresentationId = presentation.PresentationId,
+
                         Title = presentation.Title,
                         ShortDescription = presentation.ShortDescription,
                         LongDescription = presentation.LongDescription,
@@ -70,6 +73,7 @@ namespace PlanificatorMVC.Mappers
             return stringOfTags;
         }
 
+
         public PresentationViewModel MapPresentationToPresentationViewModel(Presentation presentation)
         {
             var presentationViewModel = new PresentationViewModel
@@ -83,5 +87,6 @@ namespace PlanificatorMVC.Mappers
 
             return presentationViewModel;
         }
+
     }
 }

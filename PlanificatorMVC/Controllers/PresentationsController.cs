@@ -34,15 +34,18 @@ namespace PlanificatorMVC.Controllers
             var currentSpeaker = await _speakerRepository.GetSpeakerBySpeakerEmailIncludingRelationshipsAsync(HttpContext.User.Identity.Name);
             //var presentations = await _presentationRepository.GetAllPresentationsAsync();
             var presentationViewModels = _presentationViewModelMapper.MapFromPresentations(currentSpeaker.OwnedPresentations);
+
             if (presentationViewModels == null)
             {
                 return View("NoPresentation");
             }
+
             return View(presentationViewModels);
         }
 
         //GET: Presentations/Details/5
         [HttpGet]
+
         public async Task<IActionResult> Details(int id)
         {
             var presentation =  await _presentationRepository.GetPresentationByIdAsync(id);
@@ -56,6 +59,9 @@ namespace PlanificatorMVC.Controllers
             var presentationViewModel = _presentationViewModelMapper.MapPresentationToPresentationViewModel(presentation);
             return View(presentationViewModel);
 
+        public IActionResult Details([FromQuery] PresentationViewModel presentationViewModel)
+        {
+
             //if (id == null)
             //{
             //    return NotFound();
@@ -67,6 +73,11 @@ namespace PlanificatorMVC.Controllers
             //{
             //    return NotFound();
             //}
+
+
+
+            return View(presentationViewModel);
+
         }
 
         // GET: Presentations/Create

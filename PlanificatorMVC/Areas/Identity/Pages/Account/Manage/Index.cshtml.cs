@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,10 +8,13 @@ using System.Threading.Tasks;
 using Application.Managers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+0
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Persistence;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 {
@@ -132,6 +136,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             {
                 speakerProfile.Bio = Input.Bio;
             }
+
 
             if (Input.Company != speakerProfile.Company)
             {
