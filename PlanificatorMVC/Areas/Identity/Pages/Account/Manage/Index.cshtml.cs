@@ -70,7 +70,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
 
-            Email = email;            
+            Email = email;
 
             Input = new InputModel
             {
@@ -110,14 +110,14 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 
             var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
 
-            if(picture != null)
+            if (picture != null)
             {
                 var fileName = Path.Combine(_hostingEnvironment.WebRootPath + @"\images", speakerProfile.Email + Path.GetFileName(picture.FileName));
                 picture.CopyTo(new FileStream(fileName, FileMode.Create));
                 speakerProfile.PhotoPath = @"\images\" + Path.GetFileName(speakerProfile.Email + picture.FileName);
             }
 
-            if(Input.FirstName!= speakerProfile.FirstName)
+            if (Input.FirstName != speakerProfile.FirstName)
             {
                 speakerProfile.FirstName = Input.FirstName;
             }
@@ -133,7 +133,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
                 speakerProfile.Bio = Input.Bio;
             }
 
-            if(Input.Company != speakerProfile.Company)
+            if (Input.Company != speakerProfile.Company)
             {
                 speakerProfile.Company = Input.Company;
             }

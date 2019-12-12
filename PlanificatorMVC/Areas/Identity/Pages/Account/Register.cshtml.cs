@@ -22,6 +22,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -33,8 +34,10 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ISpeakerManager speakerManager)
+            ISpeakerManager speakerManager,
+            IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -52,12 +55,12 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(50, ErrorMessage = "Insert FirstName", MinimumLength = 2)]
+            [StringLength(50, ErrorMessage = "Insert First Name", MinimumLength = 2)]
             [Display(Name = "FirstName")]
             public string FirstName { get; set; }
 
             [Required]
-            [StringLength(50, ErrorMessage = "Insert LastName", MinimumLength = 2)]
+            [StringLength(50, ErrorMessage = "Insert Last Name", MinimumLength = 2)]
             [Display(Name = "LastName")]
             public string LastName { get; set; }
 
@@ -90,7 +93,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email, };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -102,9 +105,10 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         Email = user.Email,
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
-                        PhotoPath = @"\default.png"
-                };
+                        PhotoPath = Path.Combine (_hostingEnvironment.WebRootPath,@"\images\default.png")
+                    };
                     _speakerManager.AddSpeakerProfile(speakerProfile);
+                    await _userManager.AddToRoleAsync(user, "Speaker");
                     _logger.LogInformation("Speaker Profile was created for this user.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -1,6 +1,7 @@
 ﻿using Domain.Core;
 using Persistence.Persistence;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Managers
 {
@@ -13,12 +14,13 @@ namespace Application.Managers
             _planificatorDbContext = planificatorDbContext;
         }
 
-        public void AddPresentation(ICollection<PresentationTag> presentationTags)
+        public async Task AddPresentation(ICollection<PresentationTag> presentationTags)
         {
             foreach (var presantationTag in presentationTags)
             {
                 _planificatorDbContext.PresentationTags.Add(presantationTag);
             }
+            await _planificatorDbContext.SaveChangesAsync();
             _planificatorDbContext.SaveChanges();
         }
 

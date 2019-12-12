@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Core
 {
-
     public class SpeakerProfile
     {
         [Key]

@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Managers;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PlanificatorMVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence.Persistence;
-using Application.Managers;
-using AspNet.Security.OAuth.GitHub;
+using PlanificatorMVC.Data;
+using PlanificatorMVC.Mappers;
+using System;
+using System.Threading.Tasks;
 
 namespace PlanificatorMVC
 {
@@ -38,24 +34,22 @@ namespace PlanificatorMVC
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Identity")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
-            services.AddAuthentication(options => { /* Authentication options */ })
-            .AddGitHub(options =>
-            {
-               options.ClientId = Configuration["OAuth:Client_Id"];
-               options.ClientSecret = Configuration["OAuth:Client_Secret"];
-            });
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //services.AddScoped<PlanificatorDbContext>();
             services.AddScoped<ISpeakerRepository, SpeakerRepository>();
             services.AddScoped<ISpeakerManager, SpeakerManager>();
+            services.AddScoped<IPresentationManager, PresentationManager>();
+            services.AddScoped<IPresentationViewModelMapper, PresentationViewModelMapper>();
+            services.AddScoped<IPresentationRepository, PresentationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -64,10 +58,11 @@ namespace PlanificatorMVC
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Presentations/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -80,9 +75,26 @@ namespace PlanificatorMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Presentations}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = { "Admin", "Speaker", };
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
         }
     }
 }

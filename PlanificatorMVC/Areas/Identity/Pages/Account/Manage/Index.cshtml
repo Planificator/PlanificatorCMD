@@ -28,17 +28,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name"/>
+                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Bio"></label>
-                <input asp-for="Input.Bio" class="form-control" placeholder="Bio"/>
+                <textarea asp-for="Input.Bio" rows="12" cols="12" class="form-control" placeholder="Bio"></textarea>
                 <span asp-validation-for="Input.Bio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Company"></label>
-                <input asp-for="Input.Company" class="form-control" placeholder="Company"/>
+                <input asp-for="Input.Company" class="form-control" placeholder="Company" />
                 <span asp-validation-for="Input.Company" class="text-danger"></span>
             </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>

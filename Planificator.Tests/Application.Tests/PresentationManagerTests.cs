@@ -40,7 +40,7 @@ namespace Application.Tests
 
                     List<string> tagsNames = testData.tags.Select(tag => tag.TagName).ToList();
 
-                    Assert.Equal(tagsNames.Count, query.GetAllTagsNames(testData.presentation.PresentationId).Count);
+                    Assert.Equal(tagsNames.Count, query.GetAllTagsNames(testData.presentation.PresentationId).Count());
                     Assert.Equal(tagsNames, query.GetAllTagsNames(testData.presentation.PresentationId));
                 }
             }
