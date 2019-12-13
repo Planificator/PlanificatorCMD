@@ -38,8 +38,9 @@ namespace PlanificatorMVC.Mappers
         {
             List<PresentationViewModel> presentationViewModels = new List<PresentationViewModel>();
 
-            if (presentations == null)
-                return presentationViewModels;
+            if (presentations.Count() == 0)
+                return null;
+
 
             foreach (Presentation presentation in presentations)
             {
@@ -47,6 +48,9 @@ namespace PlanificatorMVC.Mappers
                 (
                     new PresentationViewModel
                     {
+
+                        PresentationId = presentation.PresentationId,
+
                         Title = presentation.Title,
                         ShortDescription = presentation.ShortDescription,
                         LongDescription = presentation.LongDescription,
@@ -68,5 +72,21 @@ namespace PlanificatorMVC.Mappers
             stringOfTags.Remove(0, 1);
             return stringOfTags;
         }
+
+
+        public PresentationViewModel MapPresentationToPresentationViewModel(Presentation presentation)
+        {
+            var presentationViewModel = new PresentationViewModel
+            {
+                PresentationId = presentation.PresentationId,
+                Title = presentation.Title,
+                ShortDescription = presentation.ShortDescription,
+                LongDescription = presentation.LongDescription,
+                Tags = makeTagsString(presentation.PresentationTags.Select(a => a.Tag).ToList())
+            };
+
+            return presentationViewModel;
+        }
+
     }
 }

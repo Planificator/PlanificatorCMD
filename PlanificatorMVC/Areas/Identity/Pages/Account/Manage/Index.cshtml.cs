@@ -1,4 +1,14 @@
-﻿using Application.Managers;
+
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Application.Managers;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+0
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +20,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ISpeakerRepository _speakerRepository;
@@ -19,8 +30,10 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ISpeakerRepository speakerRepository,
-            ISpeakerManager speakerManager)
+            ISpeakerManager speakerManager,
+            IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             _speakerManager = speakerManager;
             _speakerRepository = speakerRepository;
             _userManager = userManager;
@@ -28,10 +41,6 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
         }
 
         public string Email { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -41,6 +50,12 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
             [StringLength(100, ErrorMessage = "To much characters for Bio")]
             [Display(Name = "Bio")]
             public string Bio { get; set; }
@@ -50,20 +65,22 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             public string Company { get; set; }
 
             [Display(Name = "Profile Photo")]
-            public byte[] UserPhoto { get; set; }
+            public string UserPhoto { get; set; }
+
         }
 
         private async Task LoadAsync(IdentityUser user)
         {
-            var email = await _userManager.GetUserNameAsync(user);
+            var email = await _userManager.GetEmailAsync(user);
             var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
 
             Email = email;
-            FirstName = speakerProfile.FirstName;
-            LastName = speakerProfile.LastName;
 
             Input = new InputModel
             {
+                FirstName = speakerProfile.FirstName,
+                LastName = speakerProfile.LastName,
+                UserPhoto = speakerProfile.PhotoPath,
                 Bio = speakerProfile.Bio,
                 Company = speakerProfile.Company,
             };
@@ -81,7 +98,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile picture)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -96,17 +113,37 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             }
 
             var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
+
+            if (picture != null)
+            {
+                var fileName = Path.Combine(_hostingEnvironment.WebRootPath + @"\images", speakerProfile.Email + Path.GetFileName(picture.FileName));
+                picture.CopyTo(new FileStream(fileName, FileMode.Create));
+                speakerProfile.PhotoPath = @"\images\" + Path.GetFileName(speakerProfile.Email + picture.FileName);
+            }
+
+            if (Input.FirstName != speakerProfile.FirstName)
+            {
+                speakerProfile.FirstName = Input.FirstName;
+            }
+
+
+            if (Input.LastName != speakerProfile.LastName)
+            {
+                speakerProfile.LastName = Input.LastName;
+            }
+
             if (Input.Bio != speakerProfile.Bio)
             {
                 speakerProfile.Bio = Input.Bio;
-                _speakerManager.UpdateSpeaker(speakerProfile);
             }
+
+
             if (Input.Company != speakerProfile.Company)
             {
                 speakerProfile.Company = Input.Company;
-                _speakerManager.UpdateSpeaker(speakerProfile);
             }
 
+            _speakerManager.UpdateSpeaker(speakerProfile);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

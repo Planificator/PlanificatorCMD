@@ -8,7 +8,9 @@
 <p>
     <a asp-action="Create" class="color-action">Create New Presentation</a>
 </p>
-<table class="table table-bordered border-dark">
+
+<table class="table table-bordered border-white text-white">
+
     <thead>
         <tr class="">
             <th>
@@ -25,8 +27,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+
+           @foreach (var item in Model)
+            {
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -38,12 +42,14 @@
                     @Html.DisplayFor(modelItem => item.Tags)
                 </td>
                 <td>
-                    <p class="color-action">@Html.ActionLink("Details", "Details", "Presentations", item, new { @class = "color-action" })</p>
+
+                    <p class="color-action"><a asp-controller="Presentations" asp-action="Details" asp-route-id="@item.PresentationId" class="color-action">Details</a></p>
                     <!-- <a asp-action="Edit" asp-route-id="@item.PresentationId">Edit</a> |
-                     <a asp-action="Details" asp-route-id="@item.PresentationId">Details</a> |
-                     <a asp-action="Delete" asp-route-id="@item.PresentationId">Delete</a> -->
+      
+     <a asp-action="Details" asp-route-id="@item.PresentationId">Details</a> |
+     <a asp-action="Delete" asp-route-id="@item.PresentationId">Delete</a> -->
                 </td>
             </tr>
-        }
+            }
     </tbody>
 </table>
