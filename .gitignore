@@ -8,6 +8,8 @@ coverage/
 
 # Ignoring the SpeakersPhotos
 PlanificatorMVC/wwwroot/images
+!PlanificatorMVC/wwwroot/images/planificator/jpg
+!PlanificatorMVC/wwwroot/images/planificator/default.png
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
