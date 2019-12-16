@@ -6,6 +6,7 @@ using Persistence.Persistence;
 using Planificator.Tests.PresentationTestData;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace Application.Tests
     public class PresentationManagerTests
     {
         [Fact]
-        public async System.Threading.Tasks.Task AddPresentation_writes_to_databaseAsync()
+        public async Task AddPresentation_writes_to_databaseAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -51,7 +52,7 @@ namespace Application.Tests
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task AssignSpeakerToPresentation_writes_to_databaseAsync()
+        public async Task AssignSpeakerToPresentation_writes_to_databaseAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
