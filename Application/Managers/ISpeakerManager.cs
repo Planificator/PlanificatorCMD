@@ -1,11 +1,12 @@
 ﻿using Domain.Core;
+using System.Threading.Tasks;
 
 namespace Application.Managers
 {
     public interface ISpeakerManager
     {
-        void AddSpeakerProfile(SpeakerProfile speaker);
+        public Task AddSpeakerProfileAsync(SpeakerProfile speaker);
 
-        void UpdateSpeaker(SpeakerProfile speaker);
+        public Task UpdateSpeakerProfileAsync(SpeakerProfile speaker);
     }
 }

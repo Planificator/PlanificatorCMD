@@ -50,7 +50,6 @@ namespace PlanificatorMVC.Mappers
                     {
 
                         PresentationId = presentation.PresentationId,
-
                         Title = presentation.Title,
                         ShortDescription = presentation.ShortDescription,
                         LongDescription = presentation.LongDescription,

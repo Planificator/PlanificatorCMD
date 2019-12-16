@@ -21,10 +21,9 @@ namespace Application.Managers
                 _planificatorDbContext.PresentationTags.Add(presantationTag);
             }
             await _planificatorDbContext.SaveChangesAsync();
-            _planificatorDbContext.SaveChanges();
         }
 
-        public void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation)
+        public async Task AssignSpeakerToPresentationAsync(SpeakerProfile speaker, Presentation presentation)
         {
             PresentationSpeaker presentationSpeaker = new PresentationSpeaker
             {
@@ -32,7 +31,7 @@ namespace Application.Managers
                 Presentation = presentation,
             };
             _planificatorDbContext.PresentationSpeakers.Add(presentationSpeaker);
-            _planificatorDbContext.SaveChanges();
+            await _planificatorDbContext.SaveChangesAsync();
         }
     }
 }

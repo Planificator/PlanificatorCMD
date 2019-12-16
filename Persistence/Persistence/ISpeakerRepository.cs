@@ -6,14 +6,14 @@ namespace Persistence.Persistence
 {
     public interface ISpeakerRepository
     {
-        ICollection<SpeakerProfile> GetAllSpeakersProfiles();
+        public Task<ICollection<SpeakerProfile>> GetAllSpeakersProfilesAsync();
 
-        int GetSpeakersCount();
+        public int GetSpeakerProfilesCount();
 
-        SpeakerProfile GetSpeakerBySpeakerId(string speakerId);
+        public Task<SpeakerProfile> GetSpeakerBySpeakerIdAsync(string speakerId);
 
-        Task<SpeakerProfile> GetSpeakerBySpeakerEmailAsync(string email);
+        public Task<SpeakerProfile> GetSpeakerBySpeakerEmailAsync(string email);
 
-        Task<SpeakerProfile> GetSpeakerBySpeakerEmailIncludingRelationshipsAsync(string email);
+        public Task<SpeakerProfile> GetSpeakerBySpeakerEmailIncludingRelationshipsAsync(string email);
     }
 }

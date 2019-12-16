@@ -1,6 +1,7 @@
 ﻿using Domain.Core;
 
 using Persistence.Persistence;
+using System.Threading.Tasks;
 
 namespace Application.Managers
 {
@@ -13,16 +14,16 @@ namespace Application.Managers
             _planificatorDbContext = planificatorDbContext;
         }
 
-        public void AddSpeakerProfile(SpeakerProfile speaker)
+        public async Task AddSpeakerProfileAsync(SpeakerProfile speaker)
         {
             _planificatorDbContext.SpeakerProfiles.Add(speaker);
-            _planificatorDbContext.SaveChanges();
+            await _planificatorDbContext.SaveChangesAsync();
         }
 
-        public void UpdateSpeaker(SpeakerProfile speaker)
+        public async Task UpdateSpeakerProfileAsync(SpeakerProfile speaker)
         {
             _planificatorDbContext.SpeakerProfiles.Update(speaker);
-            _planificatorDbContext.SaveChanges();
+            await _planificatorDbContext.SaveChangesAsync();
         }
     }
 }

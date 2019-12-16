@@ -139,7 +139,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         LastName = "",
                         PhotoPath = @"\default.png"
                     };
-                    _speakerManager.AddSpeakerProfile(speakerProfile);
+                    await _speakerManager.AddSpeakerProfileAsync(speakerProfile);
 
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)

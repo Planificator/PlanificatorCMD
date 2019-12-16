@@ -14,7 +14,7 @@ namespace Application.Tests
     public class PresentationManagerTests
     {
         [Fact]
-        public void AddPresentation_writes_to_database()
+        public async System.Threading.Tasks.Task AddPresentation_writes_to_databaseAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -34,7 +34,7 @@ namespace Application.Tests
 
                     var testData = new PresentationRepositoryTestsData();
 
-                    service.AddPresentation(testData.presentationTags);
+                    await service.AddPresentation(testData.presentationTags);
 
                     context.SaveChanges();
 
@@ -51,7 +51,7 @@ namespace Application.Tests
         }
 
         [Fact]
-        public void AssignSpeakerToPresentation_writes_to_database()
+        public async System.Threading.Tasks.Task AssignSpeakerToPresentation_writes_to_databaseAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -82,9 +82,9 @@ namespace Application.Tests
 
                     var testData = new PresentationRepositoryTestsData();
 
-                    speakerServie.AddSpeakerProfile(speaker);
-                    presentationService.AddPresentation(testData.presentationTags);
-                    presentationService.AssignSpeakerToPresentation(speaker, testData.presentation);
+                    await speakerServie.AddSpeakerProfileAsync(speaker);
+                    await presentationService.AddPresentation(testData.presentationTags);
+                    await presentationService.AssignSpeakerToPresentationAsync(speaker, testData.presentation);
 
                     context.SaveChanges();
 

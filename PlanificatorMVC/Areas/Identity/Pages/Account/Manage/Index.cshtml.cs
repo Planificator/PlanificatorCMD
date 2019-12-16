@@ -1,26 +1,19 @@
-
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Managers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-0
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Persistence;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ISpeakerRepository _speakerRepository;
@@ -31,7 +24,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
             SignInManager<IdentityUser> signInManager,
             ISpeakerRepository speakerRepository,
             ISpeakerManager speakerManager,
-            IHostingEnvironment hostingEnvironment)
+            IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             _speakerManager = speakerManager;
@@ -66,13 +59,12 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "Profile Photo")]
             public string UserPhoto { get; set; }
-
         }
 
         private async Task LoadAsync(IdentityUser user)
         {
             var email = await _userManager.GetEmailAsync(user);
-            var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
+            var speakerProfile = await _speakerRepository.GetSpeakerBySpeakerIdAsync(user.Id);
 
             Email = email;
 
@@ -112,7 +104,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var speakerProfile = _speakerRepository.GetSpeakerBySpeakerId(user.Id);
+            var speakerProfile = await _speakerRepository.GetSpeakerBySpeakerIdAsync(user.Id);
 
             if (picture != null)
             {
@@ -126,7 +118,6 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
                 speakerProfile.FirstName = Input.FirstName;
             }
 
-
             if (Input.LastName != speakerProfile.LastName)
             {
                 speakerProfile.LastName = Input.LastName;
@@ -137,13 +128,12 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account.Manage
                 speakerProfile.Bio = Input.Bio;
             }
 
-
             if (Input.Company != speakerProfile.Company)
             {
                 speakerProfile.Company = Input.Company;
             }
 
-            _speakerManager.UpdateSpeaker(speakerProfile);
+            await _speakerManager.UpdateSpeakerProfileAsync(speakerProfile);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
