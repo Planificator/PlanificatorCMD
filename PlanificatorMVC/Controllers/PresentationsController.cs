@@ -45,10 +45,9 @@ namespace PlanificatorMVC.Controllers
 
         //GET: Presentations/Details/5
         [HttpGet]
-
         public async Task<IActionResult> Details(int id)
         {
-            var presentation =  await _presentationRepository.GetPresentationByIdAsync(id);
+            var presentation = await _presentationRepository.GetPresentationByIdAsync(id);
             var user = HttpContext.User.Identity.Name;
             var speaker = await _speakerRepository.GetSpeakerBySpeakerEmailIncludingRelationshipsAsync(user);
             if (!(speaker.OwnedPresentations.Contains(presentation)))
@@ -58,7 +57,7 @@ namespace PlanificatorMVC.Controllers
 
             var presentationViewModel = _presentationViewModelMapper.MapPresentationToPresentationViewModel(presentation);
             return View(presentationViewModel);
-
+        }
         public IActionResult Details([FromQuery] PresentationViewModel presentationViewModel)
         {
 

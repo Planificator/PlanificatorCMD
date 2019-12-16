@@ -6,8 +6,8 @@ namespace Application.Managers
 {
     public interface IPresentationManager
     {
-        Task AddPresentation(ICollection<PresentationTag> presentation);
+        public Task AddPresentation(ICollection<PresentationTag> presentation);
 
-        void AssignSpeakerToPresentation(SpeakerProfile speaker, Presentation presentation);
+        public Task AssignSpeakerToPresentationAsync(SpeakerProfile speaker, Presentation presentation);
     }
 }

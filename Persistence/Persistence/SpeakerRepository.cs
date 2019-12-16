@@ -15,14 +15,14 @@ namespace Persistence.Persistence
             _dbContext = dbContext;
         }
 
-        public int GetSpeakersCount()
+        public int GetSpeakerProfilesCount()
         {
             return _dbContext.SpeakerProfiles.Count();
         }
 
-        public SpeakerProfile GetSpeakerBySpeakerId(string speakerId)
+        public async Task<SpeakerProfile> GetSpeakerBySpeakerIdAsync(string speakerId)
         {
-            return _dbContext.SpeakerProfiles.SingleOrDefault(s => s.SpeakerId == speakerId);
+            return await _dbContext.SpeakerProfiles.SingleOrDefaultAsync(s => s.SpeakerId == speakerId);
         }
 
         public async Task<SpeakerProfile> GetSpeakerBySpeakerEmailAsync(string email)
@@ -40,11 +40,9 @@ namespace Persistence.Persistence
                 .SingleOrDefaultAsync(s => s.Email == email);
         }
 
-        public ICollection<SpeakerProfile> GetAllSpeakersProfiles()
+        public async Task<ICollection<SpeakerProfile>> GetAllSpeakersProfilesAsync()
         {
-            if (_dbContext.SpeakerProfiles.Count() == 0)
-                return null;
-            return _dbContext.SpeakerProfiles.ToList();
+            return await _dbContext.SpeakerProfiles.ToListAsync();
         }
     }
 }

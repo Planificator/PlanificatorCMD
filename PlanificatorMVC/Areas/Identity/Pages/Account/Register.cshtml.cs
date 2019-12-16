@@ -22,7 +22,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -35,7 +35,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             ISpeakerManager speakerManager,
-            IHostingEnvironment hostingEnvironment)
+            IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
@@ -105,9 +105,9 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         Email = user.Email,
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
-                        PhotoPath = Path.Combine (_hostingEnvironment.WebRootPath,@"\images\default.png")
+                        PhotoPath = Path.Combine (_hostingEnvironment.WebRootPath,@"\default.png")
                     };
-                    _speakerManager.AddSpeakerProfile(speakerProfile);
+                    await _speakerManager.AddSpeakerProfileAsync(speakerProfile);
                     await _userManager.AddToRoleAsync(user, "Speaker");
                     _logger.LogInformation("Speaker Profile was created for this user.");
 

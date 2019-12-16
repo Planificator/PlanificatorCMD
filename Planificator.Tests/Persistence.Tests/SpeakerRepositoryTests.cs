@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Persistence.Tests
@@ -12,7 +13,7 @@ namespace Persistence.Tests
     public class SpeakerRepositoryTests
     {
         [Fact]
-        public void GetAllSpeakerProfile_returns_all_speaker_profiles()
+        public async Task GetAllSpeakerProfile_returns_all_speaker_profilesAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -56,11 +57,11 @@ namespace Persistence.Tests
 
                     foreach (SpeakerProfile speakerProfile in speakerProfiles)
                     {
-                        service.AddSpeakerProfile(speakerProfile);
+                        await service.AddSpeakerProfileAsync(speakerProfile);
                     }
 
                     context.SaveChanges();
-                    Assert.Equal(speakerProfiles, query.GetAllSpeakersProfiles());
+                    Assert.Equal(speakerProfiles, await query.GetAllSpeakersProfilesAsync());
                 }
             }
             finally
@@ -70,7 +71,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetAllSpeakerProfile_ReturnsNull_IfSpeakerProfileEntity_IsEmpty()
+        public async Task GetAllSpeakerProfile_ReturnsEmpty_IfSpeakerProfileEntity_IsEmptyAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -87,7 +88,7 @@ namespace Persistence.Tests
 
                     var query = new SpeakerRepository(context);
 
-                    Assert.Null(query.GetAllSpeakersProfiles());
+                    Assert.Empty(await query.GetAllSpeakersProfilesAsync());
                 }
             }
             finally

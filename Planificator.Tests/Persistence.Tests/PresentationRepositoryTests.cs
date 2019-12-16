@@ -6,6 +6,7 @@ using Persistence.Persistence;
 using Planificator.Tests.PresentationTestData;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Persistence.Tests
@@ -13,7 +14,7 @@ namespace Persistence.Tests
     public class PresentationRepositoryTests
     {
         [Fact]
-        public void GetAllTags_returns_all_tags_from_one_presentation()
+        public async Task GetAllTags_returns_all_tags_from_one_presentationAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -31,7 +32,7 @@ namespace Persistence.Tests
                     var service = new PresentationManager(context);
                     var testData = new PresentationRepositoryTestsData();
 
-                    service.AddPresentation(testData.presentationTags);
+                    await service.AddPresentation(testData.presentationTags);
 
                     context.SaveChanges();
 
@@ -51,7 +52,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetAllTags_returns_null_if_thereAreNoTags()
+        public void GetAllTags_returns_empty_if_thereAreNoTags()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -68,10 +69,10 @@ namespace Persistence.Tests
 
                     var service = new PresentationRepository(context);
 
-                    Assert.Null(service.GetAllTagsNames(0));
-                    Assert.Null(service.GetAllTagsNames(1));
-                    Assert.Null(service.GetAllTagsNames(2));
-                    Assert.Null(service.GetAllTagsNames(3));
+                    Assert.Empty(service.GetAllTagsNames(0));
+                    Assert.Empty(service.GetAllTagsNames(1));
+                    Assert.Empty(service.GetAllTagsNames(2));
+                    Assert.Empty(service.GetAllTagsNames(3));
                 }
             }
             finally
@@ -81,7 +82,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetAllPresentations_returns_null_if_thereAreNoPresentations()
+        public void GetAllPresentations_returns_empty_if_thereAreNoPresentations()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -98,7 +99,7 @@ namespace Persistence.Tests
 
                     var query = new PresentationRepository(context);
 
-                    Assert.Null(query.GetAllPresentations());
+                    Assert.Empty(query.GetAllPresentations());
                 }
             }
             finally
@@ -108,7 +109,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetAllPresentations_returns_all_presentations()
+        public async Task GetAllPresentations_returns_all_presentationsAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -135,9 +136,9 @@ namespace Persistence.Tests
                     presentations.Add(testData2.presentation);
                     presentations.Add(testData3.presentation);
 
-                    service.AddPresentation(testData1.presentationTags);
-                    service.AddPresentation(testData2.presentationTags);
-                    service.AddPresentation(testData3.presentationTags);
+                    await service.AddPresentation(testData1.presentationTags);
+                    await service.AddPresentation(testData2.presentationTags);
+                    await service.AddPresentation(testData3.presentationTags);
 
                     context.SaveChanges();
 
@@ -152,7 +153,7 @@ namespace Persistence.Tests
         }
 
         [Fact]
-        public void GetPresentationsCount_returns_presentations_count()
+        public async Task GetPresentationsCount_returns_presentations_countAsync()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -179,9 +180,9 @@ namespace Persistence.Tests
                     presentations.Add(testData2.presentation);
                     presentations.Add(testData3.presentation);
 
-                    service.AddPresentation(testData1.presentationTags);
-                    service.AddPresentation(testData2.presentationTags);
-                    service.AddPresentation(testData3.presentationTags);
+                    await service.AddPresentation(testData1.presentationTags);
+                    await service.AddPresentation(testData2.presentationTags);
+                    await service.AddPresentation(testData3.presentationTags);
 
                     context.SaveChanges();
 

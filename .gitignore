@@ -3,11 +3,12 @@
 # Edit at https://www.gitignore.io/?templates=cake,csharp,visualstudio
 
 ### Cake ###
-tools/*
-!tools/packages.config
+tools/
+coverage/
 
 # Ignoring the SpeakersPhotos
-SpeakersPhotos/*
+PlanificatorMVC/wwwroot/images/*
+!PlanificatorMVC/wwwroot/images/.keep
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
