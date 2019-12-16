@@ -105,7 +105,7 @@ namespace PlanificatorMVC.Areas.Identity.Pages.Account
                         Email = user.Email,
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
-                        PhotoPath = Path.Combine (_hostingEnvironment.WebRootPath,@"\images\default.png")
+                        PhotoPath = Path.Combine (_hostingEnvironment.WebRootPath,@"\default.png")
                     };
                     await _speakerManager.AddSpeakerProfileAsync(speakerProfile);
                     await _userManager.AddToRoleAsync(user, "Speaker");
