@@ -1,5 +1,5 @@
 # PlanificatorCMD
-First, You need to write run this command in Package Manager Console
+First, You need to write run these commands in Package Manager Console
 
   Update-Database -Context PlanificatorDbContext
 
